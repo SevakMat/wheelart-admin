@@ -7,6 +7,7 @@ import BaseLayout from 'src/layouts/BaseLayout';
 
 import SuspenseLoader from 'src/components/SuspenseLoader';
 import NewUser from './content/applications/Users/NewUser';
+import NewRim from './content/applications/Rims/NewRim';
 
 const Loader = (Component) => (props) =>
 (
@@ -84,6 +85,10 @@ const Users = Loader(
   lazy(() => import('src/content/applications/Users'))
 );
 
+
+const Rims = Loader(
+  lazy(() => import('src/content/applications/Rims'))
+);
 
 
 const routes: RouteObject[] = [
@@ -240,6 +245,36 @@ const routes: RouteObject[] = [
           {
             path: 'new',
             element: <NewUser/>
+          },
+          // {
+          //   path: ':id',
+          //   element: <div>current</div>
+          // },
+          {
+            path: ':id',
+            children: [
+              {
+                path: '',
+                element: <div>current</div>
+              },
+              {
+                path: 'edit',
+                element: <div>edit</div>
+              },
+            ]
+          }
+        ]
+      },
+      {
+        path: 'rims',
+        children: [
+          {
+            path: '',
+            element: <Rims />
+          },
+          {
+            path: 'new',
+            element: <NewRim/>
           },
           // {
           //   path: ':id',

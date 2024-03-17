@@ -7,7 +7,7 @@ interface FormData {
   field3: string;
 }
 
-const NewUserContainer: React.FC = () => {
+const NewRimContainer: React.FC = () => {
   const [formData, setFormData] = useState<FormData>({
     field1: '',
     field2: '',
@@ -76,4 +76,4 @@ const NewUserContainer: React.FC = () => {
   );
 };
 
-export default NewUserContainer;
+export default NewRimContainer;
