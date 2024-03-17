@@ -7,9 +7,12 @@ import { shallowEqual, TypedUseSelectorHook, useDispatch, useSelector } from "re
 import { PersistConfig } from "redux-persist/es/types";
 
 import rimReducer from "./reducers/rim/rim.reducers";
+import tireReducer from "./reducers/tire/tire.reducers";
 
 const rootReducer = combineReducers({
     rim: rimReducer,
+    tire: tireReducer,
+
 });
 
 const persistConfig: PersistConfig<any> = {

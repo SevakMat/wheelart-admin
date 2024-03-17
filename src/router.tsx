@@ -88,16 +88,27 @@ const Users = Loader(
 const Rims = Loader(
   lazy(() => import('src/content/applications/Rims/RimTable'))
 );
-
 const NewRim = Loader(
   lazy(() => import('src/content/applications/Rims/NewRim'))
 );
 const EditRim = Loader(
   lazy(() => import('src/content/applications/Rims/EditRim'))
 );
-
 const Rim = Loader(
   lazy(() => import('src/content/applications/Rims/Rim'))
+);
+
+const Tires = Loader(
+  lazy(() => import('src/content/applications/Tires/TireTable'))
+);
+const NewTire = Loader(
+  lazy(() => import('src/content/applications/Tires/NewTire'))
+);
+const EditTire = Loader(
+  lazy(() => import('src/content/applications/Tires/EditTire'))
+);
+const Tire = Loader(
+  lazy(() => import('src/content/applications/Tires/Tire'))
 );
 
 
@@ -300,6 +311,36 @@ const routes: RouteObject[] = [
               {
                 path: 'edit',
                 element: <EditRim/>
+              },
+            ]
+          }
+        ]
+      },
+      {
+        path: 'tires',
+        children: [
+          {
+            path: '',
+            element: <Tires />
+          },
+          {
+            path: 'new',
+            element: <NewTire/>
+          },
+          // {
+          //   path: ':id',
+          //   element: <div>current</div>
+          // },
+          {
+            path: ':id',
+            children: [
+              {
+                path: '',
+                element: <Tire/>
+              },
+              {
+                path: 'edit',
+                element: <EditTire/>
               },
             ]
           }
