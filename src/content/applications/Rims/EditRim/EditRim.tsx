@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Box, Card, CardContent, TextField, Button, Grid, Container, CardHeader, Divider } from '@mui/material';
 import { RimType } from 'src/store/types/rim/rim';
 import { createRimEffect, updateRimEffect } from 'src/store/effects/rim/rim.effect';
@@ -16,7 +17,7 @@ type EditRimProps = {
 const EditRim: React.FC<EditRimProps> = ({rim}) => {
   
   const dispatch: AppDispatch = useDispatch();
-  console.log(444,rim);
+  const navigate = useNavigate();
   
   const [formData, setFormData] = useState<RimType>(rim);
 
@@ -57,7 +58,7 @@ const EditRim: React.FC<EditRimProps> = ({rim}) => {
       return;
     }
     
-    dispatch(updateRimEffect(rim.id, formData));
+    dispatch(updateRimEffect(rim.id, formData,navigate));
   };
 
 
@@ -71,7 +72,6 @@ const EditRim: React.FC<EditRimProps> = ({rim}) => {
         <PageTitle
           heading="Forms"
           subHeading="Components that are used to build interactive placeholders used for data collection from users."
-          docs="https://material-ui.com/components/text-fields/"
         />
       </PageTitleWrapper>
       <Container maxWidth="lg">

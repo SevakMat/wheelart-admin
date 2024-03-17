@@ -3,6 +3,7 @@ import { getAllRimsService, createRimService, getRimByIdService, updateRimServic
 import { AppDispatch } from "../..";
 import { getRimAction, getRimsAction } from "src/store/actions/rim/rim";
 import { RimType } from "src/store/types/rim/rim";
+import { NavigateFunction } from "react-router";
 
 // Effect function to get all rims
 export const getAllRimsEffect = (): any => {
@@ -62,7 +63,7 @@ export const getRimByIdEffect = (rimId: string): any => {
 };
 
 // Effect function to update a rim by ID
-export const updateRimEffect = (rimId: string, rimData: RimType): any => {
+export const updateRimEffect = (rimId: string, rimData: RimType,navigate: NavigateFunction): any => {
   return async (dispatch: AppDispatch) => {
     try {
 
@@ -72,6 +73,8 @@ export const updateRimEffect = (rimId: string, rimData: RimType): any => {
       } = result;
 
       dispatch(getRimAction(rim))      
+      navigate(`/admin/rims/${rim.id}`);
+
       // Handle success response as needed
     } catch (error: any) {
       console.log(error);

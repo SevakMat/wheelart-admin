@@ -1,16 +1,15 @@
 import { Box, Card, CardContent, CardMedia, Divider, Grid, Typography } from '@mui/material';
 import { Helmet } from 'react-helmet-async';
 import PageTitleWrapper from 'src/components/PageTitleWrapper';
-import PageTitle from 'src/components/PageTitle';
 import Footer from 'src/components/Footer';
 import { RimType } from 'src/store/types/rim/rim';
+import RimPageTitle from './RimPageTitle';
 
 type RimProps = {
   rim: RimType
 }
 
 const RimContainer: React.FC<RimProps> = ({ rim }) => {
-  console.log(5555, rim);
 
   return (
     <>
@@ -18,10 +17,11 @@ const RimContainer: React.FC<RimProps> = ({ rim }) => {
         <title>Rim Details</title>
       </Helmet>
       <PageTitleWrapper>
-        <PageTitle
+        <RimPageTitle
           heading="Rim Details"
           subHeading="View details of the selected rim"
           docs=""
+          rimId={rim.id}
         />
       </PageTitleWrapper>
       <Box sx={{ flexGrow: 1, bgcolor: 'background.paper', py: 4 }}>

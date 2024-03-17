@@ -1,6 +1,6 @@
-import React, { FC, ChangeEvent, useState } from 'react';
-import { format } from 'date-fns';
-import numeral from 'numeral';
+import { FC, ChangeEvent, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import PropTypes from 'prop-types';
 import {
   Tooltip,
@@ -20,10 +20,8 @@ import {
   TableContainer,
   Select,
   MenuItem,
-  Typography,
   useTheme,
   CardHeader,
-  TextField,
 } from '@mui/material';
 import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
@@ -66,6 +64,7 @@ const getStatusLabel = (status: string): JSX.Element => {
 };
 
 const applyFilters = (rims: RimType[], filters: Filters): RimType[] => {
+
   return rims.filter((rim) => {
     let matches = true;
 
@@ -106,6 +105,7 @@ const RimsTable: FC<RimsTableProps> = ({ rims }) => {
   const [page, setPage] = useState<number>(0);
   const [limit, setLimit] = useState<number>(5);
   const [filters, setFilters] = useState<Filters>({ status: null });
+  const navigate = useNavigate();
 
   const statusOptions = [
     {
@@ -201,7 +201,7 @@ const RimsTable: FC<RimsTableProps> = ({ rims }) => {
                 ))}
               </Select>
             </FormControl>
-          
+
           </>
         }
         title="Recent Rims"
@@ -241,6 +241,8 @@ const RimsTable: FC<RimsTableProps> = ({ rims }) => {
                   hover
                   key={rim.id}
                   selected={isRimSelected}
+                  style={{ cursor: 'pointer' }} 
+                  onClick={() => {navigate(`/admin/rims/${rim.id}`)}}
                 >
                   <TableCell padding="checkbox">
                     <Checkbox
