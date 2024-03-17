@@ -27,7 +27,6 @@ import {
 } from '@mui/material';
 import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
-import BulkActions from './BulkActions';
 import { RimType } from 'src/store/types/rim/rim';
 import { Label } from '@mui/icons-material';
 

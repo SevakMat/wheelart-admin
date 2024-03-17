@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box, Card, CardContent, TextField, Button, Grid, Container, CardHeader, Divider } from '@mui/material';
 import { RimType } from 'src/store/types/rim/rim';
-import { createRimEffect } from 'src/store/effects/rim/rim.effect';
+import { createRimEffect, updateRimEffect } from 'src/store/effects/rim/rim.effect';
 import { AppDispatch } from 'src/store';
 import { useDispatch } from 'react-redux';
 import { Helmet } from 'react-helmet-async';
@@ -9,23 +9,16 @@ import PageTitleWrapper from 'src/components/PageTitleWrapper';
 import PageTitle from 'src/components/PageTitle';
 import Footer from 'src/components/Footer';
 
-const NewRim: React.FC = () => {
-  const dispatch: AppDispatch = useDispatch();
+type EditRimProps = {
+  rim: RimType
+}
 
-  const [formData, setFormData] = useState<RimType>({
-    sizeR: '',
-    studHoles: '',
-    pcd: '',
-    centerBore: '',
-    rimModel: '',
-    width: '',
-    color: '',
-    gram: '',
-    description: '',
-    imageUrl: '',
-    price: '',
-    score: '',
-  });
+const EditRim: React.FC<EditRimProps> = ({rim}) => {
+  
+  const dispatch: AppDispatch = useDispatch();
+  console.log(444,rim);
+  
+  const [formData, setFormData] = useState<RimType>(rim);
 
   const fieldTypes: { [key in keyof RimType]: string } = {
     sizeR: 'number',
@@ -41,7 +34,7 @@ const NewRim: React.FC = () => {
     price: 'number',
     score: 'number',
   };
-    
+
 
   const [errors, setErrors] = useState<Partial<RimType>>({});
 
@@ -63,9 +56,11 @@ const NewRim: React.FC = () => {
       setErrors(formErrors);
       return;
     }
-
-    dispatch(createRimEffect(formData));
+    
+    dispatch(updateRimEffect(rim.id, formData));
   };
+
+
 
   return (
     <>
@@ -139,4 +134,4 @@ const NewRim: React.FC = () => {
   );
 };
 
-export default NewRim;
+export default EditRim;

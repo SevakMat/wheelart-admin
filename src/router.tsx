@@ -7,7 +7,6 @@ import BaseLayout from 'src/layouts/BaseLayout';
 
 import SuspenseLoader from 'src/components/SuspenseLoader';
 import NewUser from './content/applications/Users/NewUser';
-import NewRim from './content/applications/Rims/NewRim';
 
 const Loader = (Component) => (props) =>
 (
@@ -87,7 +86,18 @@ const Users = Loader(
 
 
 const Rims = Loader(
-  lazy(() => import('src/content/applications/Rims'))
+  lazy(() => import('src/content/applications/Rims/RimTable'))
+);
+
+const NewRim = Loader(
+  lazy(() => import('src/content/applications/Rims/NewRim'))
+);
+const EditRim = Loader(
+  lazy(() => import('src/content/applications/Rims/EditRim'))
+);
+
+const Rim = Loader(
+  lazy(() => import('src/content/applications/Rims/Rim'))
 );
 
 
@@ -285,11 +295,11 @@ const routes: RouteObject[] = [
             children: [
               {
                 path: '',
-                element: <div>current</div>
+                element: <Rim/>
               },
               {
                 path: 'edit',
-                element: <div>edit</div>
+                element: <EditRim/>
               },
             ]
           }

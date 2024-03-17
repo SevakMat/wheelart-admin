@@ -1,7 +1,8 @@
 import { getAllRimsService, createRimService, getRimByIdService, updateRimService, deleteRimService } from "../../../services/rim.service"; // Replace "path/to/rim.service" with the correct path
 
 import { AppDispatch } from "../..";
-import { getRimsAction } from "src/store/actions/rim/rim";
+import { getRimAction, getRimsAction } from "src/store/actions/rim/rim";
+import { RimType } from "src/store/types/rim/rim";
 
 // Effect function to get all rims
 export const getAllRimsEffect = (): any => {
@@ -9,13 +10,13 @@ export const getAllRimsEffect = (): any => {
     try {
       const result = await getAllRimsService();
       const {
-        data: { data:{
+        data: { data: {
           rims
         } },
       } = result;
-    
+
       dispatch(getRimsAction(rims));
-      
+
       // Dispatch any action or store the rims data as needed
     } catch (error: any) {
       console.log(error);
@@ -26,7 +27,7 @@ export const getAllRimsEffect = (): any => {
 };
 
 // Effect function to create a new rim
-export const createRimEffect = (rimData: any): any => {
+export const createRimEffect = (rimData: RimType): any => {
   return async (dispatch: AppDispatch) => {
     try {
       // You can dispatch actions before making the API call if needed
@@ -47,8 +48,10 @@ export const getRimByIdEffect = (rimId: string): any => {
     try {
       const result = await getRimByIdService(rimId);
       const {
-        data: { rim },
+        data: { data: { rim } },
       } = result;
+
+      dispatch(getRimAction(rim))
       // Dispatch any action or store the rim data as needed
     } catch (error: any) {
       console.log(error);
@@ -59,10 +62,16 @@ export const getRimByIdEffect = (rimId: string): any => {
 };
 
 // Effect function to update a rim by ID
-export const updateRimEffect = (rimId: string, rimData: any): any => {
+export const updateRimEffect = (rimId: string, rimData: RimType): any => {
   return async (dispatch: AppDispatch) => {
     try {
+
       const result = await updateRimService(rimId, rimData);
+      const {
+        data: { data: { rim } },
+      } = result;
+
+      dispatch(getRimAction(rim))      
       // Handle success response as needed
     } catch (error: any) {
       console.log(error);
