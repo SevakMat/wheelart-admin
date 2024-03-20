@@ -6,7 +6,6 @@ import SidebarLayout from 'src/layouts/SidebarLayout';
 import BaseLayout from 'src/layouts/BaseLayout';
 
 import SuspenseLoader from 'src/components/SuspenseLoader';
-import NewUser from './content/applications/Users/NewUser';
 
 const Loader = (Component) => (props) =>
 (
@@ -80,8 +79,18 @@ const StatusMaintenance = Loader(
 
 
 // new!!!
+
 const Users = Loader(
-  lazy(() => import('src/content/applications/Users'))
+  lazy(() => import('src/content/applications/Users/UsersTable'))
+);
+const NewUser = Loader(
+  lazy(() => import('src/content/applications/Users/NewUser'))
+);
+const EditUser = Loader(
+  lazy(() => import('src/content/applications/Users/EditUsers'))
+);
+const User = Loader(
+  lazy(() => import('src/content/applications/Users/User'))
 );
 
 
@@ -276,11 +285,11 @@ const routes: RouteObject[] = [
             children: [
               {
                 path: '',
-                element: <div>current</div>
+                element: <User/>
               },
               {
                 path: 'edit',
-                element: <div>edit</div>
+                element: <EditTire/>
               },
             ]
           }

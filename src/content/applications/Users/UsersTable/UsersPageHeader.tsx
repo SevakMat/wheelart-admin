@@ -2,7 +2,7 @@ import { Typography, Button, Grid } from '@mui/material';
 
 import AddTwoToneIcon from '@mui/icons-material/AddTwoTone';
 
-function PageHeader() {
+function UsersPageHeader() {
   const user = {
     name: 'Catherine Pike',
     avatar: '/static/images/avatars/1.jpg'
@@ -31,4 +31,4 @@ function PageHeader() {
   );
 }
 
-export default PageHeader;
+export default UsersPageHeader;

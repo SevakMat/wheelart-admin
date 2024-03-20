@@ -25,21 +25,22 @@ import {
 } from '@mui/material';
 import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
-import { RimType } from 'src/store/types/rim/rim';
 import { Label } from '@mui/icons-material';
+import { UserType } from 'src/store/types/user/user';
 
-interface RimsTableProps {
+interface UsersTableProps {
   className?: string;
-  rims: RimType[];
+  users: UserType[];
 }
 
 interface Filters {
   status?: string;
-  studHoles?: string;
-  sizeR?: string;
-  pcd?: string;
-  centerBore?: string;
-  width?: string;
+  firstName?:string,
+  lastName?:string,
+  phoneNumber?:string,
+  email?:string,
+  password?:string,
+  role?:string
 }
 
 const getStatusLabel = (status: string): JSX.Element => {
@@ -63,32 +64,21 @@ const getStatusLabel = (status: string): JSX.Element => {
   return <Label color={color}>{text}</Label>;
 };
 
-const applyFilters = (rims: RimType[], filters: Filters): RimType[] => {
+const applyFilters = (users: UserType[], filters: Filters): UserType[] => {
 
-  return rims.filter((rim) => {
+  return users.filter((user) => {
     let matches = true;
 
-    // if (filters.status && rim.status !== filters.status) {
-    //   matches = false;
-    // }
 
-    if (filters.studHoles && rim.studHoles !== filters.studHoles) {
+    if (filters.email && user.email !== filters.email) {
       matches = false;
     }
 
-    if (filters.sizeR && rim.sizeR !== filters.sizeR) {
+    if (filters.firstName && user.firstName !== filters.firstName) {
       matches = false;
     }
 
-    if (filters.pcd && rim.pcd !== filters.pcd) {
-      matches = false;
-    }
-
-    if (filters.centerBore && rim.centerBore !== filters.centerBore) {
-      matches = false;
-    }
-
-    if (filters.width && rim.width !== filters.width) {
+    if (filters.lastName && user.lastName !== filters.lastName) {
       matches = false;
     }
 
@@ -96,12 +86,12 @@ const applyFilters = (rims: RimType[], filters: Filters): RimType[] => {
   });
 };
 
-const applyPagination = (rims: RimType[], page: number, limit: number): RimType[] => {
-  return rims.slice(page * limit, page * limit + limit);
+const applyPagination = (users: UserType[], page: number, limit: number): UserType[] => {
+  return users.slice(page * limit, page * limit + limit);
 };
 
-const RimsTable: FC<RimsTableProps> = ({ rims }) => {
-  const [selectedRims, setSelectedRims] = useState<string[]>([]);
+const UsersTable: FC<UsersTableProps> = ({ users }) => {
+  const [selectedUsers, setSelectedUsers] = useState<string[]>([]);
   const [page, setPage] = useState<number>(0);
   const [limit, setLimit] = useState<number>(5);
   const [filters, setFilters] = useState<Filters>({ status: null });
@@ -146,23 +136,23 @@ const RimsTable: FC<RimsTableProps> = ({ rims }) => {
     }));
   };
 
-  const handleSelectAllRims = (event: ChangeEvent<HTMLInputElement>): void => {
-    setSelectedRims(
+  const handleSelectAllUsers = (event: ChangeEvent<HTMLInputElement>): void => {
+    setSelectedUsers(
       event.target.checked
-        ? rims.map((rim) => rim.id)
+        ? users.map((user) => user.id)
         : []
     );
   };
 
-  const handleSelectOneRim = (event: ChangeEvent<HTMLInputElement>, rimId: string): void => {
-    if (!selectedRims.includes(rimId)) {
-      setSelectedRims((prevSelected) => [
+  const handleSelectOneUser = (event: ChangeEvent<HTMLInputElement>, userId: string): void => {
+    if (!selectedUsers.includes(userId)) {
+      setSelectedUsers((prevSelected) => [
         ...prevSelected,
-        rimId
+        userId
       ]);
     } else {
-      setSelectedRims((prevSelected) =>
-        prevSelected.filter((id) => id !== rimId)
+      setSelectedUsers((prevSelected) =>
+        prevSelected.filter((id) => id !== userId)
       );
     }
   };
@@ -175,10 +165,10 @@ const RimsTable: FC<RimsTableProps> = ({ rims }) => {
     setLimit(parseInt(event.target.value));
   };
 
-  const filteredRims = applyFilters(rims, filters);
-  const paginatedRims = applyPagination(filteredRims, page, limit);
-  const selectedSomeRims = selectedRims.length > 0 && selectedRims.length < rims.length;
-  const selectedAllRims = selectedRims.length === rims.length;
+  const filteredUsers = applyFilters(users, filters);
+  const paginatedUsers = applyPagination(filteredUsers, page, limit);
+  const selectedSomeUsers = selectedUsers.length > 0 && selectedUsers.length < users.length;
+  const selectedAllUsers = selectedUsers.length === users.length;
   const theme = useTheme();
 
   return (
@@ -204,7 +194,7 @@ const RimsTable: FC<RimsTableProps> = ({ rims }) => {
 
           </>
         }
-        title="Recent Rims"
+        title="Recent Users"
       />
       <Divider />
       <TableContainer>
@@ -214,59 +204,48 @@ const RimsTable: FC<RimsTableProps> = ({ rims }) => {
               <TableCell padding="checkbox">
                 <Checkbox
                   color="primary"
-                  checked={selectedAllRims}
-                  indeterminate={selectedSomeRims}
-                  onChange={handleSelectAllRims}
+                  checked={selectedAllUsers}
+                  indeterminate={selectedSomeUsers}
+                  onChange={handleSelectAllUsers}
                 />
               </TableCell>
-              <TableCell>Size R</TableCell>
-              <TableCell>Stud Holes</TableCell>
-              <TableCell>PCD</TableCell>
-              <TableCell>Center Bore</TableCell>
-              <TableCell>Rim Model</TableCell>
-              <TableCell>Width</TableCell>
-              <TableCell>Color</TableCell>
-              <TableCell>Gram</TableCell>
-              <TableCell>Description</TableCell>
-              <TableCell>Price</TableCell>
-              <TableCell>Score</TableCell>
-              <TableCell>Actions</TableCell>
+              <TableCell>First Name</TableCell>
+              <TableCell>Last Name</TableCell>
+              <TableCell>Phone Number</TableCell>
+              <TableCell>Email</TableCell>
+              <TableCell>Password</TableCell>
+              <TableCell>Role</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {paginatedRims.map((rim) => {
-              const isRimSelected = selectedRims.includes(rim.id);
+            {paginatedUsers.map((user) => {
+              const isUserSelected = selectedUsers.includes(user.id);
               return (
                 <TableRow
                   hover
-                  key={rim.id}
-                  selected={isRimSelected}
+                  key={user.id}
+                  selected={isUserSelected}
                   style={{ cursor: 'pointer' }} 
-                  onClick={() => {navigate(`/admin/rims/${rim.id}`)}}
+                  onClick={() => {navigate(`/admin/users/${user.id}`)}}
                 >
                   <TableCell padding="checkbox">
                     <Checkbox
                       color="primary"
-                      checked={isRimSelected}
+                      checked={isUserSelected}
                       onChange={(event: ChangeEvent<HTMLInputElement>) =>
-                        handleSelectOneRim(event, rim.id)
+                        handleSelectOneUser(event, user.id)
                       }
-                      value={isRimSelected}
+                      value={isUserSelected}
                     />
                   </TableCell>
-                  <TableCell>{rim.sizeR}</TableCell>
-                  <TableCell>{rim.studHoles}</TableCell>
-                  <TableCell>{rim.pcd}</TableCell>
-                  <TableCell>{rim.centerBore}</TableCell>
-                  <TableCell>{rim.rimModel}</TableCell>
-                  <TableCell>{rim.width}</TableCell>
-                  <TableCell>{rim.color}</TableCell>
-                  <TableCell>{rim.gram}</TableCell>
-                  <TableCell>{rim.description}</TableCell>
-                  <TableCell>{rim.price}</TableCell>
-                  <TableCell>{rim.score}</TableCell>
+                  <TableCell>{user.firstName}</TableCell>
+                  <TableCell>{user.lastName}</TableCell>
+                  <TableCell>{user.phoneNumber}</TableCell>
+                  <TableCell>{user.email}</TableCell>
+                  <TableCell>{user.password}</TableCell>
+                  <TableCell>{user.role}</TableCell>
                   <TableCell>
-                    <Tooltip title="Edit Rim" arrow>
+                    <Tooltip title="Edit User" arrow>
                       <IconButton
                         sx={{
                           '&:hover': {
@@ -276,12 +255,12 @@ const RimsTable: FC<RimsTableProps> = ({ rims }) => {
                         }}
                         color="inherit"
                         size="small"
-                        href={`rims/${rim.id}/edit`}
+                        href={`/users/${user.id}/edit`}
                       >
                         <EditTwoToneIcon fontSize="small" />
                       </IconButton>
                     </Tooltip>
-                    <Tooltip title="Delete Rim" arrow>
+                    <Tooltip title="Delete User" arrow>
                       <IconButton
                         sx={{
                           '&:hover': { background: theme.colors.error.lighter },
@@ -303,7 +282,7 @@ const RimsTable: FC<RimsTableProps> = ({ rims }) => {
       <Box p={2}>
         <TablePagination
           component="div"
-          count={filteredRims.length}
+          count={filteredUsers.length}
           onPageChange={handlePageChange}
           onRowsPerPageChange={handleLimitChange}
           page={page}
@@ -315,12 +294,12 @@ const RimsTable: FC<RimsTableProps> = ({ rims }) => {
   );
 };
 
-RimsTable.propTypes = {
-  rims: PropTypes.array.isRequired,
+UsersTable.propTypes = {
+  users: PropTypes.array.isRequired,
 };
 
-RimsTable.defaultProps = {
-  rims: [],
+UsersTable.defaultProps = {
+  users: [],
 };
 
-export default RimsTable;
+export default UsersTable;

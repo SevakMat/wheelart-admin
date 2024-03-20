@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Box, Card, CardContent, TextField, Button, Grid, Container, CardHeader, Divider } from '@mui/material';
 import { AppDispatch } from 'src/store';
 import { useDispatch } from 'react-redux';
@@ -7,20 +8,18 @@ import PageTitleWrapper from 'src/components/PageTitleWrapper';
 import PageTitle from 'src/components/PageTitle';
 import Footer from 'src/components/Footer';
 import { UserType } from 'src/store/types/user/user';
-import { createUserEffect } from 'src/store/effects/user/user.effect';
+import { updateUserEffect } from 'src/store/effects/user/user.effect';
 
-const NewUser: React.FC = () => {
+type EditUserProps = {
+  user: UserType
+}
+
+const EditUser: React.FC<EditUserProps> = ({user}) => {
+  
   const dispatch: AppDispatch = useDispatch();
-
-  const [formData, setFormData] = useState<UserType>({
-    // id:'',
-    firstName:'',
-    lastName:'',
-    phoneNumber:'',
-    email:'',
-    password:'',
-    role:''
-  });
+  const navigate = useNavigate();
+  
+  const [formData, setFormData] = useState<UserType>(user);
 
   const fieldTypes: { [key in keyof UserType]: string } = {
     firstName:'text',
@@ -30,7 +29,7 @@ const NewUser: React.FC = () => {
     password:'text',
     role:'text'
   };
-    
+
 
   const [errors, setErrors] = useState<Partial<UserType>>({});
 
@@ -52,9 +51,11 @@ const NewUser: React.FC = () => {
       setErrors(formErrors);
       return;
     }
-
-    dispatch(createUserEffect(formData));
+    
+    dispatch(updateUserEffect(user.id, formData,navigate));
   };
+
+
 
   return (
     <>
@@ -65,7 +66,6 @@ const NewUser: React.FC = () => {
         <PageTitle
           heading="Forms"
           subHeading="Components that are used to build interactive placeholders used for data collection from users."
-          docs="https://material-ui.com/components/text-fields/"
         />
       </PageTitleWrapper>
       <Container maxWidth="lg">
@@ -128,4 +128,4 @@ const NewUser: React.FC = () => {
   );
 };
 
-export default NewUser;
+export default EditUser;

@@ -8,10 +8,12 @@ import { PersistConfig } from "redux-persist/es/types";
 
 import rimReducer from "./reducers/rim/rim.reducers";
 import tireReducer from "./reducers/tire/tire.reducers";
+import userReducer from "./reducers/user/user.reducers";
 
 const rootReducer = combineReducers({
     rim: rimReducer,
     tire: tireReducer,
+    user: userReducer,
 
 });
 
