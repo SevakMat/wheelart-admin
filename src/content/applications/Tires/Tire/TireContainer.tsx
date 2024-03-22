@@ -21,7 +21,7 @@ const TireContainer: React.FC<TireProps> = ({ tire }) => {
           heading="Trie Details"
           subHeading="View details of the selected tire"
           docs=""
-          tireId={tire.id}
+          tireId={tire?.id}
         />
       </PageTitleWrapper>
       <Box sx={{ flexGrow: 1, bgcolor: 'background.paper', py: 4 }}>
@@ -31,7 +31,7 @@ const TireContainer: React.FC<TireProps> = ({ tire }) => {
               <CardMedia
                 component="img"
                 height="500"
-                image={tire.imageUrl || 'placeholder.jpg'} // Provide a placeholder image if imageUrl is not available
+                image={tire?.imageUrl || 'placeholder.jpg'} // Provide a placeholder image if imageUrl is not available
                 alt="Tire Image"
               />
             </Card>
@@ -40,20 +40,23 @@ const TireContainer: React.FC<TireProps> = ({ tire }) => {
             <Card>
               <CardContent>
                 <Typography variant="h5" component="div" gutterBottom>
-                  {tire.marka || 'Trie Marka'}
+                  {tire?.marka || 'Trie Marka'}
                 </Typography>
                 <Divider />
                 <Typography variant="body1" color="text.secondary" paragraph>
-                  <strong>Rim Diameter:</strong> {tire.rimDiameter || '-'}
+                  <strong>Tire Marka:</strong> {tire?.marka || '-'}
                 </Typography>
                 <Typography variant="body1" color="text.secondary" paragraph>
-                  <strong>TIre Stock:</strong> {tire.stock || '-'}
+                  <strong>Rim Diameter:</strong> {tire?.rimDiameter || '-'}
                 </Typography>
                 <Typography variant="body1" color="text.secondary" paragraph>
-                  <strong>Tire Aspect Ratio:</strong> {tire.tireAspectRatio || '-'}
+                  <strong>TIre Stock:</strong> {tire?.stock || '-'}
                 </Typography>
                 <Typography variant="body1" color="text.secondary" paragraph>
-                  <strong>Tire Width:</strong> {tire.tireWidth || '-'}
+                  <strong>Tire Aspect Ratio:</strong> {tire?.tireAspectRatio || '-'}
+                </Typography>
+                <Typography variant="body1" color="text.secondary" paragraph>
+                  <strong>Tire Width:</strong> {tire?.tireWidth || '-'}
                 </Typography>
               </CardContent>
             </Card>

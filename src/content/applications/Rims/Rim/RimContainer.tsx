@@ -6,7 +6,7 @@ import { RimType } from 'src/store/types/rim/rim';
 import RimPageTitle from './RimPageTitle';
 
 type RimProps = {
-  rim: RimType
+  rim: RimType | null
 }
 
 const RimContainer: React.FC<RimProps> = ({ rim }) => {
@@ -21,7 +21,7 @@ const RimContainer: React.FC<RimProps> = ({ rim }) => {
           heading="Rim Details"
           subHeading="View details of the selected rim"
           docs=""
-          rimId={rim.id}
+          rimId={rim?.id}
         />
       </PageTitleWrapper>
       <Box sx={{ flexGrow: 1, bgcolor: 'background.paper', py: 4 }}>
@@ -31,7 +31,7 @@ const RimContainer: React.FC<RimProps> = ({ rim }) => {
               <CardMedia
                 component="img"
                 height="500"
-                image={rim.imageUrl || 'placeholder.jpg'} // Provide a placeholder image if imageUrl is not available
+                image={rim?.imageUrl || 'placeholder.jpg'} // Provide a placeholder image if imageUrl is not available
                 alt="Rim Image"
               />
             </Card>
@@ -40,32 +40,32 @@ const RimContainer: React.FC<RimProps> = ({ rim }) => {
             <Card>
               <CardContent>
                 <Typography variant="h5" component="div" gutterBottom>
-                  {rim.rimModel || 'Rim Model'}
+                  {rim?.rimModel || 'Rim Model'}
                 </Typography>
                 <Divider />
                 <Typography variant="body1" color="text.secondary" paragraph>
-                  <strong>Size:</strong> {rim.sizeR || '-'}
+                  <strong>Size:</strong> {rim?.sizeR || '-'}
                 </Typography>
                 <Typography variant="body1" color="text.secondary" paragraph>
-                  <strong>Stud Holes:</strong> {rim.studHoles || '-'}
+                  <strong>Stud Holes:</strong> {rim?.studHoles || '-'}
                 </Typography>
                 <Typography variant="body1" color="text.secondary" paragraph>
-                  <strong>PCD:</strong> {rim.pcd || '-'}
+                  <strong>PCD:</strong> {rim?.pcd || '-'}
                 </Typography>
                 <Typography variant="body1" color="text.secondary" paragraph>
-                  <strong>Width:</strong> {rim.width || '-'}
+                  <strong>Width:</strong> {rim?.width || '-'}
                 </Typography>
                 <Typography variant="body1" color="text.secondary" paragraph>
-                  <strong>Color:</strong> {rim.color || '-'}
+                  <strong>Color:</strong> {rim?.color || '-'}
                 </Typography>
                 <Typography variant="body1" color="text.secondary" paragraph>
-                  <strong>Description:</strong> {rim.description || '-'}
+                  <strong>Description:</strong> {rim?.description || '-'}
                 </Typography>
                 <Typography variant="body1" color="text.secondary" paragraph>
-                  <strong>Price:</strong> {rim.price || '-'}
+                  <strong>Price:</strong> {rim?.price || '-'}
                 </Typography>
                 <Typography variant="body1" color="text.secondary" paragraph>
-                  <strong>Score:</strong> {rim.score || '-'}
+                  <strong>Score:</strong> {rim?.score || '-'}
                 </Typography>
               </CardContent>
             </Card>
