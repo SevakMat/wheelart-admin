@@ -8,11 +8,11 @@ import BaseLayout from 'src/layouts/BaseLayout';
 import SuspenseLoader from 'src/components/SuspenseLoader';
 
 const Loader = (Component) => (props) =>
-(
-  <Suspense fallback={<SuspenseLoader />}>
-    <Component {...props} />
-  </Suspense>
-);
+  (
+    <Suspense fallback={<SuspenseLoader />}>
+      <Component {...props} />
+    </Suspense>
+  );
 
 // Pages
 
@@ -76,8 +76,6 @@ const StatusMaintenance = Loader(
   lazy(() => import('src/content/pages/Status/Maintenance'))
 );
 
-
-
 // new!!!
 
 const Users = Loader(
@@ -89,10 +87,7 @@ const NewUser = Loader(
 const EditUser = Loader(
   lazy(() => import('src/content/applications/Users/EditUsers'))
 );
-const User = Loader(
-  lazy(() => import('src/content/applications/Users/User'))
-);
-
+const User = Loader(lazy(() => import('src/content/applications/Users/User')));
 
 const Rims = Loader(
   lazy(() => import('src/content/applications/Rims/RimTable'))
@@ -103,9 +98,7 @@ const NewRim = Loader(
 const EditRim = Loader(
   lazy(() => import('src/content/applications/Rims/EditRim'))
 );
-const Rim = Loader(
-  lazy(() => import('src/content/applications/Rims/Rim'))
-);
+const Rim = Loader(lazy(() => import('src/content/applications/Rims/Rim')));
 
 const Tires = Loader(
   lazy(() => import('src/content/applications/Tires/TireTable'))
@@ -116,10 +109,20 @@ const NewTire = Loader(
 const EditTire = Loader(
   lazy(() => import('src/content/applications/Tires/EditTire'))
 );
-const Tire = Loader(
-  lazy(() => import('src/content/applications/Tires/Tire'))
+const Order = Loader(
+  lazy(() => import('src/content/applications/Orders/Order'))
 );
 
+const Orders = Loader(
+  lazy(() => import('src/content/applications/Orders/OrderTable'))
+);
+const NewOrder = Loader(
+  lazy(() => import('src/content/applications/Orders/NewOrder'))
+);
+const EditOrder = Loader(
+  lazy(() => import('src/content/applications/Orders/EditOrder'))
+);
+const Tire = Loader(lazy(() => import('src/content/applications/Tires/Tire')));
 
 const routes: RouteObject[] = [
   {
@@ -274,7 +277,7 @@ const routes: RouteObject[] = [
           },
           {
             path: 'new',
-            element: <NewUser/>
+            element: <NewUser />
           },
           // {
           //   path: ':id',
@@ -285,12 +288,12 @@ const routes: RouteObject[] = [
             children: [
               {
                 path: '',
-                element: <User/>
+                element: <User />
               },
               {
                 path: 'edit',
-                element: <EditTire/>
-              },
+                element: <EditTire />
+              }
             ]
           }
         ]
@@ -304,7 +307,7 @@ const routes: RouteObject[] = [
           },
           {
             path: 'new',
-            element: <NewRim/>
+            element: <NewRim />
           },
           // {
           //   path: ':id',
@@ -315,12 +318,12 @@ const routes: RouteObject[] = [
             children: [
               {
                 path: '',
-                element: <Rim/>
+                element: <Rim />
               },
               {
                 path: 'edit',
-                element: <EditRim/>
-              },
+                element: <EditRim />
+              }
             ]
           }
         ]
@@ -334,7 +337,7 @@ const routes: RouteObject[] = [
           },
           {
             path: 'new',
-            element: <NewTire/>
+            element: <NewTire />
           },
           // {
           //   path: ':id',
@@ -345,19 +348,48 @@ const routes: RouteObject[] = [
             children: [
               {
                 path: '',
-                element: <Tire/>
+                element: <Tire />
               },
               {
                 path: 'edit',
-                element: <EditTire/>
+                element: <EditTire />
+              }
+            ]
+          }
+        ]
+      },
+      {
+        path: 'orders',
+        children: [
+          {
+            path: '',
+            element: <Orders />
+          },
+          {
+            path: 'new',
+            element: <NewOrder />
+          },
+          // {
+          //   path: ':id',
+          //   element: <div>current</div>
+          // },
+          {
+            path: ':id',
+            children: [
+              {
+                path: '',
+                element: <Order />
               },
+              {
+                path: 'edit',
+                element: <EditOrder />
+              }
             ]
           }
         ]
       }
     ]
-  },
-
+  }
 ];
 
 export default routes;

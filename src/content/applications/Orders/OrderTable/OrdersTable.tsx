@@ -25,57 +25,24 @@ import {
 } from '@mui/material';
 import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
-import { Label } from '@mui/icons-material';
-import { UserType } from 'src/store/types/user/user';
+import { OrderType } from 'src/store/types/order/order';
 
-interface UsersTableProps {
+interface OrdersTableProps {
   className?: string;
-  users: UserType[];
+  orders: OrderType[];
 }
 
 interface Filters {
-  status?: string;
-  firstName?: string;
-  lastName?: string;
-  phoneNumber?: string;
-  email?: string;
-  role?: string;
+  orderType: string;
+  itemId: string;
+  itemCount: string;
 }
 
-const getStatusLabel = (status: string): JSX.Element => {
-  const map = {
-    failed: {
-      text: 'Failed',
-      color: 'error'
-    },
-    completed: {
-      text: 'Completed',
-      color: 'success'
-    },
-    pending: {
-      text: 'Pending',
-      color: 'warning'
-    }
-  };
-
-  const { text, color }: any = map[status];
-
-  return <Label color={color}>{text}</Label>;
-};
-
-const applyFilters = (users: UserType[], filters: Filters): UserType[] => {
-  return users.filter((user) => {
+const applyFilters = (orders: OrderType[], filters: Filters): OrderType[] => {
+  return orders.filter((order) => {
     let matches = true;
 
-    if (filters.email && user.email !== filters.email) {
-      matches = false;
-    }
-
-    if (filters.firstName && user.firstName !== filters.firstName) {
-      matches = false;
-    }
-
-    if (filters.lastName && user.lastName !== filters.lastName) {
+    if (filters?.orderType && order?.orderType !== filters?.orderType) {
       matches = false;
     }
 
@@ -84,18 +51,18 @@ const applyFilters = (users: UserType[], filters: Filters): UserType[] => {
 };
 
 const applyPagination = (
-  users: UserType[],
+  orders: OrderType[],
   page: number,
   limit: number
-): UserType[] => {
-  return users.slice(page * limit, page * limit + limit);
+): OrderType[] => {
+  return orders.slice(page * limit, page * limit + limit);
 };
 
-const UsersTable: FC<UsersTableProps> = ({ users }) => {
-  const [selectedUsers, setSelectedUsers] = useState<string[]>([]);
+const OrdersTable: FC<OrdersTableProps> = ({ orders }) => {
+  const [selectedOrders, setSelectedOrders] = useState<string[]>([]);
   const [page, setPage] = useState<number>(0);
   const [limit, setLimit] = useState<number>(5);
-  const [filters, setFilters] = useState<Filters>({ status: null });
+  const [filters, setFilters] = useState<Filters>();
   const navigate = useNavigate();
 
   const statusOptions = [
@@ -137,19 +104,23 @@ const UsersTable: FC<UsersTableProps> = ({ users }) => {
     }));
   };
 
-  const handleSelectAllUsers = (event: ChangeEvent<HTMLInputElement>): void => {
-    setSelectedUsers(event.target.checked ? users.map((user) => user.id) : []);
+  const handleSelectAllOrders = (
+    event: ChangeEvent<HTMLInputElement>
+  ): void => {
+    setSelectedOrders(
+      event.target.checked ? orders.map((order) => order.id) : []
+    );
   };
 
-  const handleSelectOneUser = (
+  const handleSelectOneOrder = (
     event: ChangeEvent<HTMLInputElement>,
-    userId: string
+    orderId: string
   ): void => {
-    if (!selectedUsers.includes(userId)) {
-      setSelectedUsers((prevSelected) => [...prevSelected, userId]);
+    if (!selectedOrders.includes(orderId)) {
+      setSelectedOrders((prevSelected) => [...prevSelected, orderId]);
     } else {
-      setSelectedUsers((prevSelected) =>
-        prevSelected.filter((id) => id !== userId)
+      setSelectedOrders((prevSelected) =>
+        prevSelected.filter((id) => id !== orderId)
       );
     }
   };
@@ -162,11 +133,11 @@ const UsersTable: FC<UsersTableProps> = ({ users }) => {
     setLimit(parseInt(event.target.value));
   };
 
-  const filteredUsers = applyFilters(users, filters);
-  const paginatedUsers = applyPagination(filteredUsers, page, limit);
-  const selectedSomeUsers =
-    selectedUsers.length > 0 && selectedUsers.length < users.length;
-  const selectedAllUsers = selectedUsers.length === users.length;
+  const filteredOrders = applyFilters(orders, filters);
+  const paginatedOrders = applyPagination(filteredOrders, page, limit);
+  const selectedSomeOrders =
+    selectedOrders.length > 0 && selectedOrders.length < orders.length;
+  const selectedAllOrders = selectedOrders.length === orders.length;
   const theme = useTheme();
 
   return (
@@ -177,7 +148,7 @@ const UsersTable: FC<UsersTableProps> = ({ users }) => {
             <FormControl fullWidth variant="outlined">
               <InputLabel>Status</InputLabel>
               <Select
-                value={filters.status || 'all'}
+                value={filters?.orderType || 'all'}
                 onChange={handleStatusChange}
                 label="Status"
                 autoWidth
@@ -191,7 +162,7 @@ const UsersTable: FC<UsersTableProps> = ({ users }) => {
             </FormControl>
           </>
         }
-        title="Recent Users"
+        title="Recent Orders"
       />
       <Divider />
       <TableContainer>
@@ -201,48 +172,61 @@ const UsersTable: FC<UsersTableProps> = ({ users }) => {
               <TableCell padding="checkbox">
                 <Checkbox
                   color="primary"
-                  checked={selectedAllUsers}
-                  indeterminate={selectedSomeUsers}
-                  onChange={handleSelectAllUsers}
+                  checked={selectedAllOrders}
+                  indeterminate={selectedSomeOrders}
+                  onChange={handleSelectAllOrders}
                 />
               </TableCell>
-              <TableCell>First Name</TableCell>
-              <TableCell>Last Name</TableCell>
-              <TableCell>Phone Number</TableCell>
-              <TableCell>Email</TableCell>
-              <TableCell>Role</TableCell>
+              <TableCell>Id</TableCell>
+              <TableCell>Order Count</TableCell>
+              <TableCell>Item Id</TableCell>
+              <TableCell>Order Type</TableCell>
+              <TableCell>Order Status</TableCell>
+              <TableCell>User ID</TableCell>
+
+              <TableCell>Actions</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {paginatedUsers.map((user) => {
-              const isUserSelected = selectedUsers.includes(user.id);
+            {paginatedOrders.map((order: OrderType) => {
+              const isOrderSelected = selectedOrders.includes(order.id);
+              console.log(order);
+
               return (
                 <TableRow
                   hover
-                  key={user.id}
-                  selected={isUserSelected}
+                  key={order.id}
+                  selected={isOrderSelected}
                   style={{ cursor: 'pointer' }}
                   onClick={() => {
-                    navigate(`/admin/users/${user.id}`);
+                    // navigate(`/admin/orders/${order.id}`);
                   }}
                 >
                   <TableCell padding="checkbox">
                     <Checkbox
                       color="primary"
-                      checked={isUserSelected}
+                      checked={isOrderSelected}
                       onChange={(event: ChangeEvent<HTMLInputElement>) =>
-                        handleSelectOneUser(event, user.id)
+                        handleSelectOneOrder(event, order.id)
                       }
-                      value={isUserSelected}
+                      value={isOrderSelected}
                     />
                   </TableCell>
-                  <TableCell>{user.firstName}</TableCell>
-                  <TableCell>{user.lastName}</TableCell>
-                  <TableCell>{user.phoneNumber}</TableCell>
-                  <TableCell>{user.email}</TableCell>
-                  <TableCell>{user.role}</TableCell>
+                  <TableCell>{order.id}</TableCell>
+                  <TableCell>{order.itemCount}</TableCell>
+                  <TableCell>{order.itemId}</TableCell>
+                  <TableCell>{order.orderType}</TableCell>
+                  <TableCell>{order.status}</TableCell>
+                  <TableCell
+                    onClick={() => {
+                      navigate(`/admin/users/${order.userId}`);
+                    }}
+                  >
+                    {order.userId}
+                  </TableCell>
+
                   <TableCell>
-                    <Tooltip title="Edit User" arrow>
+                    <Tooltip title="Edit Order" arrow>
                       <IconButton
                         sx={{
                           '&:hover': {
@@ -252,12 +236,12 @@ const UsersTable: FC<UsersTableProps> = ({ users }) => {
                         }}
                         color="inherit"
                         size="small"
-                        href={`/users/${user.id}/edit`}
+                        href={`orders/${order.id}/edit`}
                       >
                         <EditTwoToneIcon fontSize="small" />
                       </IconButton>
                     </Tooltip>
-                    <Tooltip title="Delete User" arrow>
+                    <Tooltip title="Delete Order" arrow>
                       <IconButton
                         sx={{
                           '&:hover': { background: theme.colors.error.lighter },
@@ -279,7 +263,7 @@ const UsersTable: FC<UsersTableProps> = ({ users }) => {
       <Box p={2}>
         <TablePagination
           component="div"
-          count={filteredUsers.length}
+          count={filteredOrders.length}
           onPageChange={handlePageChange}
           onRowsPerPageChange={handleLimitChange}
           page={page}
@@ -291,12 +275,12 @@ const UsersTable: FC<UsersTableProps> = ({ users }) => {
   );
 };
 
-UsersTable.propTypes = {
-  users: PropTypes.array.isRequired
+OrdersTable.propTypes = {
+  orders: PropTypes.array.isRequired
 };
 
-UsersTable.defaultProps = {
-  users: []
+OrdersTable.defaultProps = {
+  orders: []
 };
 
-export default UsersTable;
+export default OrdersTable;
