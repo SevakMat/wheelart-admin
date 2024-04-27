@@ -6,6 +6,7 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider';
 
 import { CssBaseline } from '@mui/material';
 import ThemeProvider from './theme/ThemeProvider';
+import RoutersContainer from './routers/RoutersContainer';
 
 function App() {
   const content = useRoutes(router);
@@ -15,6 +16,8 @@ function App() {
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <CssBaseline />
         {content}
+
+        {/* <RoutersContainer /> */}
       </LocalizationProvider>
     </ThemeProvider>
   );

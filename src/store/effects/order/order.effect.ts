@@ -77,6 +77,8 @@ export const updateOrderEffect = (
 ): any => {
   return async (dispatch: AppDispatch) => {
     try {
+      console.log(444, orderData);
+
       const result = await updateOrderService(orderId, orderData);
       const {
         data: {

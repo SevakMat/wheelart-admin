@@ -1,4 +1,6 @@
-import axios from "../config/axios";
+import { AxiosPromise } from 'axios';
+import axios from '../config/axios';
+import { RimType } from 'src/models/rim';
 
 // Route to get all rims
 export const getAllRimsService = async (): Promise<any> => {
@@ -12,6 +14,17 @@ export const createRimService = async (rimData: any): Promise<any> => {
   return axios.post(url, rimData);
 };
 
+// Route to create a new rim
+export const integreateRimEXELFileService = async (
+  file: File
+): Promise<any> => {
+  const formData = new FormData();
+  formData.append('file', file);
+
+  const url = `/api/admin/rims/integreate-exel`;
+  return axios.post('/api/admin/rims/integreate-exel', formData);
+};
+
 // Route to get a rim by ID
 export const getRimByIdService = async (rimId: string): Promise<any> => {
   const url = `/api/admin/rims/${rimId}`;
@@ -19,7 +32,10 @@ export const getRimByIdService = async (rimId: string): Promise<any> => {
 };
 
 // Route to update a rim by ID
-export const updateRimService = async (rimId: string, rimData: any): Promise<any> => {
+export const updateRimService = async (
+  rimId: string,
+  rimData: any
+): Promise<any> => {
   const url = `/api/admin/rims/${rimId}`;
   return axios.put(url, rimData);
 };

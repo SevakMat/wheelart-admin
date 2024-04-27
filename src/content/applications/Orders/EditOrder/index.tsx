@@ -15,6 +15,7 @@ const EditOrderConteiner = () => {
   }, []);
 
   const { order } = useAppSelector((state: RootState) => state.order);
+  console.log(order);
 
   return <EditOrder order={order} />;
 };

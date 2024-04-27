@@ -21,7 +21,7 @@ import {
   Select,
   MenuItem,
   useTheme,
-  CardHeader,
+  CardHeader
 } from '@mui/material';
 import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
@@ -46,16 +46,16 @@ const getStatusLabel = (status: string): JSX.Element => {
   const map = {
     failed: {
       text: 'Failed',
-      color: 'error',
+      color: 'error'
     },
     completed: {
       text: 'Completed',
-      color: 'success',
+      color: 'success'
     },
     pending: {
       text: 'Pending',
-      color: 'warning',
-    },
+      color: 'warning'
+    }
   };
 
   const { text, color }: any = map[status];
@@ -64,7 +64,6 @@ const getStatusLabel = (status: string): JSX.Element => {
 };
 
 const applyFilters = (rims: RimType[], filters: Filters): RimType[] => {
-
   return rims.filter((rim) => {
     let matches = true;
 
@@ -96,7 +95,11 @@ const applyFilters = (rims: RimType[], filters: Filters): RimType[] => {
   });
 };
 
-const applyPagination = (rims: RimType[], page: number, limit: number): RimType[] => {
+const applyPagination = (
+  rims: RimType[],
+  page: number,
+  limit: number
+): RimType[] => {
   return rims.slice(page * limit, page * limit + limit);
 };
 
@@ -110,20 +113,20 @@ const RimsTable: FC<RimsTableProps> = ({ rims }) => {
   const statusOptions = [
     {
       id: 'all',
-      name: 'All',
+      name: 'All'
     },
     {
       id: 'completed',
-      name: 'Completed',
+      name: 'Completed'
     },
     {
       id: 'pending',
-      name: 'Pending',
+      name: 'Pending'
     },
     {
       id: 'failed',
-      name: 'Failed',
-    },
+      name: 'Failed'
+    }
   ];
 
   const handleStatusChange = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -135,31 +138,27 @@ const RimsTable: FC<RimsTableProps> = ({ rims }) => {
 
     setFilters((prevFilters) => ({
       ...prevFilters,
-      status: value,
+      status: value
     }));
   };
 
   const handleFilterChange = (filter: string, value: string): void => {
     setFilters((prevFilters) => ({
       ...prevFilters,
-      [filter]: value,
+      [filter]: value
     }));
   };
 
   const handleSelectAllRims = (event: ChangeEvent<HTMLInputElement>): void => {
-    setSelectedRims(
-      event.target.checked
-        ? rims.map((rim) => rim.id)
-        : []
-    );
+    setSelectedRims(event.target.checked ? rims.map((rim) => rim.id) : []);
   };
 
-  const handleSelectOneRim = (event: ChangeEvent<HTMLInputElement>, rimId: string): void => {
+  const handleSelectOneRim = (
+    event: ChangeEvent<HTMLInputElement>,
+    rimId: string
+  ): void => {
     if (!selectedRims.includes(rimId)) {
-      setSelectedRims((prevSelected) => [
-        ...prevSelected,
-        rimId
-      ]);
+      setSelectedRims((prevSelected) => [...prevSelected, rimId]);
     } else {
       setSelectedRims((prevSelected) =>
         prevSelected.filter((id) => id !== rimId)
@@ -177,7 +176,8 @@ const RimsTable: FC<RimsTableProps> = ({ rims }) => {
 
   const filteredRims = applyFilters(rims, filters);
   const paginatedRims = applyPagination(filteredRims, page, limit);
-  const selectedSomeRims = selectedRims.length > 0 && selectedRims.length < rims.length;
+  const selectedSomeRims =
+    selectedRims.length > 0 && selectedRims.length < rims.length;
   const selectedAllRims = selectedRims.length === rims.length;
   const theme = useTheme();
 
@@ -201,7 +201,6 @@ const RimsTable: FC<RimsTableProps> = ({ rims }) => {
                 ))}
               </Select>
             </FormControl>
-
           </>
         }
         title="Recent Rims"
@@ -219,11 +218,11 @@ const RimsTable: FC<RimsTableProps> = ({ rims }) => {
                   onChange={handleSelectAllRims}
                 />
               </TableCell>
+              <TableCell>Rim Model</TableCell>
               <TableCell>Size R</TableCell>
               <TableCell>Stud Holes</TableCell>
               <TableCell>PCD</TableCell>
               <TableCell>Center Bore</TableCell>
-              <TableCell>Rim Model</TableCell>
               <TableCell>Width</TableCell>
               <TableCell>Color</TableCell>
               <TableCell>Gram</TableCell>
@@ -241,8 +240,7 @@ const RimsTable: FC<RimsTableProps> = ({ rims }) => {
                   hover
                   key={rim.id}
                   selected={isRimSelected}
-                  style={{ cursor: 'pointer' }} 
-                  onClick={() => {navigate(`/admin/rims/${rim.id}`)}}
+                  style={{ cursor: 'pointer' }}
                 >
                   <TableCell padding="checkbox">
                     <Checkbox
@@ -254,11 +252,23 @@ const RimsTable: FC<RimsTableProps> = ({ rims }) => {
                       value={isRimSelected}
                     />
                   </TableCell>
+                  <TableCell
+                    sx={{
+                      '&:hover': {
+                        background: theme.colors.primary.lighter
+                      }
+                    }}
+                    onClick={(e) => {
+                      navigate(`/admin/rims/${rim.id}`);
+                    }}
+                  >
+                    {rim.rimModel}
+                  </TableCell>
                   <TableCell>{rim.sizeR}</TableCell>
                   <TableCell>{rim.studHoles}</TableCell>
                   <TableCell>{rim.pcd}</TableCell>
                   <TableCell>{rim.centerBore}</TableCell>
-                  <TableCell>{rim.rimModel}</TableCell>
+
                   <TableCell>{rim.width}</TableCell>
                   <TableCell>{rim.color}</TableCell>
                   <TableCell>{rim.gram}</TableCell>
@@ -270,13 +280,15 @@ const RimsTable: FC<RimsTableProps> = ({ rims }) => {
                       <IconButton
                         sx={{
                           '&:hover': {
-                            background: theme.colors.primary.lighter,
+                            background: theme.colors.primary.lighter
                           },
-                          color: theme.palette.primary.main,
+                          color: theme.palette.primary.main
                         }}
                         color="inherit"
                         size="small"
-                        href={`rims/${rim.id}/edit`}
+                        onClick={(e) => {
+                          navigate(`/admin/rims/${rim.id}/edit`);
+                        }}
                       >
                         <EditTwoToneIcon fontSize="small" />
                       </IconButton>
@@ -285,7 +297,7 @@ const RimsTable: FC<RimsTableProps> = ({ rims }) => {
                       <IconButton
                         sx={{
                           '&:hover': { background: theme.colors.error.lighter },
-                          color: theme.palette.error.main,
+                          color: theme.palette.error.main
                         }}
                         color="inherit"
                         size="small"
@@ -316,11 +328,11 @@ const RimsTable: FC<RimsTableProps> = ({ rims }) => {
 };
 
 RimsTable.propTypes = {
-  rims: PropTypes.array.isRequired,
+  rims: PropTypes.array.isRequired
 };
 
 RimsTable.defaultProps = {
-  rims: [],
+  rims: []
 };
 
 export default RimsTable;

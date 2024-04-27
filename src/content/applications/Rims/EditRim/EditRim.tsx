@@ -1,8 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Box, Card, CardContent, TextField, Button, Grid, Container, CardHeader, Divider } from '@mui/material';
+import {
+  Box,
+  Card,
+  CardContent,
+  TextField,
+  Button,
+  Grid,
+  Container,
+  CardHeader,
+  Divider
+} from '@mui/material';
 import { RimType } from 'src/store/types/rim/rim';
-import { createRimEffect, updateRimEffect } from 'src/store/effects/rim/rim.effect';
+import { updateRimEffect } from 'src/store/effects/rim/rim.effect';
 import { AppDispatch } from 'src/store';
 import { useDispatch } from 'react-redux';
 import { Helmet } from 'react-helmet-async';
@@ -11,21 +21,20 @@ import PageTitle from 'src/components/PageTitle';
 import Footer from 'src/components/Footer';
 
 type EditRimProps = {
-  rim: RimType
-}
+  rim: RimType;
+};
 
-const EditRim: React.FC<EditRimProps> = ({rim}) => {
-  
+const EditRim: React.FC<EditRimProps> = ({ rim }) => {
   const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
-  
+
   const [formData, setFormData] = useState<RimType>(rim);
 
   const fieldTypes: { [key in keyof RimType]: string } = {
     sizeR: 'number',
     studHoles: 'number',
     pcd: 'number',
-    centerBore: 'text', //vtangavor 
+    centerBore: 'text', //vtangavor
     rimModel: 'text',
     width: 'number',
     color: 'text',
@@ -33,9 +42,8 @@ const EditRim: React.FC<EditRimProps> = ({rim}) => {
     description: 'text',
     imageUrl: 'text',
     price: 'number',
-    score: 'number',
+    score: 'number'
   };
-
 
   const [errors, setErrors] = useState<Partial<RimType>>({});
 
@@ -47,7 +55,7 @@ const EditRim: React.FC<EditRimProps> = ({rim}) => {
 
   const handleSubmit = () => {
     const formErrors: Partial<RimType> = {};
-    Object.keys(formData).forEach(key => {
+    Object.keys(formData).forEach((key) => {
       if (!formData[key as keyof RimType]) {
         formErrors[key as keyof RimType] = 'This field is required';
       }
@@ -57,11 +65,9 @@ const EditRim: React.FC<EditRimProps> = ({rim}) => {
       setErrors(formErrors);
       return;
     }
-    
-    dispatch(updateRimEffect(rim.id, formData,navigate));
+
+    dispatch(updateRimEffect(rim.id, formData, navigate));
   };
-
-
 
   return (
     <>
@@ -119,8 +125,19 @@ const EditRim: React.FC<EditRimProps> = ({rim}) => {
                     ))}
                   </Grid>
                 </Box>
-                <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: 2 }}>
-                  <Button type="button" variant="contained" color="primary" onClick={handleSubmit}>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'flex-end',
+                    marginTop: 2
+                  }}
+                >
+                  <Button
+                    type="button"
+                    variant="contained"
+                    color="primary"
+                    onClick={handleSubmit}
+                  >
                     Submit
                   </Button>
                 </Box>

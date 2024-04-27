@@ -11,7 +11,7 @@ const NewTireContainer: React.FC = () => {
   const [formData, setFormData] = useState<FormData>({
     field1: '',
     field2: '',
-    field3: '',
+    field3: ''
   });
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -32,7 +32,7 @@ const NewTireContainer: React.FC = () => {
           component="form"
           onSubmit={handleSubmit}
           sx={{
-            '& .MuiTextField-root': { m: 1, width: '100%' },
+            '& .MuiTextField-root': { m: 1, width: '100%' }
           }}
           noValidate
           autoComplete="off"
@@ -66,9 +66,13 @@ const NewTireContainer: React.FC = () => {
               />
             </Grid>
           </Grid>
-          
-          <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: 2 }}>
-            <Button type="submit" variant="contained" color="primary">Submit</Button>
+
+          <Box
+            sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: 2 }}
+          >
+            <Button type="submit" variant="contained" color="primary">
+              Submit
+            </Button>
           </Box>
         </Box>
       </CardContent>

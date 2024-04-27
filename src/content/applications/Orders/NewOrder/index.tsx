@@ -10,7 +10,7 @@ import {
   CardHeader,
   Divider
 } from '@mui/material';
-import { AppDispatch } from 'src/store';
+import { AppDispatch, useAppDispatch } from 'src/store';
 import { useDispatch } from 'react-redux';
 import { Helmet } from 'react-helmet-async';
 import PageTitleWrapper from 'src/components/PageTitleWrapper';
@@ -20,7 +20,7 @@ import { OrderType } from 'src/store/types/order/order';
 import { createOrderEffect } from 'src/store/effects/order/order.effect';
 
 const NewOrder: React.FC = () => {
-  const dispatch: AppDispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const [formData, setFormData] = useState<OrderType>({
     orderType: '',

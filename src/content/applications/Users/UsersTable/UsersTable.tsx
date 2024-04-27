@@ -222,9 +222,6 @@ const UsersTable: FC<UsersTableProps> = ({ users }) => {
                   key={user.id}
                   selected={isUserSelected}
                   style={{ cursor: 'pointer' }}
-                  onClick={() => {
-                    navigate(`/admin/users/${user.id}`);
-                  }}
                 >
                   <TableCell padding="checkbox">
                     <Checkbox
@@ -236,7 +233,18 @@ const UsersTable: FC<UsersTableProps> = ({ users }) => {
                       value={isUserSelected}
                     />
                   </TableCell>
-                  <TableCell>{user.firstName}</TableCell>
+                  <TableCell
+                    onClick={() => {
+                      navigate(`/admin/users/${user.id}`);
+                    }}
+                    sx={{
+                      '&:hover': {
+                        background: theme.colors.primary.lighter
+                      }
+                    }}
+                  >
+                    {user.firstName}
+                  </TableCell>
                   <TableCell>{user.lastName}</TableCell>
                   <TableCell>{user.phoneNumber}</TableCell>
                   <TableCell>{user.email}</TableCell>
@@ -252,7 +260,7 @@ const UsersTable: FC<UsersTableProps> = ({ users }) => {
                         }}
                         color="inherit"
                         size="small"
-                        href={`/users/${user.id}/edit`}
+                        href={`/admin/users/${user.id}/edit`}
                       >
                         <EditTwoToneIcon fontSize="small" />
                       </IconButton>

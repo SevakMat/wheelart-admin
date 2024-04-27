@@ -1,5 +1,15 @@
 import React, { useState } from 'react';
-import { Box, Card, CardContent, TextField, Button, Grid, Container, CardHeader, Divider } from '@mui/material';
+import {
+  Box,
+  Card,
+  CardContent,
+  TextField,
+  Button,
+  Grid,
+  Container,
+  CardHeader,
+  Divider
+} from '@mui/material';
 import { RimType } from 'src/store/types/rim/rim';
 import { createRimEffect } from 'src/store/effects/rim/rim.effect';
 import { AppDispatch } from 'src/store';
@@ -8,9 +18,11 @@ import { Helmet } from 'react-helmet-async';
 import PageTitleWrapper from 'src/components/PageTitleWrapper';
 import PageTitle from 'src/components/PageTitle';
 import Footer from 'src/components/Footer';
+import { useNavigate } from 'react-router';
 
 const NewRim: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState<RimType>({
     sizeR: '',
@@ -24,14 +36,14 @@ const NewRim: React.FC = () => {
     description: '',
     imageUrl: '',
     price: '',
-    score: '',
+    score: ''
   });
 
   const fieldTypes: { [key in keyof RimType]: string } = {
     sizeR: 'number',
     studHoles: 'number',
     pcd: 'number',
-    centerBore: 'text', //vtangavor 
+    centerBore: 'text', //vtangavor
     rimModel: 'text',
     width: 'number',
     color: 'text',
@@ -39,9 +51,8 @@ const NewRim: React.FC = () => {
     description: 'text',
     imageUrl: 'text',
     price: 'number',
-    score: 'number',
+    score: 'number'
   };
-    
 
   const [errors, setErrors] = useState<Partial<RimType>>({});
 
@@ -53,7 +64,7 @@ const NewRim: React.FC = () => {
 
   const handleSubmit = () => {
     const formErrors: Partial<RimType> = {};
-    Object.keys(formData).forEach(key => {
+    Object.keys(formData).forEach((key) => {
       if (!formData[key as keyof RimType]) {
         formErrors[key as keyof RimType] = 'This field is required';
       }
@@ -64,7 +75,7 @@ const NewRim: React.FC = () => {
       return;
     }
 
-    dispatch(createRimEffect(formData));
+    dispatch(createRimEffect(formData, navigate));
   };
 
   return (
@@ -124,8 +135,20 @@ const NewRim: React.FC = () => {
                     ))}
                   </Grid>
                 </Box>
-                <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: 2 }}>
-                  <Button type="button" variant="contained" color="primary" onClick={handleSubmit}>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'flex-end',
+                    marginTop: 2
+                  }}
+                >
+                  <Button
+                    type="button"
+                    variant="contained"
+                    color="primary"
+                    onClick={handleSubmit}
+                    // disabled={true}
+                  >
                     Submit
                   </Button>
                 </Box>

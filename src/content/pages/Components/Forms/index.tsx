@@ -306,6 +306,7 @@ function Forms() {
                     </TextField>
                   </div>
                   <div>
+                    as
                     <TextField
                       id="filled-select-currency"
                       select
@@ -321,6 +322,7 @@ function Forms() {
                         </MenuItem>
                       ))}
                     </TextField>
+                    as
                     <TextField
                       id="filled-select-currency-native"
                       select

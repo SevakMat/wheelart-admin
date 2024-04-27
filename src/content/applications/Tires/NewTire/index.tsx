@@ -1,5 +1,15 @@
 import React, { useState } from 'react';
-import { Box, Card, CardContent, TextField, Button, Grid, Container, CardHeader, Divider } from '@mui/material';
+import {
+  Box,
+  Card,
+  CardContent,
+  TextField,
+  Button,
+  Grid,
+  Container,
+  CardHeader,
+  Divider
+} from '@mui/material';
 import { AppDispatch } from 'src/store';
 import { useDispatch } from 'react-redux';
 import { Helmet } from 'react-helmet-async';
@@ -8,16 +18,18 @@ import PageTitle from 'src/components/PageTitle';
 import Footer from 'src/components/Footer';
 import { TireType } from 'src/store/types/tire/tire';
 import { createTireEffect } from 'src/store/effects/tire/tire.effect';
+import { useNavigate } from 'react-router';
 
 const NewTire: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
-
+  const navigate = useNavigate();
   const [formData, setFormData] = useState<TireType>({
     tireWidth: '',
-    tireAspectRatio:'',
+    tireAspectRatio: '',
     rimDiameter: '',
     marka: '',
     stock: '',
+    price: '',
     imageUrl: ''
   });
 
@@ -27,9 +39,9 @@ const NewTire: React.FC = () => {
     rimDiameter: 'number',
     marka: 'text',
     stock: 'number',
-    imageUrl: 'text',
+    price: 'number',
+    imageUrl: 'text'
   };
-    
 
   const [errors, setErrors] = useState<Partial<TireType>>({});
 
@@ -41,7 +53,7 @@ const NewTire: React.FC = () => {
 
   const handleSubmit = () => {
     const formErrors: Partial<TireType> = {};
-    Object.keys(formData).forEach(key => {
+    Object.keys(formData).forEach((key) => {
       if (!formData[key as keyof TireType]) {
         formErrors[key as keyof TireType] = 'This field is required';
       }
@@ -52,7 +64,7 @@ const NewTire: React.FC = () => {
       return;
     }
 
-    dispatch(createTireEffect(formData));
+    dispatch(createTireEffect(formData, navigate));
   };
 
   return (
@@ -112,8 +124,19 @@ const NewTire: React.FC = () => {
                     ))}
                   </Grid>
                 </Box>
-                <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: 2 }}>
-                  <Button type="button" variant="contained" color="primary" onClick={handleSubmit}>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'flex-end',
+                    marginTop: 2
+                  }}
+                >
+                  <Button
+                    type="button"
+                    variant="contained"
+                    color="primary"
+                    onClick={handleSubmit}
+                  >
                     Submit
                   </Button>
                 </Box>

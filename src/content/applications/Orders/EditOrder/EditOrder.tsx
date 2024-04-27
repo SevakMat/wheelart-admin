@@ -9,7 +9,8 @@ import {
   Grid,
   Container,
   CardHeader,
-  Divider
+  Divider,
+  MenuItem
 } from '@mui/material';
 import { AppDispatch } from 'src/store';
 import { useDispatch } from 'react-redux';
@@ -19,9 +20,10 @@ import PageTitle from 'src/components/PageTitle';
 import Footer from 'src/components/Footer';
 import { OrderType } from 'src/store/types/order/order';
 import { updateOrderEffect } from 'src/store/effects/order/order.effect';
+import OrderTypeSelection from 'src/components/public/OrderTypeSelection/OrderTypeSelection';
 
 type EditOrderProps = {
-  order: OrderType;
+  order: OrderType | null;
 };
 
 const EditOrder: React.FC<EditOrderProps> = ({ order }) => {
@@ -41,9 +43,11 @@ const EditOrder: React.FC<EditOrderProps> = ({ order }) => {
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = event.target;
+
     setFormData({ ...formData, [id]: value });
     setErrors({ ...errors, [id]: '' }); // Clear error when user starts typing
   };
+  console.log(formData);
 
   const handleSubmit = () => {
     const formErrors: any = {};
@@ -100,21 +104,64 @@ const EditOrder: React.FC<EditOrderProps> = ({ order }) => {
                     alignItems="stretch"
                     spacing={3}
                   >
-                    {Object.keys(formData).map((key: keyof OrderType) => (
-                      <Grid item xs={12} sm={4} key={key}>
-                        <TextField
-                          id={key}
-                          label={key}
-                          value={formData[key]}
-                          onChange={handleChange}
-                          variant="filled"
-                          required
-                          error={!!errors[key]}
-                          helperText={errors[key]}
-                          type={fieldTypes[key]}
-                        />
-                      </Grid>
-                    ))}
+                    <Grid item xs={12} sm={4} key={'id'}>
+                      <OrderTypeSelection
+                        handleChange={handleChange}
+                        value={formData['status']}
+                      />
+                    </Grid>
+                    <Grid item xs={12} sm={4} key={'id'}>
+                      <TextField
+                        id={'id'}
+                        label={'id'}
+                        value={formData['id']}
+                        onChange={handleChange}
+                        variant="filled"
+                        required
+                        error={!!errors['id']}
+                        helperText={errors['id']}
+                        type={fieldTypes['id']}
+                      />
+                    </Grid>
+                    <Grid item xs={12} sm={4} key={'orderType'}>
+                      <TextField
+                        id={'orderType'}
+                        label={'orderType'}
+                        value={formData['orderType']}
+                        onChange={handleChange}
+                        variant="filled"
+                        required
+                        error={!!errors['orderType']}
+                        helperText={errors['orderType']}
+                        type={fieldTypes['orderType']}
+                      />
+                    </Grid>
+                    <Grid item xs={12} sm={4} key={'itemId'}>
+                      <TextField
+                        id={'itemId'}
+                        label={'itemId'}
+                        value={formData['itemId']}
+                        onChange={handleChange}
+                        variant="filled"
+                        required
+                        error={!!errors['itemId']}
+                        helperText={errors['itemId']}
+                        type={fieldTypes['itemId']}
+                      />
+                    </Grid>
+                    <Grid item xs={12} sm={4} key={'itemCount'}>
+                      <TextField
+                        id={'itemCount'}
+                        label={'itemCount'}
+                        value={formData['itemCount']}
+                        onChange={handleChange}
+                        variant="filled"
+                        required
+                        error={!!errors['itemCount']}
+                        helperText={errors['itemCount']}
+                        type={fieldTypes['itemCount']}
+                      />
+                    </Grid>
                   </Grid>
                 </Box>
                 <Box

@@ -21,7 +21,7 @@ import {
   Select,
   MenuItem,
   useTheme,
-  CardHeader,
+  CardHeader
 } from '@mui/material';
 import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
@@ -34,17 +34,15 @@ interface TiresTableProps {
 
 interface Filters {
   status?: string;
-  tireWidth?: string,
-  tireAspectRatio?: string,
-  rimDiameter?: string,
-  marka?: string,
-  stock?: string,
-  imageUrl?: string,
+  tireWidth?: string;
+  tireAspectRatio?: string;
+  rimDiameter?: string;
+  marka?: string;
+  stock?: string;
+  imageUrl?: string;
 }
 
-
 const applyFilters = (tires: TireType[], filters: Filters): TireType[] => {
-
   return tires.filter((tire) => {
     let matches = true;
 
@@ -52,7 +50,10 @@ const applyFilters = (tires: TireType[], filters: Filters): TireType[] => {
       matches = false;
     }
 
-    if (filters.tireAspectRatio && tire.tireAspectRatio !== filters.tireAspectRatio) {
+    if (
+      filters.tireAspectRatio &&
+      tire.tireAspectRatio !== filters.tireAspectRatio
+    ) {
       matches = false;
     }
 
@@ -64,7 +65,11 @@ const applyFilters = (tires: TireType[], filters: Filters): TireType[] => {
   });
 };
 
-const applyPagination = (tires: TireType[], page: number, limit: number): TireType[] => {
+const applyPagination = (
+  tires: TireType[],
+  page: number,
+  limit: number
+): TireType[] => {
   return tires.slice(page * limit, page * limit + limit);
 };
 
@@ -78,20 +83,20 @@ const TiresTable: FC<TiresTableProps> = ({ tires }) => {
   const statusOptions = [
     {
       id: 'all',
-      name: 'All',
+      name: 'All'
     },
     {
       id: 'completed',
-      name: 'Completed',
+      name: 'Completed'
     },
     {
       id: 'pending',
-      name: 'Pending',
+      name: 'Pending'
     },
     {
       id: 'failed',
-      name: 'Failed',
-    },
+      name: 'Failed'
+    }
   ];
 
   const handleStatusChange = (e: ChangeEvent<HTMLInputElement>): void => {
@@ -103,31 +108,29 @@ const TiresTable: FC<TiresTableProps> = ({ tires }) => {
 
     setFilters((prevFilters) => ({
       ...prevFilters,
-      status: value,
+      status: value
     }));
   };
 
   const handleFilterChange = (filter: string, value: string): void => {
     setFilters((prevFilters) => ({
       ...prevFilters,
-      [filter]: value,
+      [filter]: value
     }));
   };
 
-  const handleSelectAllTiress = (event: ChangeEvent<HTMLInputElement>): void => {
-    setSelectedTires(
-      event.target.checked
-        ? tires.map((tire) => tire.id)
-        : []
-    );
+  const handleSelectAllTiress = (
+    event: ChangeEvent<HTMLInputElement>
+  ): void => {
+    setSelectedTires(event.target.checked ? tires.map((tire) => tire.id) : []);
   };
 
-  const handleSelectOneTire = (event: ChangeEvent<HTMLInputElement>, tireId: string): void => {
+  const handleSelectOneTire = (
+    event: ChangeEvent<HTMLInputElement>,
+    tireId: string
+  ): void => {
     if (!selectedTires.includes(tireId)) {
-      setSelectedTires((prevSelected) => [
-        ...prevSelected,
-        tireId
-      ]);
+      setSelectedTires((prevSelected) => [...prevSelected, tireId]);
     } else {
       setSelectedTires((prevSelected) =>
         prevSelected.filter((id) => id !== tireId)
@@ -145,7 +148,8 @@ const TiresTable: FC<TiresTableProps> = ({ tires }) => {
 
   const filteredTires = applyFilters(tires, filters);
   const paginatedTires = applyPagination(filteredTires, page, limit);
-  const selectedSomeTires = selectedTires.length > 0 && selectedTires.length < tires.length;
+  const selectedSomeTires =
+    selectedTires.length > 0 && selectedTires.length < tires.length;
   const selectedAllTires = selectedTires.length === tires.length;
   const theme = useTheme();
 
@@ -169,7 +173,6 @@ const TiresTable: FC<TiresTableProps> = ({ tires }) => {
                 ))}
               </Select>
             </FormControl>
-
           </>
         }
         title="Recent Tires"
@@ -187,10 +190,11 @@ const TiresTable: FC<TiresTableProps> = ({ tires }) => {
                   onChange={handleSelectAllTiress}
                 />
               </TableCell>
+              <TableCell>Marka</TableCell>
+
               <TableCell>Tire Width</TableCell>
               <TableCell>Tire Aspect Ratio</TableCell>
               <TableCell>Tim Diameter</TableCell>
-              <TableCell>Marka</TableCell>
               <TableCell>Stock</TableCell>
             </TableRow>
           </TableHead>
@@ -202,8 +206,7 @@ const TiresTable: FC<TiresTableProps> = ({ tires }) => {
                   hover
                   key={tire.id}
                   selected={isTireSelected}
-                  style={{ cursor: 'pointer' }} 
-                  onClick={() => {navigate(`/admin/tires/${tire.id}`)}}
+                  style={{ cursor: 'pointer' }}
                 >
                   <TableCell padding="checkbox">
                     <Checkbox
@@ -215,19 +218,30 @@ const TiresTable: FC<TiresTableProps> = ({ tires }) => {
                       value={isTireSelected}
                     />
                   </TableCell>
+                  <TableCell
+                    onClick={() => {
+                      navigate(`/admin/tires/${tire.id}`);
+                    }}
+                    sx={{
+                      '&:hover': {
+                        background: theme.colors.primary.lighter
+                      }
+                    }}
+                  >
+                    {tire.marka}
+                  </TableCell>
                   <TableCell>{tire.tireWidth}</TableCell>
                   <TableCell>{tire.tireAspectRatio}</TableCell>
                   <TableCell>{tire.rimDiameter}</TableCell>
-                  <TableCell>{tire.marka}</TableCell>
                   <TableCell>{tire.stock}</TableCell>
                   <TableCell>
                     <Tooltip title="Edit Tire" arrow>
                       <IconButton
                         sx={{
                           '&:hover': {
-                            background: theme.colors.primary.lighter,
+                            background: theme.colors.primary.lighter
                           },
-                          color: theme.palette.primary.main,
+                          color: theme.palette.primary.main
                         }}
                         color="inherit"
                         size="small"
@@ -240,7 +254,7 @@ const TiresTable: FC<TiresTableProps> = ({ tires }) => {
                       <IconButton
                         sx={{
                           '&:hover': { background: theme.colors.error.lighter },
-                          color: theme.palette.error.main,
+                          color: theme.palette.error.main
                         }}
                         color="inherit"
                         size="small"
@@ -271,11 +285,11 @@ const TiresTable: FC<TiresTableProps> = ({ tires }) => {
 };
 
 TiresTable.propTypes = {
-  tires: PropTypes.array.isRequired,
+  tires: PropTypes.array.isRequired
 };
 
 TiresTable.defaultProps = {
-  tires: [],
+  tires: []
 };
 
 export default TiresTable;

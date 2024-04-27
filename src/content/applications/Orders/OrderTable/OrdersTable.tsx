@@ -214,7 +214,17 @@ const OrdersTable: FC<OrdersTableProps> = ({ orders }) => {
                   </TableCell>
                   <TableCell>{order.id}</TableCell>
                   <TableCell>{order.itemCount}</TableCell>
-                  <TableCell>{order.itemId}</TableCell>
+                  <TableCell
+                    onClick={() => {
+                      navigate(
+                        `/admin/${
+                          order.orderType === 'RIM' ? 'rims' : 'tires'
+                        }/${order.itemId}`
+                      );
+                    }}
+                  >
+                    {order.itemId}
+                  </TableCell>
                   <TableCell>{order.orderType}</TableCell>
                   <TableCell>{order.status}</TableCell>
                   <TableCell

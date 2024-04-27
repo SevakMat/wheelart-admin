@@ -1,4 +1,12 @@
-import { Box, Card, CardContent, CardMedia, Divider, Grid, Typography } from '@mui/material';
+import {
+  Box,
+  Card,
+  CardContent,
+  CardMedia,
+  Divider,
+  Grid,
+  Typography
+} from '@mui/material';
 import { Helmet } from 'react-helmet-async';
 import PageTitleWrapper from 'src/components/PageTitleWrapper';
 import Footer from 'src/components/Footer';
@@ -6,11 +14,10 @@ import TirePageTitle from './TirePageTitle';
 import { TireType } from 'src/store/types/tire/tire';
 
 type TireProps = {
-  tire: TireType
-}
+  tire: TireType;
+};
 
 const TireContainer: React.FC<TireProps> = ({ tire }) => {
-
   return (
     <>
       <Helmet>
@@ -53,7 +60,8 @@ const TireContainer: React.FC<TireProps> = ({ tire }) => {
                   <strong>TIre Stock:</strong> {tire?.stock || '-'}
                 </Typography>
                 <Typography variant="body1" color="text.secondary" paragraph>
-                  <strong>Tire Aspect Ratio:</strong> {tire?.tireAspectRatio || '-'}
+                  <strong>Tire Aspect Ratio:</strong>{' '}
+                  {tire?.tireAspectRatio || '-'}
                 </Typography>
                 <Typography variant="body1" color="text.secondary" paragraph>
                   <strong>Tire Width:</strong> {tire?.tireWidth || '-'}
@@ -65,7 +73,7 @@ const TireContainer: React.FC<TireProps> = ({ tire }) => {
       </Box>
       <Footer />
     </>
-  )
-}
+  );
+};
 
 export default TireContainer;

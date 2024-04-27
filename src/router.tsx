@@ -6,6 +6,7 @@ import SidebarLayout from 'src/layouts/SidebarLayout';
 import BaseLayout from 'src/layouts/BaseLayout';
 
 import SuspenseLoader from 'src/components/SuspenseLoader';
+import RimIntegration from './content/applications/Rims/RImIntegreation/RimIntegration';
 
 const Loader = (Component) => (props) =>
   (
@@ -292,7 +293,7 @@ const routes: RouteObject[] = [
               },
               {
                 path: 'edit',
-                element: <EditTire />
+                element: <EditUser />
               }
             ]
           }
@@ -309,10 +310,6 @@ const routes: RouteObject[] = [
             path: 'new',
             element: <NewRim />
           },
-          // {
-          //   path: ':id',
-          //   element: <div>current</div>
-          // },
           {
             path: ':id',
             children: [

@@ -11,14 +11,13 @@ import * as serviceWorker from 'src/serviceWorker';
 
 ReactDOM.render(
   <Provider store={store}>
-
-  <HelmetProvider>
-    <SidebarProvider>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </SidebarProvider>
-  </HelmetProvider>
+    <HelmetProvider>
+      <SidebarProvider>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </SidebarProvider>
+    </HelmetProvider>
   </Provider>,
 
   document.getElementById('root')

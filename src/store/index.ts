@@ -15,8 +15,10 @@ import rimReducer from './reducers/rim/rim.reducers';
 import tireReducer from './reducers/tire/tire.reducers';
 import userReducer from './reducers/user/user.reducers';
 import orderReducer from './reducers/order/order.reducers';
+import authReducer from './reducers/auth/auth.reducers';
 
 const rootReducer = combineReducers({
+  auth: authReducer,
   rim: rimReducer,
   tire: tireReducer,
   user: userReducer,

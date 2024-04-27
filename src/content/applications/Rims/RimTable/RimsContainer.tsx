@@ -11,84 +11,11 @@ import { getAllRimsEffect } from 'src/store/effects/rim/rim.effect';
 function RimConteiner() {
   const dispatch: AppDispatch = useDispatch();
 
-  const cryptoOrders: CryptoOrder[] = [
-    {
-      id: '1',
-      orderDetails: 'Fiat Deposit',
-      orderDate: new Date().getTime(),
-      status: 'completed',
-      orderID: 'VUVX709ET7BY',
-      sourceName: 'Bank Account',
-      sourceDesc: '*** 1111',
-      amountCrypto: 34.4565,
-      amount: 56787,
-      cryptoCurrency: 'ETH',
-      currency: '$'
-    },
-    {
-      id: '2',
-      orderDetails: 'Fiat Deposit',
-      orderDate: subDays(new Date(), 1).getTime(),
-      status: 'completed',
-      orderID: '23M3UOG65G8K',
-      sourceName: 'Bank Account',
-      sourceDesc: '*** 1111',
-      amountCrypto: 6.58454334,
-      amount: 8734587,
-      cryptoCurrency: 'BTC',
-      currency: '$'
-    },
-    {
-      id: '3',
-      orderDetails: 'Fiat Deposit',
-      orderDate: subDays(new Date(), 5).getTime(),
-      status: 'failed',
-      orderID: 'F6JHK65MS818',
-      sourceName: 'Bank Account',
-      sourceDesc: '*** 1111',
-      amountCrypto: 6.58454334,
-      amount: 8734587,
-      cryptoCurrency: 'BTC',
-      currency: '$'
-    },
-    {
-      id: '4',
-      orderDetails: 'Fiat Deposit',
-      orderDate: subDays(new Date(), 55).getTime(),
-      status: 'completed',
-      orderID: 'QJFAI7N84LGM',
-      sourceName: 'Bank Account',
-      sourceDesc: '*** 1111',
-      amountCrypto: 6.58454334,
-      amount: 8734587,
-      cryptoCurrency: 'BTC',
-      currency: '$'
-    },
-    {
-      id: '5',
-      orderDetails: 'Fiat Deposit',
-      orderDate: subDays(new Date(), 56).getTime(),
-      status: 'pending',
-      orderID: 'BO5KFSYGC0YW',
-      sourceName: 'Bank Account',
-      sourceDesc: '*** 1111',
-      amountCrypto: 6.58454334,
-      amount: 8734587,
-      cryptoCurrency: 'BTC',
-      currency: '$'
-    },
-   
-  ];
-
   useEffect(() => {
-    dispatch(
-      getAllRimsEffect()
-    );
+    dispatch(getAllRimsEffect());
   }, []);
 
-
-  const { rimList} = useAppSelector((state: RootState) => state.rim);
-console.log("2323",rimList);
+  const { rimList } = useAppSelector((state: RootState) => state.rim);
 
   return (
     <Card>
