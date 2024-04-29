@@ -36,14 +36,14 @@ const NewRim: React.FC = () => {
     description: '',
     imageUrl: '',
     price: '',
-    score: ''
+    stock: ''
   });
 
   const fieldTypes: { [key in keyof RimType]: string } = {
     sizeR: 'number',
     studHoles: 'number',
     pcd: 'number',
-    centerBore: 'text', //vtangavor
+    centerBore: 'number', //vtangavor
     rimModel: 'text',
     width: 'number',
     color: 'text',
@@ -51,7 +51,7 @@ const NewRim: React.FC = () => {
     description: 'text',
     imageUrl: 'text',
     price: 'number',
-    score: 'number'
+    stock: 'number'
   };
 
   const [errors, setErrors] = useState<Partial<RimType>>({});
@@ -81,15 +81,9 @@ const NewRim: React.FC = () => {
   return (
     <>
       <Helmet>
-        <title>Forms - Components</title>
+        <title>Create Rim</title>
       </Helmet>
-      <PageTitleWrapper>
-        <PageTitle
-          heading="Forms"
-          subHeading="Components that are used to build interactive placeholders used for data collection from users."
-          docs="https://material-ui.com/components/text-fields/"
-        />
-      </PageTitleWrapper>
+      <PageTitleWrapper></PageTitleWrapper>
       <Container maxWidth="lg">
         <Grid
           container

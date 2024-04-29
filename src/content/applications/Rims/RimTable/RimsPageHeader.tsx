@@ -3,6 +3,7 @@ import { Typography, Button, Grid } from '@mui/material';
 import AddTwoToneIcon from '@mui/icons-material/AddTwoTone';
 import { useState } from 'react';
 import UploadModals from './UploadPopup';
+import { integreateRimEXELFileService } from 'src/services/rim.service';
 
 function RimsPageHeader() {
   const [isOpenPopup, setIsOpenPopup] = useState<boolean>(false);
@@ -31,7 +32,11 @@ function RimsPageHeader() {
           Upload exel
         </Button>
       </Grid>
-      <UploadModals isOpenPopup={isOpenPopup} setIsOpenPopup={setIsOpenPopup} />
+      <UploadModals
+        isOpenPopup={isOpenPopup}
+        setIsOpenPopup={setIsOpenPopup}
+        integreateEXELFileService={integreateRimEXELFileService}
+      />
     </Grid>
   );
 }

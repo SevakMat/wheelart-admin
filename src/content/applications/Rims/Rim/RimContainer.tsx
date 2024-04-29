@@ -1,15 +1,29 @@
-import { Box, Card, CardContent, CardMedia, Divider, Grid, Typography } from '@mui/material';
+import {
+  Box,
+  Card,
+  CardContent,
+  CardMedia,
+  Divider,
+  Grid,
+  Typography
+} from '@mui/material';
 import { Helmet } from 'react-helmet-async';
 import PageTitleWrapper from 'src/components/PageTitleWrapper';
 import Footer from 'src/components/Footer';
 import { RimType } from 'src/store/types/rim/rim';
 import RimPageTitle from './RimPageTitle';
+import Slideshow from 'src/components/shared/Slideshow';
 
 type RimProps = {
-  rim: RimType | null
-}
+  rim: RimType | null;
+};
 
 const RimContainer: React.FC<RimProps> = ({ rim }) => {
+  const images = rim?.imageUrl
+    .split(';')
+    .filter((item: any) => item !== 'undefined');
+
+  console.log(images);
 
   return (
     <>
@@ -27,14 +41,7 @@ const RimContainer: React.FC<RimProps> = ({ rim }) => {
       <Box sx={{ flexGrow: 1, bgcolor: 'background.paper', py: 4 }}>
         <Grid container spacing={2}>
           <Grid item xs={12} md={6}>
-            <Card>
-              <CardMedia
-                component="img"
-                height="500"
-                image={rim?.imageUrl || 'placeholder.jpg'} // Provide a placeholder image if imageUrl is not available
-                alt="Rim Image"
-              />
-            </Card>
+            <Slideshow images={images} />
           </Grid>
           <Grid item xs={12} md={6}>
             <Card>
@@ -44,16 +51,20 @@ const RimContainer: React.FC<RimProps> = ({ rim }) => {
                 </Typography>
                 <Divider />
                 <Typography variant="body1" color="text.secondary" paragraph>
-                  <strong>Size:</strong> {rim?.sizeR || '-'}
+                  <strong>ID:</strong> {rim?.id || '-'}
                 </Typography>
                 <Typography variant="body1" color="text.secondary" paragraph>
-                  <strong>Stud Holes:</strong> {rim?.studHoles || '-'}
+                  <strong>Size:</strong> {rim?.sizeR || '-'} R
                 </Typography>
                 <Typography variant="body1" color="text.secondary" paragraph>
-                  <strong>PCD:</strong> {rim?.pcd || '-'}
+                  <strong>Stud Holes:</strong> {rim?.studHoles || '-'}x
+                  {rim?.pcd || '-'}
                 </Typography>
                 <Typography variant="body1" color="text.secondary" paragraph>
-                  <strong>Width:</strong> {rim?.width || '-'}
+                  <strong>centerBore:</strong> {rim?.centerBore || '-'}
+                </Typography>
+                <Typography variant="body1" color="text.secondary" paragraph>
+                  <strong>Width:</strong> {rim?.width || '-'}J
                 </Typography>
                 <Typography variant="body1" color="text.secondary" paragraph>
                   <strong>Color:</strong> {rim?.color || '-'}
@@ -62,10 +73,13 @@ const RimContainer: React.FC<RimProps> = ({ rim }) => {
                   <strong>Description:</strong> {rim?.description || '-'}
                 </Typography>
                 <Typography variant="body1" color="text.secondary" paragraph>
-                  <strong>Price:</strong> {rim?.price || '-'}
+                  <strong>Price:</strong> {rim?.price || '-'}$
                 </Typography>
                 <Typography variant="body1" color="text.secondary" paragraph>
-                  <strong>Score:</strong> {rim?.score || '-'}
+                  <strong>Stock:</strong> {rim?.stock || 0}
+                </Typography>
+                <Typography variant="body1" color="text.secondary" paragraph>
+                  <strong>Gram:</strong> {rim?.gram || '-'}
                 </Typography>
               </CardContent>
             </Card>
@@ -74,7 +88,7 @@ const RimContainer: React.FC<RimProps> = ({ rim }) => {
       </Box>
       <Footer />
     </>
-  )
-}
+  );
+};
 
 export default RimContainer;

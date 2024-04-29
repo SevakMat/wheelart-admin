@@ -1,20 +1,18 @@
-import { useState } from 'react';
-import Avatar from '@mui/material/Avatar';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import ListItemText from '@mui/material/ListItemText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
-import AddIcon from '@mui/icons-material/Add';
-import RimIntegration from '../RImIntegreation/RimIntegration';
 import { Container, Grid } from '@mui/material';
+import ExcelIntegration from '../RImIntegreation/RimIntegration';
 
 interface UploadModalsProps {
   isOpenPopup: boolean;
   setIsOpenPopup: (item: boolean) => void;
+  integreateEXELFileService(file: File): Promise<any>;
 }
-function UploadModals({ isOpenPopup, setIsOpenPopup }: UploadModalsProps) {
+function UploadModals({
+  isOpenPopup,
+  setIsOpenPopup,
+  integreateEXELFileService
+}: UploadModalsProps) {
   return (
     <Container maxWidth="lg">
       <Grid item xs={12}>
@@ -25,7 +23,10 @@ function UploadModals({ isOpenPopup, setIsOpenPopup }: UploadModalsProps) {
           open={isOpenPopup}
         >
           <DialogTitle>Upload Excel file</DialogTitle>
-          <RimIntegration setIsOpenPopup={setIsOpenPopup} />
+          <ExcelIntegration
+            setIsOpenPopup={setIsOpenPopup}
+            integreateEXELFileService={integreateEXELFileService}
+          />
         </Dialog>
       </Grid>
     </Container>

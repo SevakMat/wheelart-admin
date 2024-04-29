@@ -17,7 +17,6 @@ import { AppDispatch } from 'src/store';
 import { useDispatch } from 'react-redux';
 import { Helmet } from 'react-helmet-async';
 import PageTitleWrapper from 'src/components/PageTitleWrapper';
-import PageTitle from 'src/components/PageTitle';
 import Footer from 'src/components/Footer';
 
 type EditRimProps = {
@@ -34,7 +33,7 @@ const EditRim: React.FC<EditRimProps> = ({ rim }) => {
     sizeR: 'number',
     studHoles: 'number',
     pcd: 'number',
-    centerBore: 'text', //vtangavor
+    centerBore: 'number',
     rimModel: 'text',
     width: 'number',
     color: 'text',
@@ -72,14 +71,9 @@ const EditRim: React.FC<EditRimProps> = ({ rim }) => {
   return (
     <>
       <Helmet>
-        <title>Forms - Components</title>
+        <title>Edit Rim</title>
       </Helmet>
-      <PageTitleWrapper>
-        <PageTitle
-          heading="Forms"
-          subHeading="Components that are used to build interactive placeholders used for data collection from users."
-        />
-      </PageTitleWrapper>
+      <PageTitleWrapper></PageTitleWrapper>
       <Container maxWidth="lg">
         <Grid
           container
@@ -117,6 +111,7 @@ const EditRim: React.FC<EditRimProps> = ({ rim }) => {
                           onChange={handleChange}
                           variant="filled"
                           required
+                          inputProps={{ readOnly: key === 'id' ? true : false }}
                           error={!!errors[key]}
                           helperText={errors[key]}
                           type={fieldTypes[key]}

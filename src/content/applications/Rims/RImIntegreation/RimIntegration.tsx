@@ -1,7 +1,6 @@
 import { ChangeEvent, useEffect, useState } from 'react';
 import { createStyles, makeStyles } from '@mui/styles';
 import { Button, Typography } from '@mui/material';
-import { integreateRimEXELFileService } from 'src/services/rim.service';
 import useMutation from 'src/hooks/useMutation';
 
 const useStyles = makeStyles((theme) =>
@@ -18,8 +17,12 @@ const useStyles = makeStyles((theme) =>
 
 interface RimIntegrationProps {
   setIsOpenPopup: (item: boolean) => void;
+  integreateEXELFileService(file: File): Promise<any>;
 }
-const RimIntegration = ({ setIsOpenPopup }: RimIntegrationProps) => {
+const ExcelIntegration = ({
+  setIsOpenPopup,
+  integreateEXELFileService
+}: RimIntegrationProps) => {
   const classes = useStyles();
   const [file, setFile] = useState<File | null>(null);
 
@@ -40,7 +43,7 @@ const RimIntegration = ({ setIsOpenPopup }: RimIntegrationProps) => {
   const handleUpload = () =>
     uploadExcel(() => {
       if (file) {
-        return integreateRimEXELFileService(file);
+        return integreateEXELFileService(file);
       } else {
         throw new Error('File is required');
       }
@@ -76,4 +79,4 @@ const RimIntegration = ({ setIsOpenPopup }: RimIntegrationProps) => {
   );
 };
 
-export default RimIntegration;
+export default ExcelIntegration;

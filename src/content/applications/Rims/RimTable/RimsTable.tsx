@@ -210,14 +210,15 @@ const RimsTable: FC<RimsTableProps> = ({ rims }) => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell padding="checkbox">
+              {/* <TableCell padding="checkbox">
                 <Checkbox
                   color="primary"
                   checked={selectedAllRims}
                   indeterminate={selectedSomeRims}
                   onChange={handleSelectAllRims}
                 />
-              </TableCell>
+              </TableCell> */}
+              <TableCell>ID</TableCell>
               <TableCell>Rim Model</TableCell>
               <TableCell>Size R</TableCell>
               <TableCell>Stud Holes</TableCell>
@@ -228,7 +229,7 @@ const RimsTable: FC<RimsTableProps> = ({ rims }) => {
               <TableCell>Gram</TableCell>
               <TableCell>Description</TableCell>
               <TableCell>Price</TableCell>
-              <TableCell>Score</TableCell>
+              <TableCell>Stock</TableCell>
               <TableCell>Actions</TableCell>
             </TableRow>
           </TableHead>
@@ -242,7 +243,7 @@ const RimsTable: FC<RimsTableProps> = ({ rims }) => {
                   selected={isRimSelected}
                   style={{ cursor: 'pointer' }}
                 >
-                  <TableCell padding="checkbox">
+                  {/* <TableCell padding="checkbox">
                     <Checkbox
                       color="primary"
                       checked={isRimSelected}
@@ -251,7 +252,9 @@ const RimsTable: FC<RimsTableProps> = ({ rims }) => {
                       }
                       value={isRimSelected}
                     />
-                  </TableCell>
+                  </TableCell> */}
+                  <TableCell>{rim.id}</TableCell>
+
                   <TableCell
                     sx={{
                       '&:hover': {
@@ -274,7 +277,7 @@ const RimsTable: FC<RimsTableProps> = ({ rims }) => {
                   <TableCell>{rim.gram}</TableCell>
                   <TableCell>{rim.description}</TableCell>
                   <TableCell>{rim.price}</TableCell>
-                  <TableCell>{rim.score}</TableCell>
+                  <TableCell>{rim.stock}</TableCell>
                   <TableCell>
                     <Tooltip title="Edit Rim" arrow>
                       <IconButton

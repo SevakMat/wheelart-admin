@@ -20,8 +20,6 @@ export const integreateRimEXELFileService = async (
 ): Promise<any> => {
   const formData = new FormData();
   formData.append('file', file);
-
-  const url = `/api/admin/rims/integreate-exel`;
   return axios.post('/api/admin/rims/integreate-exel', formData);
 };
 

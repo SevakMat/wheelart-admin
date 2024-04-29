@@ -75,18 +75,15 @@ function TireConteiner() {
       amount: 8734587,
       cryptoCurrency: 'BTC',
       currency: '$'
-    },
-   
+    }
   ];
 
   useEffect(() => {
-    dispatch(
-      getAllTiresEffect()
-    );
+    dispatch(getAllTiresEffect());
   }, []);
 
-
-  const { tireList} = useAppSelector((state: RootState) => state.tire);
+  const { tireList } = useAppSelector((state: RootState) => state.tire);
+  if (tireList) console.log(tireList.length);
 
   return (
     <Card>
