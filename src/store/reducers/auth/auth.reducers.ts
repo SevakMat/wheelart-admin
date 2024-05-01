@@ -2,7 +2,7 @@ import { Reducer } from 'redux';
 import { AuthActionTypes, AuthState, AuthTypes } from '../../types/auth/auth';
 
 const initialState: AuthState = {
-  isLoggedIn: false,
+  isLoggedIn: true,
   authLoading: false,
   user: null
 };

@@ -13,9 +13,9 @@ ReactDOM.render(
   <Provider store={store}>
     <HelmetProvider>
       <SidebarProvider>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
+        {/* <BrowserRouter> */}
+        <App />
+        {/* </BrowserRouter> */}
       </SidebarProvider>
     </HelmetProvider>
   </Provider>,

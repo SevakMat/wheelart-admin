@@ -24,7 +24,7 @@ export const loginEffect = (
       await localStorage.setItem('accessToken', access_token);
       dispatch(loginRequestSuccess(user));
 
-      navigate('/me');
+      navigate('/admin/users');
     } catch (error: any) {
       console.log(error.response.status);
     } finally {

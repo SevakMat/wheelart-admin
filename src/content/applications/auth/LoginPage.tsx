@@ -14,7 +14,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { loginEffect } from 'src/store/effects/auth/auth.effects';
-import { AppDispatch, RootState, useAppSelector } from 'src/store';
+import { AppDispatch, useAppSelector } from 'src/store';
 import {
   PublicButton,
   PublicLoadingButton
@@ -22,22 +22,24 @@ import {
 
 const theme = createTheme();
 
-const LoginPage = () => {
+const Login = () => {
   const dispatch: AppDispatch = useDispatch();
-  const authLoading = useAppSelector(
-    (state: RootState) => state.auth.authLoading
-  );
+  const authLoading = useAppSelector((state) => state.auth.authLoading);
   const navigate = useNavigate();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    loginEffect(
-      {
-        email: data.get('email') as string,
-        password: data.get('password') as string
-      },
-      navigate
+    console.log(123123, data);
+
+    dispatch(
+      loginEffect(
+        {
+          email: data.get('email') as string,
+          password: data.get('password') as string
+        },
+        navigate
+      )
     );
   };
 
@@ -118,4 +120,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default Login;
