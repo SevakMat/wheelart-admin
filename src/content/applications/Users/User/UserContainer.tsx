@@ -1,4 +1,13 @@
-import { Avatar, Box, Card, CardContent, CardMedia, Divider, Grid, Typography } from '@mui/material';
+import {
+  Avatar,
+  Box,
+  Card,
+  CardContent,
+  CardMedia,
+  Divider,
+  Grid,
+  Typography
+} from '@mui/material';
 import { Helmet } from 'react-helmet-async';
 import PageTitleWrapper from 'src/components/PageTitleWrapper';
 import Footer from 'src/components/Footer';
@@ -6,11 +15,10 @@ import { UserType } from 'src/store/types/user/user';
 import UserPageTitle from './UserPageTitle';
 
 type UserProps = {
-  user: UserType
-}
+  user: UserType;
+};
 
 const UserContainer: React.FC<UserProps> = ({ user }) => {
-
   return (
     <>
       <Helmet>
@@ -28,27 +36,27 @@ const UserContainer: React.FC<UserProps> = ({ user }) => {
         <Grid container spacing={2}>
           <Grid item xs={12} md={6}>
             <Card>
-            <Avatar
-          sx={{
-            mr: 2,
-            width: 500,
-            height: 500
-          }}
-          variant="rounded"
-          alt={"user.name"}
-          src={"/static/images/avatars/1.jpg"}
-        />
+              <Avatar
+                sx={{
+                  mr: 2,
+                  width: 500,
+                  height: 500
+                }}
+                variant="rounded"
+                alt={'user.name'}
+                src={'/static/images/avatars/1.jpg'}
+              />
             </Card>
           </Grid>
           <Grid item xs={12} md={6}>
             <Card>
               <CardContent>
-                <Typography variant="h5" component="div" gutterBottom>
-                  {user?.email || 'User Email'}
-                </Typography>
                 <Divider />
                 <Typography variant="body1" color="text.secondary" paragraph>
-                  <strong>Uirst Name:</strong> {user?.firstName || '-'}
+                  <strong>Email:</strong> {user?.email || '-'}
+                </Typography>
+                <Typography variant="body1" color="text.secondary" paragraph>
+                  <strong>First Name:</strong> {user?.firstName || '-'}
                 </Typography>
                 <Typography variant="body1" color="text.secondary" paragraph>
                   <strong>Last Name:</strong> {user?.lastName || '-'}
@@ -56,7 +64,22 @@ const UserContainer: React.FC<UserProps> = ({ user }) => {
                 <Typography variant="body1" color="text.secondary" paragraph>
                   <strong>Phone Number:</strong> {user?.phoneNumber || '-'}
                 </Typography>
-
+                <Typography variant="body1" color="text.secondary" paragraph>
+                  <strong>Eamil:</strong> {user?.email || '-'}
+                </Typography>
+                <Typography variant="body1" color="text.secondary" paragraph>
+                  <strong>Role:</strong> {user?.role || '-'}
+                </Typography>
+                <Typography variant="body1" color="text.secondary" paragraph>
+                  <strong>Email Verified:</strong>
+                  <strong
+                    style={{
+                      color: user?.emailVerified ? 'green' : 'red'
+                    }}
+                  >
+                    {user?.emailVerified ? ' Verified' : ' Not verified'}
+                  </strong>
+                </Typography>
               </CardContent>
             </Card>
           </Grid>
@@ -64,7 +87,7 @@ const UserContainer: React.FC<UserProps> = ({ user }) => {
       </Box>
       <Footer />
     </>
-  )
-}
+  );
+};
 
 export default UserContainer;

@@ -6,7 +6,7 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider';
 
 import { CssBaseline } from '@mui/material';
 import ThemeProvider from './theme/ThemeProvider';
-import RoutersContainer from './routers/RoutersContainer';
+import { ToastProvider, useToasts } from 'react-toast-notifications';
 
 function App() {
   const content = useRoutes(router);
@@ -15,8 +15,7 @@ function App() {
     <ThemeProvider>
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <CssBaseline />
-        {content}
-
+        <ToastProvider>{content}</ToastProvider>
         {/* <RoutersContainer /> */}
       </LocalizationProvider>
     </ThemeProvider>

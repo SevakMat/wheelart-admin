@@ -362,10 +362,10 @@ const routes: RouteObject[] = [
             path: '',
             element: <Orders />
           },
-          {
-            path: 'new',
-            element: <NewOrder />
-          },
+          // {
+          //   path: 'new',
+          //   element: <NewOrder />
+          // },
           // {
           //   path: ':id',
           //   element: <div>current</div>

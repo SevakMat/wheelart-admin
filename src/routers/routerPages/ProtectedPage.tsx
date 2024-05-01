@@ -2,7 +2,6 @@ import Users from 'src/content/applications/Users/UsersTable';
 import ProtectedRoute from '../types/ProtectedRoute';
 import NewUser from 'src/content/applications/Users/NewUser';
 import User from 'src/content/applications/Users/User';
-import EditUser from 'src/content/applications/Users/EditUsers/EditUser';
 import EditUserConteiner from 'src/content/applications/Users/EditUsers';
 import Rims from 'src/content/applications/Rims/RimTable';
 import Rim from 'src/content/applications/Rims/Rim';

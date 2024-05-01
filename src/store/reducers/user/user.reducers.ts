@@ -1,5 +1,9 @@
-import { Reducer } from "redux";
-import { UserActionTypes, UserServerTypes, UserState } from "src/store/types/user/user";
+import { Reducer } from 'redux';
+import {
+  UserActionTypes,
+  UserServerTypes,
+  UserState
+} from 'src/store/types/user/user';
 
 const initialState: UserState = {
   userList: [],
@@ -15,13 +19,13 @@ const reducer: ReducerType = (state, action: UserActionTypes) => {
     case UserServerTypes.GET_USERS_SUCCESS:
       return {
         ...state,
-        userList: action.userList,
+        userList: action.userList
       };
 
     case UserServerTypes.GET_USER_SUCCESS:
       return {
         ...state,
-        user: action.user,
+        user: action.user
       };
 
     default:

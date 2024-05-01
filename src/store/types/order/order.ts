@@ -10,6 +10,7 @@ export interface OrderType {
   itemId: string;
   itemCount: string;
   userId?: string;
+  createdDate?: string;
 }
 
 export interface OrderState {

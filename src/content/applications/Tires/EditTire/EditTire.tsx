@@ -1,6 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Box, Card, CardContent, TextField, Button, Grid, Container, CardHeader, Divider } from '@mui/material';
+import {
+  Box,
+  Card,
+  CardContent,
+  TextField,
+  Button,
+  Grid,
+  Container,
+  CardHeader,
+  Divider
+} from '@mui/material';
 import { AppDispatch } from 'src/store';
 import { useDispatch } from 'react-redux';
 import { Helmet } from 'react-helmet-async';
@@ -11,14 +21,13 @@ import { TireType } from 'src/store/types/tire/tire';
 import { updateTireEffect } from 'src/store/effects/tire/tire.effect';
 
 type EditTireProps = {
-  tire: TireType
-}
+  tire: TireType;
+};
 
-const EditTire: React.FC<EditTireProps> = ({tire}) => {
-  
+const EditTire: React.FC<EditTireProps> = ({ tire }) => {
   const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
-  
+
   const [formData, setFormData] = useState<TireType>(tire);
 
   const fieldTypes: { [key in keyof TireType]: string } = {
@@ -28,8 +37,8 @@ const EditTire: React.FC<EditTireProps> = ({tire}) => {
     marka: 'text',
     stock: 'number',
     imageUrl: 'text',
+    price: 'number'
   };
-
 
   const [errors, setErrors] = useState<Partial<TireType>>({});
 
@@ -41,7 +50,7 @@ const EditTire: React.FC<EditTireProps> = ({tire}) => {
 
   const handleSubmit = () => {
     const formErrors: Partial<TireType> = {};
-    Object.keys(formData).forEach(key => {
+    Object.keys(formData).forEach((key) => {
       if (!formData[key as keyof TireType]) {
         formErrors[key as keyof TireType] = 'This field is required';
       }
@@ -51,23 +60,16 @@ const EditTire: React.FC<EditTireProps> = ({tire}) => {
       setErrors(formErrors);
       return;
     }
-    
-    dispatch(updateTireEffect(tire.id, formData,navigate));
+
+    dispatch(updateTireEffect(tire.id, formData, navigate));
   };
-
-
 
   return (
     <>
       <Helmet>
         <title>Forms - Components</title>
       </Helmet>
-      <PageTitleWrapper>
-        <PageTitle
-          heading="Forms"
-          subHeading="Components that are used to build interactive placeholders used for data collection from users."
-        />
-      </PageTitleWrapper>
+      <PageTitleWrapper></PageTitleWrapper>
       <Container maxWidth="lg">
         <Grid
           container
@@ -105,6 +107,7 @@ const EditTire: React.FC<EditTireProps> = ({tire}) => {
                           onChange={handleChange}
                           variant="filled"
                           required
+                          inputProps={{ readOnly: key === 'id' ? true : false }}
                           error={!!errors[key]}
                           helperText={errors[key]}
                           type={fieldTypes[key]}
@@ -113,8 +116,19 @@ const EditTire: React.FC<EditTireProps> = ({tire}) => {
                     ))}
                   </Grid>
                 </Box>
-                <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: 2 }}>
-                  <Button type="button" variant="contained" color="primary" onClick={handleSubmit}>
+                <Box
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'flex-end',
+                    marginTop: 2
+                  }}
+                >
+                  <Button
+                    type="button"
+                    variant="contained"
+                    color="primary"
+                    onClick={handleSubmit}
+                  >
                     Submit
                   </Button>
                 </Box>

@@ -9,10 +9,9 @@ const initialState: AuthState = {
 
 type ReducerType = Reducer<AuthState, AuthActionTypes>;
 
-const reducer: ReducerType = (
-  state = initialState,
-  action: AuthActionTypes
-) => {
+const reducer: ReducerType = (state, action: AuthActionTypes) => {
+  state = state || initialState;
+
   switch (action.type) {
     case AuthTypes.LOGIN_REQUEST_SUCCESS:
       return {

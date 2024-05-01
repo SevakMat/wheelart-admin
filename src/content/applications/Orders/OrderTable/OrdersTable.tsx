@@ -26,6 +26,7 @@ import {
 import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
 import { OrderType } from 'src/store/types/order/order';
+import { DateFormatter } from 'src/helpers/DateFormatter';
 
 interface OrdersTableProps {
   className?: string;
@@ -169,20 +170,20 @@ const OrdersTable: FC<OrdersTableProps> = ({ orders }) => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell padding="checkbox">
+              {/* <TableCell padding="checkbox">
                 <Checkbox
                   color="primary"
                   checked={selectedAllOrders}
                   indeterminate={selectedSomeOrders}
                   onChange={handleSelectAllOrders}
                 />
-              </TableCell>
+              </TableCell> */}
               <TableCell>Id</TableCell>
               <TableCell>Order Count</TableCell>
-              <TableCell>Item Id</TableCell>
               <TableCell>Order Type</TableCell>
               <TableCell>Order Status</TableCell>
               <TableCell>User ID</TableCell>
+              <TableCell>Date</TableCell>
 
               <TableCell>Actions</TableCell>
             </TableRow>
@@ -190,7 +191,6 @@ const OrdersTable: FC<OrdersTableProps> = ({ orders }) => {
           <TableBody>
             {paginatedOrders.map((order: OrderType) => {
               const isOrderSelected = selectedOrders.includes(order.id);
-              console.log(order);
 
               return (
                 <TableRow
@@ -198,11 +198,12 @@ const OrdersTable: FC<OrdersTableProps> = ({ orders }) => {
                   key={order.id}
                   selected={isOrderSelected}
                   style={{ cursor: 'pointer' }}
-                  onClick={() => {
-                    // navigate(`/admin/orders/${order.id}`);
-                  }}
+
+                  // onClick={() => {
+                  //   // navigate(`/admin/orders/${order.id}`);
+                  // }}
                 >
-                  <TableCell padding="checkbox">
+                  {/* <TableCell padding="checkbox">
                     <Checkbox
                       color="primary"
                       checked={isOrderSelected}
@@ -211,10 +212,26 @@ const OrdersTable: FC<OrdersTableProps> = ({ orders }) => {
                       }
                       value={isOrderSelected}
                     />
+                  </TableCell> */}
+                  <TableCell
+                    sx={{
+                      '&:hover': {
+                        background: theme.colors.primary.lighter
+                      }
+                    }}
+                    onClick={() => {
+                      navigate(`/admin/orders/${order.itemId}`);
+                    }}
+                  >
+                    {order.id}
                   </TableCell>
-                  <TableCell>{order.id}</TableCell>
                   <TableCell>{order.itemCount}</TableCell>
                   <TableCell
+                    sx={{
+                      '&:hover': {
+                        background: theme.colors.primary.lighter
+                      }
+                    }}
                     onClick={() => {
                       navigate(
                         `/admin/${
@@ -223,17 +240,22 @@ const OrdersTable: FC<OrdersTableProps> = ({ orders }) => {
                       );
                     }}
                   >
-                    {order.itemId}
+                    {order.orderType}
                   </TableCell>
-                  <TableCell>{order.orderType}</TableCell>
                   <TableCell>{order.status}</TableCell>
                   <TableCell
+                    sx={{
+                      '&:hover': {
+                        background: theme.colors.primary.lighter
+                      }
+                    }}
                     onClick={() => {
                       navigate(`/admin/users/${order.userId}`);
                     }}
                   >
                     {order.userId}
                   </TableCell>
+                  <TableCell>{DateFormatter(order?.createdDate)}</TableCell>
 
                   <TableCell>
                     <Tooltip title="Edit Order" arrow>

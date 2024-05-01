@@ -28,7 +28,7 @@ const OrderPageTitle: FC<OrderPageTitleProps> = ({
         <Typography variant="subtitle2">{subHeading}</Typography>
       </Grid>
       <Grid item>
-        <Button
+        {/* <Button
           href={docs}
           target="_blank"
           rel="noopener noreferrer"
@@ -40,7 +40,7 @@ const OrderPageTitle: FC<OrderPageTitleProps> = ({
           }}
         >
           Add Order
-        </Button>
+        </Button> */}
         <Button
           href={docs}
           target="_blank"

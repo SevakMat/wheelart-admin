@@ -26,14 +26,16 @@ const NewOrder: React.FC = () => {
     orderType: '',
     status: '',
     itemId: '',
-    itemCount: ''
+    itemCount: '',
+    createdDate: ''
   });
 
   const fieldTypes: { [key in keyof OrderType]: string } = {
     orderType: 'text',
     status: 'text',
-    itemId: 'numvber',
-    itemCount: 'text'
+    itemId: 'number',
+    itemCount: 'text',
+    createdDate: 'text'
   };
 
   const [errors, setErrors] = useState<Partial<OrderType>>({});

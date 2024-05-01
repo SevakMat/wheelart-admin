@@ -1,11 +1,11 @@
-import { Box } from "@mui/material";
-import { useState } from "react";
+import { Box } from '@mui/material';
+import { useState } from 'react';
 
 interface SlideshowProps {
   images: (string | undefined)[];
 }
 
-const Slideshow = ({ images }: SlideshowProps) => {
+const Slideshow = ({ images = [] }: SlideshowProps) => {
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const handleImgChange = (index: number = 0) => {
     return () => {
@@ -16,9 +16,9 @@ const Slideshow = ({ images }: SlideshowProps) => {
   return (
     <Box
       sx={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center'
       }}
     >
       <Box
@@ -26,14 +26,14 @@ const Slideshow = ({ images }: SlideshowProps) => {
         src={images[selectedImageIndex]}
         sx={{
           maxWidth: 700,
-          width: "100%",
+          width: '100%'
         }}
       />
       <Box
         sx={{
-          display: "flex",
-          justifyContent: "center",
-          height: 100,
+          display: 'flex',
+          justifyContent: 'center',
+          height: 100
         }}
       >
         {images.map((img, index) => {
@@ -44,16 +44,16 @@ const Slideshow = ({ images }: SlideshowProps) => {
               src={img}
               onClick={handleImgChange(index)}
               sx={{
-                objectFit: "contain",
+                objectFit: 'contain',
                 width: 100,
                 border:
                   selectedImageIndex === index
-                    ? "black solid 2px"
-                    : "#C4C4C4 solid 1px",
-                "&:hover": {
-                  cursor: "pointer",
-                  outline: "1px solid black",
-                },
+                    ? 'black solid 2px'
+                    : '#C4C4C4 solid 1px',
+                '&:hover': {
+                  cursor: 'pointer',
+                  outline: '1px solid black'
+                }
               }}
             />
           );

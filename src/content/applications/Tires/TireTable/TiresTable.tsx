@@ -182,20 +182,23 @@ const TiresTable: FC<TiresTableProps> = ({ tires }) => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell padding="checkbox">
+              {/* <TableCell padding="checkbox">
                 <Checkbox
                   color="primary"
                   checked={selectedAllTires}
                   indeterminate={selectedSomeTires}
                   onChange={handleSelectAllTiress}
                 />
-              </TableCell>
+              </TableCell> */}
+              <TableCell>ID</TableCell>
+
               <TableCell>Marka</TableCell>
 
               <TableCell>Tire Width</TableCell>
               <TableCell>Tire Aspect Ratio</TableCell>
               <TableCell>Tim Diameter</TableCell>
               <TableCell>Stock</TableCell>
+              <TableCell>Price</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -208,7 +211,7 @@ const TiresTable: FC<TiresTableProps> = ({ tires }) => {
                   selected={isTireSelected}
                   style={{ cursor: 'pointer' }}
                 >
-                  <TableCell padding="checkbox">
+                  {/* <TableCell padding="checkbox">
                     <Checkbox
                       color="primary"
                       checked={isTireSelected}
@@ -217,7 +220,9 @@ const TiresTable: FC<TiresTableProps> = ({ tires }) => {
                       }
                       value={isTireSelected}
                     />
-                  </TableCell>
+                  </TableCell> */}
+                  <TableCell>{tire.id}</TableCell>
+
                   <TableCell
                     onClick={() => {
                       navigate(`/admin/tires/${tire.id}`);
@@ -234,6 +239,8 @@ const TiresTable: FC<TiresTableProps> = ({ tires }) => {
                   <TableCell>{tire.tireAspectRatio}</TableCell>
                   <TableCell>{tire.rimDiameter}</TableCell>
                   <TableCell>{tire.stock}</TableCell>
+                  <TableCell>{tire.price}</TableCell>
+
                   <TableCell>
                     <Tooltip title="Edit Tire" arrow>
                       <IconButton

@@ -12,6 +12,7 @@ import PageTitleWrapper from 'src/components/PageTitleWrapper';
 import Footer from 'src/components/Footer';
 import { OrderType } from 'src/store/types/order/order';
 import OrderPageTitle from './OrderPageTitle';
+import { DateFormatter } from 'src/helpers/DateFormatter';
 
 type OrderProps = {
   order: OrderType | null;
@@ -46,21 +47,21 @@ const OrderContainer: React.FC<OrderProps> = ({ order }) => {
           <Grid item xs={12} md={6}>
             <Card>
               <CardContent>
-                <Typography variant="h5" component="div" gutterBottom>
-                  {'rim?.rimModel' || 'Rim Model'}
-                </Typography>
-                <Divider />
                 <Typography variant="body1" color="text.secondary" paragraph>
-                  <strong>Item Count:</strong> {order.itemCount || '-'}
+                  <strong>Item Count:</strong> {order?.itemCount || '-'}
                 </Typography>
                 <Typography variant="body1" color="text.secondary" paragraph>
-                  <strong>Order ItemId:</strong> {order.itemId || '-'}
+                  <strong>Order ItemId:</strong> {order?.itemId || '-'}
                 </Typography>
                 <Typography variant="body1" color="text.secondary" paragraph>
-                  <strong>Order Type:</strong> {order.orderType || '-'}
+                  <strong>Order Type:</strong> {order?.orderType || '-'}
                 </Typography>
                 <Typography variant="body1" color="text.secondary" paragraph>
-                  <strong>Order Status:</strong> {order.status || '-'}
+                  <strong>Order Status:</strong> {order?.status || '-'}
+                </Typography>
+                <Typography variant="body1" color="text.secondary" paragraph>
+                  <strong>Date:</strong>{' '}
+                  {DateFormatter(order?.createdDate) || '-'}
                 </Typography>
               </CardContent>
             </Card>

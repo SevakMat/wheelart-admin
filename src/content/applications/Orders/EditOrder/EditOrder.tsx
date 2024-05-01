@@ -113,11 +113,12 @@ const EditOrder: React.FC<EditOrderProps> = ({ order }) => {
                     <Grid item xs={12} sm={4} key={'id'}>
                       <TextField
                         id={'id'}
-                        label={'id'}
+                        label={'Order id'}
                         value={formData['id']}
                         onChange={handleChange}
                         variant="filled"
                         required
+                        inputProps={{ readOnly: true }}
                         error={!!errors['id']}
                         helperText={errors['id']}
                         type={fieldTypes['id']}
@@ -131,6 +132,7 @@ const EditOrder: React.FC<EditOrderProps> = ({ order }) => {
                         onChange={handleChange}
                         variant="filled"
                         required
+                        inputProps={{ readOnly: true }}
                         error={!!errors['orderType']}
                         helperText={errors['orderType']}
                         type={fieldTypes['orderType']}
@@ -144,6 +146,7 @@ const EditOrder: React.FC<EditOrderProps> = ({ order }) => {
                         onChange={handleChange}
                         variant="filled"
                         required
+                        inputProps={{ readOnly: true }}
                         error={!!errors['itemId']}
                         helperText={errors['itemId']}
                         type={fieldTypes['itemId']}

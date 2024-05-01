@@ -111,7 +111,7 @@ const EditRim: React.FC<EditRimProps> = ({ rim }) => {
                           onChange={handleChange}
                           variant="filled"
                           required
-                          inputProps={{ readOnly: key === 'id' ? true : false }}
+                          inputProps={{ readOnly: key === 'id' }}
                           error={!!errors[key]}
                           helperText={errors[key]}
                           type={fieldTypes[key]}

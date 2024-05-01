@@ -6,34 +6,26 @@ interface OrderTypeSelectionProps {
   value: string;
 }
 
-const OrderTypeSelection = ({
+const UserRoleSelection = ({
   handleChange,
   value
 }: OrderTypeSelectionProps) => {
   const options = [
     {
-      value: 'CREATED',
-      label: 'Created'
+      value: 'user',
+      label: 'User'
     },
     {
-      value: 'PROGRESS',
-      label: 'Progress'
-    },
-    {
-      value: 'DONE',
-      label: 'Done'
-    },
-    {
-      value: 'CANCEL',
-      label: 'Cancel'
+      value: 'admin',
+      label: 'Admin'
     }
   ];
 
   return (
     <TextField
-      id="status"
+      id="role"
       select
-      label="Status"
+      label="Role"
       value={value}
       onChange={handleChange}
       SelectProps={{
@@ -49,4 +41,4 @@ const OrderTypeSelection = ({
     </TextField>
   );
 };
-export default OrderTypeSelection;
+export default UserRoleSelection;

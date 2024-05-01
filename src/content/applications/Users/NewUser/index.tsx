@@ -1,5 +1,15 @@
 import React, { useState } from 'react';
-import { Box, Card, CardContent, TextField, Button, Grid, Container, CardHeader, Divider } from '@mui/material';
+import {
+  Box,
+  Card,
+  CardContent,
+  TextField,
+  Button,
+  Grid,
+  Container,
+  CardHeader,
+  Divider
+} from '@mui/material';
 import { AppDispatch } from 'src/store';
 import { useDispatch } from 'react-redux';
 import { Helmet } from 'react-helmet-async';
@@ -8,29 +18,31 @@ import PageTitle from 'src/components/PageTitle';
 import Footer from 'src/components/Footer';
 import { UserType } from 'src/store/types/user/user';
 import { createUserEffect } from 'src/store/effects/user/user.effect';
+import UserRoleSelection from 'src/components/public/UserRoleSelection/UserRoleSelection';
+import { useToasts } from 'react-toast-notifications';
 
 const NewUser: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
+  const { addToast } = useToasts();
 
   const [formData, setFormData] = useState<UserType>({
-    // id:'',
-    firstName:'',
-    lastName:'',
-    phoneNumber:'',
-    email:'',
-    password:'',
-    role:''
+    firstName: '',
+    lastName: '',
+    phoneNumber: '',
+    email: '',
+    password: '',
+    role: 'user'
   });
 
   const fieldTypes: { [key in keyof UserType]: string } = {
-    firstName:'text',
-    lastName:'text',
-    phoneNumber:'text',
-    email:'text',
-    password:'text',
-    role:'text'
+    firstName: 'text',
+    lastName: 'text',
+    phoneNumber: 'text',
+    email: 'text',
+    password: 'text',
+    role: 'text'
   };
-    
 
   const [errors, setErrors] = useState<Partial<UserType>>({});
 
@@ -42,7 +54,7 @@ const NewUser: React.FC = () => {
 
   const handleSubmit = () => {
     const formErrors: Partial<UserType> = {};
-    Object.keys(formData).forEach(key => {
+    Object.keys(formData).forEach((key) => {
       if (!formData[key as keyof UserType]) {
         formErrors[key as keyof UserType] = 'This field is required';
       }
@@ -52,22 +64,16 @@ const NewUser: React.FC = () => {
       setErrors(formErrors);
       return;
     }
-
-    dispatch(createUserEffect(formData));
+    setLoading(true);
+    dispatch(createUserEffect(formData, setLoading, addToast));
   };
 
   return (
     <>
       <Helmet>
-        <title>Forms - Components</title>
+        <title>Create User</title>
       </Helmet>
-      <PageTitleWrapper>
-        <PageTitle
-          heading="Forms"
-          subHeading="Components that are used to build interactive placeholders used for data collection from users."
-          docs="https://material-ui.com/components/text-fields/"
-        />
-      </PageTitleWrapper>
+      <PageTitleWrapper></PageTitleWrapper>
       <Container maxWidth="lg">
         <Grid
           container
@@ -96,26 +102,47 @@ const NewUser: React.FC = () => {
                     alignItems="stretch"
                     spacing={3}
                   >
-                    {Object.keys(formData).map((key: keyof UserType) => (
-                      <Grid item xs={12} sm={4} key={key}>
-                        <TextField
-                          id={key}
-                          label={key}
-                          value={formData[key]}
-                          onChange={handleChange}
-                          variant="filled"
-                          required
-                          error={!!errors[key]}
-                          helperText={errors[key]}
-                          type={fieldTypes[key]}
-                        />
-                      </Grid>
-                    ))}
+                    {Object.keys(formData).map((key: keyof UserType) => {
+                      if (key === 'role') return;
+                      return (
+                        <Grid item xs={12} sm={4} key={key}>
+                          <TextField
+                            id={key}
+                            label={key}
+                            value={formData[key]}
+                            onChange={handleChange}
+                            variant="filled"
+                            required
+                            error={!!errors[key]}
+                            helperText={errors[key]}
+                            type={fieldTypes[key]}
+                          />
+                        </Grid>
+                      );
+                    })}
+                    <Grid item xs={12} sm={4}>
+                      <UserRoleSelection
+                        handleChange={handleChange}
+                        value={formData['role']}
+                      />
+                    </Grid>
                   </Grid>
                 </Box>
-                <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: 2 }}>
-                  <Button type="button" variant="contained" color="primary" onClick={handleSubmit}>
-                    Submit
+                <Box
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'flex-end',
+                    marginTop: 2
+                  }}
+                >
+                  <Button
+                    type="button"
+                    variant="contained"
+                    color="primary"
+                    onClick={handleSubmit}
+                    disabled={loading}
+                  >
+                    {loading ? 'Loading' : 'Submit'}
                   </Button>
                 </Box>
               </CardContent>

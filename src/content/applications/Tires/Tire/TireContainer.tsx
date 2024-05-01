@@ -12,12 +12,17 @@ import PageTitleWrapper from 'src/components/PageTitleWrapper';
 import Footer from 'src/components/Footer';
 import TirePageTitle from './TirePageTitle';
 import { TireType } from 'src/store/types/tire/tire';
+import Slideshow from 'src/components/shared/Slideshow';
 
 type TireProps = {
   tire: TireType;
 };
 
 const TireContainer: React.FC<TireProps> = ({ tire }) => {
+  const images = tire?.imageUrl
+    .split(';')
+    .filter((item: any) => item !== 'undefined');
+
   return (
     <>
       <Helmet>
@@ -34,14 +39,7 @@ const TireContainer: React.FC<TireProps> = ({ tire }) => {
       <Box sx={{ flexGrow: 1, bgcolor: 'background.paper', py: 4 }}>
         <Grid container spacing={2}>
           <Grid item xs={12} md={6}>
-            <Card>
-              <CardMedia
-                component="img"
-                height="500"
-                image={tire?.imageUrl || 'placeholder.jpg'} // Provide a placeholder image if imageUrl is not available
-                alt="Tire Image"
-              />
-            </Card>
+            <Slideshow images={images} />
           </Grid>
           <Grid item xs={12} md={6}>
             <Card>
@@ -51,20 +49,25 @@ const TireContainer: React.FC<TireProps> = ({ tire }) => {
                 </Typography>
                 <Divider />
                 <Typography variant="body1" color="text.secondary" paragraph>
-                  <strong>Tire Marka:</strong> {tire?.marka || '-'}
+                  <strong>ID:</strong> {tire?.id || '-'}
                 </Typography>
                 <Typography variant="body1" color="text.secondary" paragraph>
-                  <strong>Rim Diameter:</strong> {tire?.rimDiameter || '-'}
+                  <strong> Marka:</strong> {tire?.marka || '-'}
                 </Typography>
                 <Typography variant="body1" color="text.secondary" paragraph>
-                  <strong>TIre Stock:</strong> {tire?.stock || '-'}
+                  <strong> Diameter:</strong> {tire?.rimDiameter || 0}
                 </Typography>
                 <Typography variant="body1" color="text.secondary" paragraph>
-                  <strong>Tire Aspect Ratio:</strong>{' '}
-                  {tire?.tireAspectRatio || '-'}
+                  <strong> Stock:</strong> {tire?.stock || '-'}
                 </Typography>
                 <Typography variant="body1" color="text.secondary" paragraph>
-                  <strong>Tire Width:</strong> {tire?.tireWidth || '-'}
+                  <strong> Aspect Ratio:</strong> {tire?.tireAspectRatio || '-'}
+                </Typography>
+                <Typography variant="body1" color="text.secondary" paragraph>
+                  <strong> Width:</strong> {tire?.tireWidth || '-'}
+                </Typography>
+                <Typography variant="body1" color="text.secondary" paragraph>
+                  <strong>Price:</strong> {tire?.price || '-'}$
                 </Typography>
               </CardContent>
             </Card>

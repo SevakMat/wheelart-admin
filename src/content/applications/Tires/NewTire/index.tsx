@@ -72,13 +72,7 @@ const NewTire: React.FC = () => {
       <Helmet>
         <title>Forms - Components</title>
       </Helmet>
-      <PageTitleWrapper>
-        <PageTitle
-          heading="Forms"
-          subHeading="Components that are used to build interactive placeholders used for data collection from users."
-          docs="https://material-ui.com/components/text-fields/"
-        />
-      </PageTitleWrapper>
+      <PageTitleWrapper></PageTitleWrapper>
       <Container maxWidth="lg">
         <Grid
           container

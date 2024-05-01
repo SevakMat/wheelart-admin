@@ -23,8 +23,6 @@ const RimContainer: React.FC<RimProps> = ({ rim }) => {
     .split(';')
     .filter((item: any) => item !== 'undefined');
 
-  console.log(images);
-
   return (
     <>
       <Helmet>
