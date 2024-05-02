@@ -15,7 +15,6 @@ function OrderConteiner() {
   }, []);
 
   const { orderList } = useAppSelector((state: RootState) => state.order);
-  console.log(orderList);
 
   return (
     <Card>

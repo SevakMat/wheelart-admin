@@ -73,8 +73,6 @@ const EditUser: React.FC<EditUserProps> = ({ user }) => {
     dispatch(updateUserEffect(user.id, formData, navigate));
   };
 
-  console.log(formData);
-
   return (
     <>
       <Helmet>

@@ -14,10 +14,8 @@ const Order = () => {
   }, []);
 
   const { order } = useAppSelector((state: RootState) => state.order);
-  console.log(order);
 
   return <OrderContainer order={order} />;
-  // return <div>asd</div>;
 };
 
 export default Order;

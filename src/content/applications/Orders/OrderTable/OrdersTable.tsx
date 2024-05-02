@@ -170,17 +170,11 @@ const OrdersTable: FC<OrdersTableProps> = ({ orders }) => {
         <Table>
           <TableHead>
             <TableRow>
-              {/* <TableCell padding="checkbox">
-                <Checkbox
-                  color="primary"
-                  checked={selectedAllOrders}
-                  indeterminate={selectedSomeOrders}
-                  onChange={handleSelectAllOrders}
-                />
-              </TableCell> */}
               <TableCell>Id</TableCell>
               <TableCell>Order Count</TableCell>
               <TableCell>Order Type</TableCell>
+              <TableCell>Name</TableCell>
+
               <TableCell>Order Status</TableCell>
               <TableCell>User ID</TableCell>
               <TableCell>Date</TableCell>
@@ -191,28 +185,13 @@ const OrdersTable: FC<OrdersTableProps> = ({ orders }) => {
           <TableBody>
             {paginatedOrders.map((order: OrderType) => {
               const isOrderSelected = selectedOrders.includes(order.id);
-
               return (
                 <TableRow
                   hover
                   key={order.id}
                   selected={isOrderSelected}
                   style={{ cursor: 'pointer' }}
-
-                  // onClick={() => {
-                  //   // navigate(`/admin/orders/${order.id}`);
-                  // }}
                 >
-                  {/* <TableCell padding="checkbox">
-                    <Checkbox
-                      color="primary"
-                      checked={isOrderSelected}
-                      onChange={(event: ChangeEvent<HTMLInputElement>) =>
-                        handleSelectOneOrder(event, order.id)
-                      }
-                      value={isOrderSelected}
-                    />
-                  </TableCell> */}
                   <TableCell
                     sx={{
                       '&:hover': {
@@ -220,12 +199,14 @@ const OrdersTable: FC<OrdersTableProps> = ({ orders }) => {
                       }
                     }}
                     onClick={() => {
-                      navigate(`/admin/orders/${order.itemId}`);
+                      navigate(`/admin/orders/${order.id}`);
                     }}
                   >
                     {order.id}
                   </TableCell>
                   <TableCell>{order.itemCount}</TableCell>
+                  <TableCell>{order.orderType}</TableCell>
+
                   <TableCell
                     sx={{
                       '&:hover': {
@@ -240,7 +221,7 @@ const OrdersTable: FC<OrdersTableProps> = ({ orders }) => {
                       );
                     }}
                   >
-                    {order.orderType}
+                    {order.name}
                   </TableCell>
                   <TableCell>{order.status}</TableCell>
                   <TableCell

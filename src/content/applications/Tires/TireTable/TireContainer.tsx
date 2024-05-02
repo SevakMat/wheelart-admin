@@ -15,7 +15,6 @@ function TireConteiner() {
   }, []);
 
   const { tireList } = useAppSelector((state: RootState) => state.tire);
-  if (tireList) console.log(tireList.length);
 
   return (
     <Card>

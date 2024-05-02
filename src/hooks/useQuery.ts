@@ -17,8 +17,6 @@ const useQuery = <D>(
     isLoading: true
   });
 
-  console.log(rest);
-
   const handleOnRequest = useCallback(async () => {
     try {
       const res = await cb(...rest);

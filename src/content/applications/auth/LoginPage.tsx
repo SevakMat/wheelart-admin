@@ -30,7 +30,6 @@ const Login = () => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log(123123, data);
 
     dispatch(
       loginEffect(

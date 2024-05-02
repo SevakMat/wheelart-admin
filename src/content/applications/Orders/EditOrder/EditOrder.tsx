@@ -47,7 +47,6 @@ const EditOrder: React.FC<EditOrderProps> = ({ order }) => {
     setFormData({ ...formData, [id]: value });
     setErrors({ ...errors, [id]: '' }); // Clear error when user starts typing
   };
-  console.log(formData);
 
   const handleSubmit = () => {
     const formErrors: any = {};
