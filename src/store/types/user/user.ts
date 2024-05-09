@@ -1,6 +1,7 @@
 export enum UserServerTypes {
   GET_USERS_SUCCESS = 'GET_USERS_SUCCESS',
-  GET_USER_SUCCESS = 'GET_USER_SUCCESS'
+  GET_USER_SUCCESS = 'GET_USER_SUCCESS',
+  DELETE_USER_SUCCESS = 'DELETE_USER_SUCCESS'
 }
 
 export interface UserType {
@@ -29,4 +30,12 @@ export interface getUserActionType {
   user: UserType;
 }
 
-export type UserActionTypes = getUsersActionType | getUserActionType;
+export interface deleteUserActionType {
+  type: UserServerTypes.DELETE_USER_SUCCESS;
+  id: string;
+}
+
+export type UserActionTypes =
+  | getUsersActionType
+  | getUserActionType
+  | deleteUserActionType;

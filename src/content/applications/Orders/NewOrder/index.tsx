@@ -10,8 +10,7 @@ import {
   CardHeader,
   Divider
 } from '@mui/material';
-import { AppDispatch, useAppDispatch } from 'src/store';
-import { useDispatch } from 'react-redux';
+import { useAppDispatch } from 'src/store';
 import { Helmet } from 'react-helmet-async';
 import PageTitleWrapper from 'src/components/PageTitleWrapper';
 import PageTitle from 'src/components/PageTitle';

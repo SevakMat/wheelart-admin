@@ -7,7 +7,11 @@ import {
   getUserByIdService,
   updateUserService
 } from 'src/services/user.service';
-import { getUserAction, getUsersAction } from 'src/store/actions/user/user';
+import {
+  delelteUserAction,
+  getUserAction,
+  getUsersAction
+} from 'src/store/actions/user/user';
 import { UserType } from 'src/store/types/user/user';
 
 // Effect function to get all users
@@ -92,6 +96,7 @@ export const deleteUserEffect = (userId: string): any => {
   return async (dispatch: AppDispatch) => {
     try {
       await deleteUserService(userId);
+      dispatch(delelteUserAction(userId));
       // Handle success response as needed
     } catch (error: any) {
       console.log(error);

@@ -28,9 +28,6 @@ const Crypto = Loader(lazy(() => import('src/content/dashboards/Crypto')));
 const Messenger = Loader(
   lazy(() => import('src/content/applications/Messenger'))
 );
-const Transactions = Loader(
-  lazy(() => import('src/content/applications/Transactions'))
-);
 const UserProfile = Loader(
   lazy(() => import('src/content/applications/Userstest/profile'))
 );
@@ -53,9 +50,7 @@ const Tabs = Loader(lazy(() => import('src/content/pages/Components/Tabs')));
 const Badges = Loader(
   lazy(() => import('src/content/pages/Components/Badges'))
 );
-const Tooltips = Loader(
-  lazy(() => import('src/content/pages/Components/Tooltips'))
-);
+
 const Avatars = Loader(
   lazy(() => import('src/content/pages/Components/Avatars'))
 );
@@ -197,7 +192,7 @@ const routes: RouteObject[] = [
       },
       {
         path: 'transactions',
-        element: <Transactions />
+        element: <>asd</>
       },
       {
         path: 'profile',
@@ -246,10 +241,7 @@ const routes: RouteObject[] = [
         path: 'badges',
         element: <Badges />
       },
-      {
-        path: 'tooltips',
-        element: <Tooltips />
-      },
+
       {
         path: 'avatars',
         element: <Avatars />

@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { Card } from '@mui/material';
-import { CryptoOrder } from 'src/models/crypto_order';
 import RecentOrdersTable from './TiresTable';
 import { subDays } from 'date-fns';
 import { useDispatch } from 'react-redux';

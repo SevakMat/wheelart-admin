@@ -1,4 +1,4 @@
-import { FC, ChangeEvent, useState } from 'react';
+import React, { FC, ChangeEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
@@ -17,11 +17,13 @@ import {
   TableRow,
   TableContainer,
   useTheme,
-  CardHeader
+  CardHeader,
+  TextField // Import TextField component from MUI
 } from '@mui/material';
 import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
-import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
 import { UserType } from 'src/store/types/user/user';
+import DeleteUser from './DeleteUser';
+import { RootState, useAppSelector } from 'src/store';
 
 interface UsersTableProps {
   className?: string;
@@ -29,10 +31,14 @@ interface UsersTableProps {
 }
 
 const UsersTable: FC<UsersTableProps> = ({ users }) => {
+  const { user: auth_user } = useAppSelector((state: RootState) => {
+    return state.auth;
+  });
   const [page, setPage] = useState<number>(0);
   const [rowsPerPage, setRowsPerPage] = useState<number>(5);
+  const [searchQuery, setSearchQuery] = useState<string>(''); // State for search query
   const navigate = useNavigate();
-
+  const theme = useTheme();
   const handleChangePage = (_, newPage: number) => {
     setPage(newPage);
   };
@@ -42,7 +48,12 @@ const UsersTable: FC<UsersTableProps> = ({ users }) => {
     setPage(0);
   };
 
-  const theme = useTheme();
+  // Filter users based on search query
+  const filteredUsers = users.filter((user) =>
+    `${user.firstName} ${user.lastName}`
+      .toLowerCase()
+      .includes(searchQuery.toLowerCase())
+  );
 
   return (
     <Card>
@@ -55,6 +66,18 @@ const UsersTable: FC<UsersTableProps> = ({ users }) => {
         title="Recent Users"
       />
       <Divider />
+      <Box sx={{ padding: '0 16px' }}>
+        <TextField
+          label="Search"
+          variant="outlined"
+          fullWidth
+          value={searchQuery}
+          onChange={(e) => {
+            setSearchQuery(e.target.value);
+            setPage(0);
+          }}
+        />
+      </Box>
       <TableContainer>
         <Table>
           <TableHead>
@@ -64,10 +87,11 @@ const UsersTable: FC<UsersTableProps> = ({ users }) => {
               <TableCell>Phone Number</TableCell>
               <TableCell>Email</TableCell>
               <TableCell>Role</TableCell>
+              <TableCell>Action</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {users
+            {filteredUsers
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((user) => (
                 <TableRow hover key={user?.id} style={{ cursor: 'pointer' }}>
@@ -99,18 +123,11 @@ const UsersTable: FC<UsersTableProps> = ({ users }) => {
                         <EditTwoToneIcon fontSize="small" />
                       </IconButton>
                     </Tooltip>
-                    <Tooltip title="Delete User" arrow>
-                      <IconButton
-                        sx={{
-                          '&:hover': { background: theme.colors.error.lighter },
-                          color: theme.palette.error.main
-                        }}
-                        color="inherit"
-                        size="small"
-                      >
-                        <DeleteTwoToneIcon fontSize="small" />
-                      </IconButton>
-                    </Tooltip>
+                    {user.id.toString() !== auth_user?.id.toString() && (
+                      <Tooltip title="Delete User" arrow>
+                        <DeleteUser theme={theme} id={user.id} />
+                      </Tooltip>
+                    )}
                   </TableCell>
                 </TableRow>
               ))}
@@ -119,7 +136,7 @@ const UsersTable: FC<UsersTableProps> = ({ users }) => {
       </TableContainer>
       <TablePagination
         component="div"
-        count={users.length}
+        count={filteredUsers.length} // Use filteredUsers length for pagination
         page={page}
         onPageChange={handleChangePage}
         rowsPerPage={rowsPerPage}

@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { Card } from '@mui/material';
-import { CryptoOrder } from 'src/models/crypto_order';
 import RecentOrdersTable from './UsersTable';
 import { subDays } from 'date-fns';
 import { useDispatch } from 'react-redux';
@@ -11,19 +10,12 @@ function UserConteiner() {
   const dispatch: AppDispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(
-      getAllUsersEffect()
-    );
+    dispatch(getAllUsersEffect());
   }, []);
 
+  const { userList } = useAppSelector((state: RootState) => state.user);
 
-  const { userList} = useAppSelector((state: RootState) => state.user);
-
-  return (
-    <Card>
-      <RecentOrdersTable users={userList} />
-    </Card>
-  );
+  return <Card>{userList && <RecentOrdersTable users={userList} />}</Card>;
 }
 
 export default UserConteiner;
