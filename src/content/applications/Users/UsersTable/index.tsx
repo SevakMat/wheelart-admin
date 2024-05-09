@@ -1,7 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import PageTitleWrapper from 'src/components/PageTitleWrapper';
 import { Grid, Container } from '@mui/material';
-import Footer from 'src/components/Footer';
 import UsersPageHeader from './UsersPageHeader';
 import UserConteiner from './UsersContainer';
 
@@ -14,7 +13,7 @@ function Users() {
       <PageTitleWrapper>
         <UsersPageHeader />
       </PageTitleWrapper>
-      <Container maxWidth="lg">
+      <Container maxWidth="lg" sx={{ marginBottom: 6 }}>
         <Grid
           container
           direction="row"
@@ -27,7 +26,6 @@ function Users() {
           </Grid>
         </Grid>
       </Container>
-      <Footer />
     </>
   );
 }

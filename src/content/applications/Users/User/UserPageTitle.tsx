@@ -7,7 +7,7 @@ interface UserPageTitleProps {
   heading?: string;
   subHeading?: string;
   docs?: string;
-  userId?:string;
+  userId?: string;
 }
 
 const UserPageTitle: FC<UserPageTitleProps> = ({
@@ -16,15 +16,10 @@ const UserPageTitle: FC<UserPageTitleProps> = ({
   docs = '',
   userId
 }) => {
-
   const navigate = useNavigate();
 
   return (
-    <Grid
-      container
-      justifyContent="space-between"
-      alignItems="center"
-    >
+    <Grid container justifyContent="space-between" alignItems="center">
       <Grid item>
         <Typography variant="h3" component="h3" gutterBottom>
           {heading}
@@ -39,19 +34,22 @@ const UserPageTitle: FC<UserPageTitleProps> = ({
           sx={{ mt: { xs: 2, md: 0 } }}
           variant="contained"
           startIcon={<AddTwoToneIcon fontSize="small" />}
-          onClick={() => {navigate(`/admin/users/new`)}}
-          >
+          onClick={() => {
+            navigate(`/admin/users/new`);
+          }}
+        >
           Add User
         </Button>
         <Button
           href={docs}
           target="_blank"
           rel="noopener noreferrer"
-          sx={{ mt: { xs: 2, md: 0 } }}
+          sx={{ mt: { xs: 2, md: 0 }, ml: 4 }}
           variant="contained"
           startIcon={<AddTwoToneIcon fontSize="small" />}
-          onClick={() => {navigate(`/admin/users/${userId}/edit`)}}
-
+          onClick={() => {
+            navigate(`/admin/users/${userId}/edit`);
+          }}
         >
           Edit User
         </Button>
@@ -59,7 +57,5 @@ const UserPageTitle: FC<UserPageTitleProps> = ({
     </Grid>
   );
 };
-
-
 
 export default UserPageTitle;

@@ -1,24 +1,34 @@
-import { AppDispatch, RootState, useAppSelector } from "src/store";
-import UserContainer from "./UserContainer"
-import { useDispatch } from "react-redux";
-import { useParams, useSearchParams } from "react-router-dom";
-import { useEffect } from "react";
-import { getUserByIdEffect } from "src/store/effects/user/user.effect";
+import { AppDispatch, RootState, useAppSelector } from 'src/store';
+import UserContainer from './UserContainer';
+import { useDispatch } from 'react-redux';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { getUserByIdEffect } from 'src/store/effects/user/user.effect';
+import { useToasts } from 'react-toast-notifications';
 
 const User = () => {
+  const [user, setUser] = useState(null);
+  const { addToast } = useToasts();
+  const navigate = useNavigate();
 
-  const dispatch: AppDispatch = useDispatch();
   const { id } = useParams();
 
+  const getUser = async () => {
+    try {
+      const user = await getUserByIdEffect(id);
+      setUser(user);
+    } catch (error) {
+      addToast('user not found', { appearance: 'error' });
+      navigate('/admin/users');
+    }
+  };
+
   useEffect(() => {
-    dispatch(getUserByIdEffect(id))
-  }, [])
+    getUser();
+  }, [id]);
 
-  const { user } = useAppSelector((state: RootState) => state.user);
+  if (!user) return <div>User not exist</div>;
+  return <UserContainer user={user} />;
+};
 
-  return (
-    <UserContainer user={user} />
-  )
-}
-
-export default User
+export default User;

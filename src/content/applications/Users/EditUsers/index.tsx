@@ -1,24 +1,30 @@
-import { AppDispatch, RootState, useAppSelector } from "src/store";
-import { useParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { useEffect } from "react";
-import { getUserByIdEffect } from "src/store/effects/user/user.effect";
-import EditUser from "./EditUser";
+import { useNavigate, useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { getUserByIdEffect } from 'src/store/effects/user/user.effect';
+import EditUser from './EditUser';
+import { useToasts } from 'react-toast-notifications';
 
 const EditUserConteiner = () => {
-
-  const dispatch: AppDispatch = useDispatch();
+  const [user, setUser] = useState(null);
   const { id } = useParams();
+  const { addToast } = useToasts();
+  const navigate = useNavigate();
+
+  const getUser = async () => {
+    try {
+      const user = await getUserByIdEffect(id);
+      setUser(user);
+    } catch (error) {
+      addToast('user not found', { appearance: 'error' });
+      navigate('/admin/users');
+    }
+  };
 
   useEffect(() => {
-    dispatch(getUserByIdEffect(id))
-  }, [])
+    getUser();
+  }, [id]);
 
-  const { user } = useAppSelector((state: RootState) => state.user);
-
-
-  return (
-    <EditUser user={user} />
-  )
-}
-export default EditUserConteiner
+  if (!user) return <div>User not exist</div>;
+  return <EditUser user={user} />;
+};
+export default EditUserConteiner;

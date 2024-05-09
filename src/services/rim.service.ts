@@ -1,6 +1,4 @@
-import { AxiosPromise } from 'axios';
 import axios from '../config/axios';
-import { RimType } from 'src/models/rim';
 
 // Route to get all rims
 export const getAllRimsService = async (): Promise<any> => {

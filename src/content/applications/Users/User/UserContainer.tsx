@@ -32,22 +32,8 @@ const UserContainer: React.FC<UserProps> = ({ user }) => {
           userId={user?.id}
         />
       </PageTitleWrapper>
-      <Box sx={{ flexGrow: 1, bgcolor: 'background.paper', py: 4 }}>
+      <Box sx={{ flexGrow: 1, bgcolor: 'background.paper', py: 4, ml: 5 }}>
         <Grid container spacing={2}>
-          <Grid item xs={12} md={6}>
-            <Card>
-              <Avatar
-                sx={{
-                  mr: 2,
-                  width: 500,
-                  height: 500
-                }}
-                variant="rounded"
-                alt={'user.name'}
-                src={'/static/images/avatars/1.jpg'}
-              />
-            </Card>
-          </Grid>
           <Grid item xs={12} md={6}>
             <Card>
               <CardContent>

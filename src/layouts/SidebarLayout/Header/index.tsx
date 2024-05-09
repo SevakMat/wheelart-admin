@@ -32,7 +32,7 @@ const HeaderWrapper = styled(Box)(
         justify-content: space-between;
         width: 100%;
         @media (min-width: ${theme.breakpoints.values.lg}px) {
-            left: ${theme.sidebar.width};
+            left: 250px;
             width: auto;
         }
 `
@@ -67,9 +67,7 @@ function Header() {
         divider={<Divider orientation="vertical" flexItem />}
         alignItems="center"
         spacing={2}
-      >
-        <HeaderMenu />
-      </Stack>
+      ></Stack>
       <Box display="flex" alignItems="center">
         <HeaderButtons />
         <HeaderUserbox />

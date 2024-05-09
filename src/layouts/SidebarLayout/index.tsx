@@ -51,7 +51,7 @@ const SidebarLayout: FC<SidebarLayoutProps> = () => {
             flex: 1,
             pt: `${theme.header.height}`,
             [theme.breakpoints.up('lg')]: {
-              ml: `${theme.sidebar.width}`
+              ml: 26
             }
           }}
         >

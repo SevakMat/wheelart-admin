@@ -34,14 +34,15 @@ export const getAllUsersEffect = (): any => {
 export const createUserEffect = (
   userData: UserType,
   setLoading: any,
-  addToast: any
+  addToast: any,
+  navigate
 ): any => {
   return async (dispatch: AppDispatch) => {
     try {
-      const result = await createUserService(userData);
+      await createUserService(userData);
+      navigate('/admin/users');
     } catch (error: any) {
       const message = error?.response?.data?.message;
-      console.log();
       addToast(message, { appearance: 'error' });
     } finally {
       setLoading(false);
@@ -49,25 +50,13 @@ export const createUserEffect = (
   };
 };
 
-// Effect function to get a user by ID
-export const getUserByIdEffect = (userId: string): any => {
-  return async (dispatch: AppDispatch) => {
-    try {
-      const result = await getUserByIdService(userId);
-      const {
-        data: {
-          data: { user }
-        }
-      } = result;
-
-      dispatch(getUserAction(user));
-      // Dispatch any action or store the user data as needed
-    } catch (error: any) {
-      console.log(error);
-    } finally {
-      // Any cleanup code if needed
-    }
-  };
+export const getUserByIdEffect = async (userId: string): Promise<any> => {
+  try {
+    const user = await getUserByIdService(userId);
+    return user;
+  } catch (error: any) {
+    throw new Error();
+  }
 };
 
 // Effect function to update a user by ID

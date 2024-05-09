@@ -78,8 +78,7 @@ const EditUser: React.FC<EditUserProps> = ({ user }) => {
       <Helmet>
         <title>Forms - Components</title>
       </Helmet>
-      <PageTitleWrapper></PageTitleWrapper>
-      <Container maxWidth="lg">
+      <Container maxWidth="lg" sx={{ marginTop: '50px' }}>
         <Grid
           container
           direction="row"

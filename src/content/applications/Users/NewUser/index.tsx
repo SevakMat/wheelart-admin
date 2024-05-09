@@ -14,18 +14,18 @@ import { AppDispatch } from 'src/store';
 import { useDispatch } from 'react-redux';
 import { Helmet } from 'react-helmet-async';
 import PageTitleWrapper from 'src/components/PageTitleWrapper';
-import PageTitle from 'src/components/PageTitle';
 import Footer from 'src/components/Footer';
 import { UserType } from 'src/store/types/user/user';
 import { createUserEffect } from 'src/store/effects/user/user.effect';
 import UserRoleSelection from 'src/components/public/UserRoleSelection/UserRoleSelection';
 import { useToasts } from 'react-toast-notifications';
+import { useNavigate } from 'react-router';
 
 const NewUser: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const { addToast } = useToasts();
-
+  const navigate = useNavigate();
   const [formData, setFormData] = useState<UserType>({
     firstName: '',
     lastName: '',
@@ -65,7 +65,7 @@ const NewUser: React.FC = () => {
       return;
     }
     setLoading(true);
-    dispatch(createUserEffect(formData, setLoading, addToast));
+    dispatch(createUserEffect(formData, setLoading, addToast, navigate));
   };
 
   return (

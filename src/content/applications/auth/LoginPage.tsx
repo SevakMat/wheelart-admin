@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { FormEvent, useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -13,33 +13,28 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { Controller, useForm } from 'react-hook-form';
+import { Button } from '@mui/material';
+import { AppDispatch } from 'src/store';
 import { loginEffect } from 'src/store/effects/auth/auth.effects';
-import { AppDispatch, useAppSelector } from 'src/store';
-import {
-  PublicButton,
-  PublicLoadingButton
-} from 'src/components/public/Button';
 
 const theme = createTheme();
 
 const Login = () => {
   const dispatch: AppDispatch = useDispatch();
-  const authLoading = useAppSelector((state) => state.auth.authLoading);
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
+  const {
+    control,
+    handleSubmit,
+    formState: { errors }
+  } = useForm({ mode: 'onChange' });
 
-    dispatch(
-      loginEffect(
-        {
-          email: data.get('email') as string,
-          password: data.get('password') as string
-        },
-        navigate
-      )
-    );
+  const onSubmit = async (data: any) => {
+    setLoading(true);
+    await dispatch(loginEffect(data, navigate));
+    setLoading(false);
   };
 
   return (
@@ -59,59 +54,69 @@ const Login = () => {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            Sign In
           </Typography>
 
           <Box
             component="form"
-            onSubmit={handleSubmit}
-            noValidate
-            sx={{ mt: 1 }}
+            onSubmit={handleSubmit(onSubmit)}
+            sx={{ mt: 3 }}
           >
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              autoFocus
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-            />
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
-            <Box sx={{ display: 'flex', gap: 3 }}>
-              {authLoading ? (
-                <PublicLoadingButton />
-              ) : (
-                <PublicButton text={'Sign in'} />
-              )}
-            </Box>
-
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
-                  Forgot password?
-                </Link>
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <Controller
+                  name="email"
+                  control={control}
+                  rules={{ required: 'Email is required' }}
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      required
+                      fullWidth
+                      defaultValue=""
+                      id="email"
+                      label={'Email Address'}
+                      type="email"
+                      error={!!errors.email}
+                    />
+                  )}
+                />
               </Grid>
-              <Grid item>
-                <Link href="/sign-up" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
+              <Grid item xs={12}>
+                <Controller
+                  name="password"
+                  control={control}
+                  defaultValue=""
+                  render={({ field }) => (
+                    <TextField
+                      {...field}
+                      required
+                      fullWidth
+                      id="password"
+                      label={'Password'}
+                      type="password"
+                      autoComplete="new-password"
+                      error={!!errors.password}
+                      helperText={
+                        errors?.password?.message
+                          ? (errors?.password?.message as string)
+                          : ''
+                      }
+                    />
+                  )}
+                />
               </Grid>
             </Grid>
+
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+              disabled={loading}
+            >
+              {loading ? 'Loading' : ' Sign In'}
+            </Button>
           </Box>
         </Box>
       </Container>
