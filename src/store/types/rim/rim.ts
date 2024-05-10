@@ -1,6 +1,7 @@
 export enum RimServerTypes {
   GET_RIMS_SUCCESS = 'GET_RIMS_SUCCESS',
-  GET_RIM_SUCCESS = 'GET_RIM_SUCCESS'
+  GET_RIM_SUCCESS = 'GET_RIM_SUCCESS',
+  DELETE_RIM_SUCCESS = 'DELETE_RIM_SUCCESS'
 }
 
 export interface RimType {
@@ -34,5 +35,11 @@ export interface getRimActionType {
   type: RimServerTypes.GET_RIM_SUCCESS;
   rim: RimType;
 }
-
-export type RimActionTypes = getRimsActionType | getRimActionType;
+export interface deleteRimActionType {
+  type: RimServerTypes.DELETE_RIM_SUCCESS;
+  id: string;
+}
+export type RimActionTypes =
+  | getRimsActionType
+  | getRimActionType
+  | deleteRimActionType;

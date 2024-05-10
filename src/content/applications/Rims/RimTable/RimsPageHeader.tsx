@@ -26,7 +26,7 @@ function RimsPageHeader() {
         <Button
           type="button"
           onClick={() => setIsOpenPopup(true)}
-          sx={{ mt: { xs: 2, md: 0 } }}
+          sx={{ mt: { xs: 2, md: 0 }, ml: 5 }}
           variant="contained"
         >
           Upload exel

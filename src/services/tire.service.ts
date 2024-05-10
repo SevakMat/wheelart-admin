@@ -15,7 +15,13 @@ export const createTireService = async (tireData: any): Promise<any> => {
 // Route to get a tire by ID
 export const getTireByIdService = async (tireId: string): Promise<any> => {
   const url = `/api/admin/tires/${tireId}`;
-  return axios.get(url);
+  const res = await axios.get(url);
+  const {
+    data: {
+      data: { tire }
+    }
+  } = res;
+  return tire;
 };
 
 // Route to update a tire by ID

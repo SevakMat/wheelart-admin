@@ -16,6 +16,7 @@ import Order from 'src/content/applications/Orders/Order';
 import EditOrderConteiner from 'src/content/applications/Orders/EditOrder';
 import SidebarLayout from 'src/layouts/SidebarLayout';
 import { ReactNode } from 'react';
+import NewRim from 'src/content/applications/Rims/NewRim';
 
 const Routers = [
   {
@@ -41,7 +42,7 @@ const Routers = [
   },
   {
     path: '/admin/rims/new',
-    element: <NewUser />
+    element: <NewRim />
   },
   {
     path: '/admin/rims/:id',

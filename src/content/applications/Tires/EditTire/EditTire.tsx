@@ -14,9 +14,6 @@ import {
 import { AppDispatch } from 'src/store';
 import { useDispatch } from 'react-redux';
 import { Helmet } from 'react-helmet-async';
-import PageTitleWrapper from 'src/components/PageTitleWrapper';
-import PageTitle from 'src/components/PageTitle';
-import Footer from 'src/components/Footer';
 import { TireType } from 'src/store/types/tire/tire';
 import { updateTireEffect } from 'src/store/effects/tire/tire.effect';
 
@@ -69,8 +66,7 @@ const EditTire: React.FC<EditTireProps> = ({ tire }) => {
       <Helmet>
         <title>Forms - Components</title>
       </Helmet>
-      <PageTitleWrapper></PageTitleWrapper>
-      <Container maxWidth="lg">
+      <Container maxWidth="lg" sx={{ mt: 10 }}>
         <Grid
           container
           direction="row"
@@ -137,7 +133,6 @@ const EditTire: React.FC<EditTireProps> = ({ tire }) => {
           </Grid>
         </Grid>
       </Container>
-      <Footer />
     </>
   );
 };

@@ -29,7 +29,6 @@ const reducer: ReducerType = (state, action: UserActionTypes) => {
       };
 
     case UserServerTypes.DELETE_USER_SUCCESS:
-      // Filter out the user with the specified ID
       const updatedUserList = state.userList.filter(
         (user) => user.id !== action.id
       );

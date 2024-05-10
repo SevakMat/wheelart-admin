@@ -1,19 +1,30 @@
-import { AppDispatch, RootState, useAppSelector } from 'src/store';
-import { useParams } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useToasts } from 'react-toast-notifications';
 import { getTireByIdEffect } from 'src/store/effects/tire/tire.effect';
 import EditTire from './EditTire';
 
 const EditTireConteiner = () => {
-  const dispatch: AppDispatch = useDispatch();
+  const [tire, setTire] = useState(null);
   const { id } = useParams();
+  const { addToast } = useToasts();
+  const navigate = useNavigate();
+
+  const getTire = async () => {
+    try {
+      const tire = await getTireByIdEffect(id);
+      setTire(tire);
+    } catch (error) {
+      addToast('Tire not found', { appearance: 'error' });
+      navigate('/admin/Tires');
+    }
+  };
 
   useEffect(() => {
-    dispatch(getTireByIdEffect(id));
-  }, []);
+    getTire();
+  }, [id]);
 
-  const { tire } = useAppSelector((state) => state.tire);
+  if (!tire) return <div>Tire not exist</div>;
 
   return <EditTire tire={tire} />;
 };

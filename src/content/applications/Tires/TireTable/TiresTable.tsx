@@ -1,7 +1,6 @@
-import { FC, ChangeEvent, useState } from 'react';
+import React, { FC, ChangeEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import PropTypes from 'prop-types';
 import {
   Tooltip,
   Divider,
@@ -9,7 +8,6 @@ import {
   FormControl,
   InputLabel,
   Card,
-  Checkbox,
   IconButton,
   Table,
   TableBody,
@@ -18,219 +16,99 @@ import {
   TablePagination,
   TableRow,
   TableContainer,
-  Select,
-  MenuItem,
+  Checkbox,
   useTheme,
-  CardHeader
+  CardHeader,
+  TextField
 } from '@mui/material';
 import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
 import { TireType } from 'src/store/types/tire/tire';
+import DeleteTire from './DeleteTIre';
 
 interface TiresTableProps {
   className?: string;
   tires: TireType[];
 }
 
-interface Filters {
-  status?: string;
-  tireWidth?: string;
-  tireAspectRatio?: string;
-  rimDiameter?: string;
-  marka?: string;
-  stock?: string;
-  imageUrl?: string;
-}
-
-const applyFilters = (tires: TireType[], filters: Filters): TireType[] => {
-  return tires.filter((tire) => {
-    let matches = true;
-
-    if (filters.tireWidth && tire.tireWidth !== filters.tireWidth) {
-      matches = false;
-    }
-
-    if (
-      filters.tireAspectRatio &&
-      tire.tireAspectRatio !== filters.tireAspectRatio
-    ) {
-      matches = false;
-    }
-
-    if (filters.rimDiameter && tire.rimDiameter !== filters.rimDiameter) {
-      matches = false;
-    }
-
-    return matches;
-  });
-};
-
-const applyPagination = (
-  tires: TireType[],
-  page: number,
-  limit: number
-): TireType[] => {
-  return tires.slice(page * limit, page * limit + limit);
-};
-
 const TiresTable: FC<TiresTableProps> = ({ tires }) => {
   const [selectedTires, setSelectedTires] = useState<string[]>([]);
   const [page, setPage] = useState<number>(0);
-  const [limit, setLimit] = useState<number>(5);
-  const [filters, setFilters] = useState<Filters>({ status: null });
+  const [rowsPerPage, setRowsPerPage] = useState<number>(5);
+  const [searchQuery, setSearchQuery] = useState<string>('');
   const navigate = useNavigate();
+  const theme = useTheme();
 
-  const statusOptions = [
-    {
-      id: 'all',
-      name: 'All'
-    },
-    {
-      id: 'completed',
-      name: 'Completed'
-    },
-    {
-      id: 'pending',
-      name: 'Pending'
-    },
-    {
-      id: 'failed',
-      name: 'Failed'
-    }
-  ];
-
-  const handleStatusChange = (e: ChangeEvent<HTMLInputElement>): void => {
-    let value = null;
-
-    if (e.target.value !== 'all') {
-      value = e.target.value;
-    }
-
-    setFilters((prevFilters) => ({
-      ...prevFilters,
-      status: value
-    }));
-  };
-
-  const handleFilterChange = (filter: string, value: string): void => {
-    setFilters((prevFilters) => ({
-      ...prevFilters,
-      [filter]: value
-    }));
-  };
-
-  const handleSelectAllTiress = (
-    event: ChangeEvent<HTMLInputElement>
-  ): void => {
-    setSelectedTires(event.target.checked ? tires.map((tire) => tire.id) : []);
-  };
-
-  const handleSelectOneTire = (
-    event: ChangeEvent<HTMLInputElement>,
-    tireId: string
-  ): void => {
-    if (!selectedTires.includes(tireId)) {
-      setSelectedTires((prevSelected) => [...prevSelected, tireId]);
-    } else {
-      setSelectedTires((prevSelected) =>
-        prevSelected.filter((id) => id !== tireId)
-      );
-    }
-  };
-
-  const handlePageChange = (event: any, newPage: number): void => {
+  const handleChangePage = (_, newPage: number) => {
     setPage(newPage);
   };
 
-  const handleLimitChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    setLimit(parseInt(event.target.value));
+  const handleChangeRowsPerPage = (event: ChangeEvent<HTMLInputElement>) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
   };
 
-  const filteredTires = applyFilters(tires, filters);
-  const paginatedTires = applyPagination(filteredTires, page, limit);
-  const selectedSomeTires =
-    selectedTires.length > 0 && selectedTires.length < tires.length;
-  const selectedAllTires = selectedTires.length === tires.length;
-  const theme = useTheme();
+  // Filter tires based on search query
+  const filteredTires = tires.filter((tire) =>
+    `${tire.marka} ${tire.tireWidth} ${tire.tireAspectRatio} ${tire.rimDiameter}`
+      .toLowerCase()
+      .includes(searchQuery.toLowerCase())
+  );
 
   return (
     <Card>
       <CardHeader
         action={
-          <>
-            <FormControl fullWidth variant="outlined">
-              <InputLabel>Status</InputLabel>
-              <Select
-                value={filters.status || 'all'}
-                onChange={handleStatusChange}
-                label="Status"
-                autoWidth
-              >
-                {statusOptions.map((statusOption) => (
-                  <MenuItem key={statusOption.id} value={statusOption.id}>
-                    {statusOption.name}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </>
+          <FormControl fullWidth variant="outlined">
+            <InputLabel>Status</InputLabel>
+          </FormControl>
         }
         title="Recent Tires"
       />
       <Divider />
+      <Box sx={{ padding: '0 16px' }}>
+        <FormControl fullWidth variant="outlined">
+          <InputLabel>Marka</InputLabel>
+          {/* Add Search TextField */}
+          <TextField
+            label="Search"
+            variant="outlined"
+            fullWidth
+            value={searchQuery}
+            onChange={(e) => {
+              setSearchQuery(e.target.value);
+              setPage(0);
+            }}
+          />
+        </FormControl>
+      </Box>
       <TableContainer>
         <Table>
           <TableHead>
             <TableRow>
-              {/* <TableCell padding="checkbox">
-                <Checkbox
-                  color="primary"
-                  checked={selectedAllTires}
-                  indeterminate={selectedSomeTires}
-                  onChange={handleSelectAllTiress}
-                />
-              </TableCell> */}
-              <TableCell>ID</TableCell>
-
               <TableCell>Marka</TableCell>
-
               <TableCell>Tire Width</TableCell>
               <TableCell>Tire Aspect Ratio</TableCell>
               <TableCell>Tim Diameter</TableCell>
               <TableCell>Stock</TableCell>
               <TableCell>Price</TableCell>
+              <TableCell>Action</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {paginatedTires.map((tire) => {
-              const isTireSelected = selectedTires.includes(tire.id);
-              return (
+            {filteredTires
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map((tire) => (
                 <TableRow
                   hover
                   key={tire.id}
-                  selected={isTireSelected}
                   style={{ cursor: 'pointer' }}
+                  selected={selectedTires.includes(tire.id)}
                 >
-                  {/* <TableCell padding="checkbox">
-                    <Checkbox
-                      color="primary"
-                      checked={isTireSelected}
-                      onChange={(event: ChangeEvent<HTMLInputElement>) =>
-                        handleSelectOneTire(event, tire.id)
-                      }
-                      value={isTireSelected}
-                    />
-                  </TableCell> */}
-                  <TableCell>{tire.id}</TableCell>
-
                   <TableCell
-                    onClick={() => {
-                      navigate(`/admin/tires/${tire.id}`);
-                    }}
+                    onClick={() => navigate(`/admin/tires/${tire.id}`)}
                     sx={{
-                      '&:hover': {
-                        background: theme.colors.primary.lighter
-                      }
+                      '&:hover': { background: theme.colors.primary.lighter }
                     }}
                   >
                     {tire.marka}
@@ -240,7 +118,6 @@ const TiresTable: FC<TiresTableProps> = ({ tires }) => {
                   <TableCell>{tire.rimDiameter}</TableCell>
                   <TableCell>{tire.stock}</TableCell>
                   <TableCell>{tire.price}</TableCell>
-
                   <TableCell>
                     <Tooltip title="Edit Tire" arrow>
                       <IconButton
@@ -257,46 +134,24 @@ const TiresTable: FC<TiresTableProps> = ({ tires }) => {
                         <EditTwoToneIcon fontSize="small" />
                       </IconButton>
                     </Tooltip>
-                    <Tooltip title="Delete Tire" arrow>
-                      <IconButton
-                        sx={{
-                          '&:hover': { background: theme.colors.error.lighter },
-                          color: theme.palette.error.main
-                        }}
-                        color="inherit"
-                        size="small"
-                      >
-                        <DeleteTwoToneIcon fontSize="small" />
-                      </IconButton>
-                    </Tooltip>
+                    <DeleteTire theme={theme} id={tire.id} />
                   </TableCell>
                 </TableRow>
-              );
-            })}
+              ))}
           </TableBody>
         </Table>
       </TableContainer>
-      <Box p={2}>
-        <TablePagination
-          component="div"
-          count={filteredTires.length}
-          onPageChange={handlePageChange}
-          onRowsPerPageChange={handleLimitChange}
-          page={page}
-          rowsPerPage={limit}
-          rowsPerPageOptions={[5, 10, 25, 30]}
-        />
-      </Box>
+      <TablePagination
+        component="div"
+        count={filteredTires.length}
+        page={page}
+        onPageChange={handleChangePage}
+        rowsPerPage={rowsPerPage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+        rowsPerPageOptions={[5, 10, 25, 30]}
+      />
     </Card>
   );
-};
-
-TiresTable.propTypes = {
-  tires: PropTypes.array.isRequired
-};
-
-TiresTable.defaultProps = {
-  tires: []
 };
 
 export default TiresTable;

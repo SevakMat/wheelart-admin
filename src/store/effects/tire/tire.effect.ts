@@ -7,7 +7,11 @@ import {
   getTireByIdService,
   updateTireService
 } from 'src/services/tire.service';
-import { getTireAction, getTiresAction } from 'src/store/actions/tire/tire';
+import {
+  delelteTireAction,
+  getTireAction,
+  getTiresAction
+} from 'src/store/actions/tire/tire';
 import { TireType } from 'src/store/types/tire/tire';
 
 // Effect function to get all tires
@@ -57,24 +61,16 @@ export const createTireEffect = (tireData: TireType, navigate): any => {
 };
 
 // Effect function to get a tire by ID
-export const getTireByIdEffect = (tireId: string): any => {
-  return async (dispatch: AppDispatch) => {
-    try {
-      const result = await getTireByIdService(tireId);
-      const {
-        data: {
-          data: { tire }
-        }
-      } = result;
-
-      dispatch(getTireAction(tire));
-      // Dispatch any action or store the tire data as needed
-    } catch (error: any) {
-      console.log(error);
-    } finally {
-      // Any cleanup code if needed
-    }
-  };
+export const getTireByIdEffect = async (tireId: string): Promise<any> => {
+  try {
+    const tire = await getTireByIdService(tireId);
+    return tire;
+    // Dispatch any action or store the tire data as needed
+  } catch (error: any) {
+    console.log(error);
+  } finally {
+    // Any cleanup code if needed
+  }
 };
 
 // Effect function to update a tire by ID
@@ -110,9 +106,12 @@ export const deleteTireEffect = (tireId: string): any => {
   return async (dispatch: AppDispatch) => {
     try {
       await deleteTireService(tireId);
+      dispatch(delelteTireAction(tireId));
+
       // Handle success response as needed
     } catch (error: any) {
       console.log(error);
+
       // Handle error response as needed
     } finally {
       // Any cleanup code if needed

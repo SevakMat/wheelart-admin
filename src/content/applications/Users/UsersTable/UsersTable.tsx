@@ -34,11 +34,13 @@ const UsersTable: FC<UsersTableProps> = ({ users }) => {
   const { user: auth_user } = useAppSelector((state: RootState) => {
     return state.auth;
   });
+
   const [page, setPage] = useState<number>(0);
   const [rowsPerPage, setRowsPerPage] = useState<number>(5);
   const [searchQuery, setSearchQuery] = useState<string>(''); // State for search query
   const navigate = useNavigate();
   const theme = useTheme();
+
   const handleChangePage = (_, newPage: number) => {
     setPage(newPage);
   };

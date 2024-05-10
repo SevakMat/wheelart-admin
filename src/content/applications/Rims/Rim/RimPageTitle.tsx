@@ -8,7 +8,7 @@ interface RimPageTitleProps {
   heading?: string;
   subHeading?: string;
   docs?: string;
-  rimId?:string;
+  rimId?: string;
 }
 
 const RimPageTitle: FC<RimPageTitleProps> = ({
@@ -17,15 +17,10 @@ const RimPageTitle: FC<RimPageTitleProps> = ({
   docs = '',
   rimId
 }) => {
-
   const navigate = useNavigate();
 
   return (
-    <Grid
-      container
-      justifyContent="space-between"
-      alignItems="center"
-    >
+    <Grid container justifyContent="space-between" alignItems="center">
       <Grid item>
         <Typography variant="h3" component="h3" gutterBottom>
           {heading}
@@ -40,19 +35,22 @@ const RimPageTitle: FC<RimPageTitleProps> = ({
           sx={{ mt: { xs: 2, md: 0 } }}
           variant="contained"
           startIcon={<AddTwoToneIcon fontSize="small" />}
-          onClick={() => {navigate(`/admin/rims/new`)}}
-          >
+          onClick={() => {
+            navigate(`/admin/rims/new`);
+          }}
+        >
           Add Rim
         </Button>
         <Button
           href={docs}
           target="_blank"
           rel="noopener noreferrer"
-          sx={{ mt: { xs: 2, md: 0 } }}
+          sx={{ mt: { xs: 2, md: 0 }, ml: 4 }}
           variant="contained"
           startIcon={<AddTwoToneIcon fontSize="small" />}
-          onClick={() => {navigate(`/admin/rims/${rimId}/edit`)}}
-
+          onClick={() => {
+            navigate(`/admin/rims/${rimId}/edit`);
+          }}
         >
           Edit Rim
         </Button>
@@ -60,7 +58,5 @@ const RimPageTitle: FC<RimPageTitleProps> = ({
     </Grid>
   );
 };
-
-
 
 export default RimPageTitle;

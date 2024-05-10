@@ -8,7 +8,7 @@ interface TirePageTitleProps {
   heading?: string;
   subHeading?: string;
   docs?: string;
-  tireId?:string;
+  tireId?: string;
 }
 
 const TirePageTitle: FC<TirePageTitleProps> = ({
@@ -17,15 +17,10 @@ const TirePageTitle: FC<TirePageTitleProps> = ({
   docs = '',
   tireId
 }) => {
-
   const navigate = useNavigate();
 
   return (
-    <Grid
-      container
-      justifyContent="space-between"
-      alignItems="center"
-    >
+    <Grid container justifyContent="space-between" alignItems="center">
       <Grid item>
         <Typography variant="h3" component="h3" gutterBottom>
           {heading}
@@ -40,19 +35,22 @@ const TirePageTitle: FC<TirePageTitleProps> = ({
           sx={{ mt: { xs: 2, md: 0 } }}
           variant="contained"
           startIcon={<AddTwoToneIcon fontSize="small" />}
-          onClick={() => {navigate(`/admin/tires/new`)}}
-          >
+          onClick={() => {
+            navigate(`/admin/tires/new`);
+          }}
+        >
           Add Tire
         </Button>
         <Button
           href={docs}
           target="_blank"
           rel="noopener noreferrer"
-          sx={{ mt: { xs: 2, md: 0 } }}
+          sx={{ mt: { xs: 2, md: 0 }, ml: 5 }}
           variant="contained"
           startIcon={<AddTwoToneIcon fontSize="small" />}
-          onClick={() => {navigate(`/admin/tires/${tireId}/edit`)}}
-
+          onClick={() => {
+            navigate(`/admin/tires/${tireId}/edit`);
+          }}
         >
           Edit Tire
         </Button>
@@ -60,7 +58,5 @@ const TirePageTitle: FC<TirePageTitleProps> = ({
     </Grid>
   );
 };
-
-
 
 export default TirePageTitle;
