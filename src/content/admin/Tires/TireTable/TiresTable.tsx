@@ -68,8 +68,6 @@ const TiresTable: FC<TiresTableProps> = ({ tires }) => {
       <Divider />
       <Box sx={{ padding: '0 16px' }}>
         <FormControl fullWidth variant="outlined">
-          <InputLabel>Marka</InputLabel>
-          {/* Add Search TextField */}
           <TextField
             label="Search"
             variant="outlined"
