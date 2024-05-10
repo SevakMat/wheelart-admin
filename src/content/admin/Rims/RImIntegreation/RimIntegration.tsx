@@ -1,13 +1,15 @@
-import { ChangeEvent, useEffect, useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { createStyles, makeStyles } from '@mui/styles';
 import { Button, Typography } from '@mui/material';
-import useMutation from 'src/hooks/useMutation';
+import { useToasts } from 'react-toast-notifications';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
     root: {
-      textAlign: 'center'
-      //   marginTop: (4),
+      textAlign: 'center',
+      height: 200,
+      width: 400,
+      dispalay: 'flex'
     },
     fileInput: {
       display: 'none'
@@ -25,14 +27,8 @@ const ExcelIntegration = ({
 }: RimIntegrationProps) => {
   const classes = useStyles();
   const [file, setFile] = useState<File | null>(null);
-
-  const [uploadExcel, { data, isLoading }] = useMutation();
-
-  useEffect(() => {
-    if (data) {
-      setFile(null);
-    }
-  }, [data]);
+  const [isLoading, setIsloading] = useState(false);
+  const { addToast } = useToasts();
 
   const handleFileChange = ({
     target: { files }
@@ -40,14 +36,20 @@ const ExcelIntegration = ({
     setFile(files[0]);
   };
 
-  const handleUpload = () =>
-    uploadExcel(() => {
-      if (file) {
-        return integreateEXELFileService(file);
-      } else {
-        throw new Error('File is required');
-      }
-    });
+  const handleUpload = async () => {
+    try {
+      setIsloading(true);
+      await integreateEXELFileService(file);
+      addToast('Uploading success', { appearance: 'success' });
+    } catch (error) {
+      console.log('errorerrorerrorerror', error);
+
+      addToast(error?.response?.data?.message, { appearance: 'error' });
+      setIsloading(false);
+    } finally {
+      setIsOpenPopup(false);
+    }
+  };
 
   return (
     <div className={classes.root}>
@@ -63,7 +65,12 @@ const ExcelIntegration = ({
         onChange={handleFileChange}
       />
       <label htmlFor="file-input">
-        <Button variant="contained" component="span" disabled={isLoading}>
+        <Button
+          variant="contained"
+          component="span"
+          disabled={isLoading}
+          sx={{ mr: 4 }}
+        >
           Choose File
         </Button>
       </label>
