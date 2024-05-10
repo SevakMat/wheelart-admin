@@ -166,12 +166,4 @@ const RimsTable: FC<RimsTableProps> = ({ rims }) => {
   );
 };
 
-RimsTable.propTypes = {
-  rims: PropTypes.array.isRequired
-};
-
-RimsTable.defaultProps = {
-  rims: []
-};
-
 export default RimsTable;

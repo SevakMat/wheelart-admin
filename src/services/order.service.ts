@@ -28,7 +28,10 @@ export const updateOrderService = async (
 };
 
 // Route to delete a order by ID
-export const deleteOrderService = async (orderId: string): Promise<any> => {
+export const deleteOrderService = async (
+  orderId: string,
+  userId: string
+): Promise<any> => {
   const url = `/api/admin/orders/${orderId}`;
-  return axios.delete(url);
+  return axios.post(url, { userId });
 };

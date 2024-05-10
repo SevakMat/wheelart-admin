@@ -1,15 +1,12 @@
-import { FC, ChangeEvent, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import PropTypes from 'prop-types';
 import {
   Tooltip,
   Divider,
   Box,
   FormControl,
-  InputLabel,
   Card,
-  Checkbox,
   IconButton,
   Table,
   TableBody,
@@ -18,154 +15,65 @@ import {
   TablePagination,
   TableRow,
   TableContainer,
-  Select,
-  MenuItem,
   useTheme,
-  CardHeader
+  CardHeader,
+  TextField
 } from '@mui/material';
 import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
 import { OrderType } from 'src/store/types/order/order';
 import { DateFormatter } from 'src/helpers/DateFormatter';
+import DeleteOrder from './DeleteOrder';
 
 interface OrdersTableProps {
   className?: string;
   orders: OrderType[];
 }
 
-interface Filters {
-  orderType: string;
-  itemId: string;
-  itemCount: string;
-}
-
-const applyFilters = (orders: OrderType[], filters: Filters): OrderType[] => {
-  return orders.filter((order) => {
-    let matches = true;
-
-    if (filters?.orderType && order?.orderType !== filters?.orderType) {
-      matches = false;
-    }
-
-    return matches;
-  });
-};
-
-const applyPagination = (
-  orders: OrderType[],
-  page: number,
-  limit: number
-): OrderType[] => {
-  return orders.slice(page * limit, page * limit + limit);
-};
-
 const OrdersTable: FC<OrdersTableProps> = ({ orders }) => {
-  const [selectedOrders, setSelectedOrders] = useState<string[]>([]);
   const [page, setPage] = useState<number>(0);
-  const [limit, setLimit] = useState<number>(5);
-  const [filters, setFilters] = useState<Filters>();
+  const [rowsPerPage, setRowsPerPage] = useState<number>(5);
+  const [searchQuery, setSearchQuery] = useState<string>('');
   const navigate = useNavigate();
+  const theme = useTheme();
 
-  const statusOptions = [
-    {
-      id: 'all',
-      name: 'All'
-    },
-    {
-      id: 'completed',
-      name: 'Completed'
-    },
-    {
-      id: 'pending',
-      name: 'Pending'
-    },
-    {
-      id: 'failed',
-      name: 'Failed'
-    }
-  ];
-
-  const handleStatusChange = (e: ChangeEvent<HTMLInputElement>): void => {
-    let value = null;
-
-    if (e.target.value !== 'all') {
-      value = e.target.value;
-    }
-
-    setFilters((prevFilters) => ({
-      ...prevFilters,
-      status: value
-    }));
-  };
-
-  const handleFilterChange = (filter: string, value: string): void => {
-    setFilters((prevFilters) => ({
-      ...prevFilters,
-      [filter]: value
-    }));
-  };
-
-  const handleSelectAllOrders = (
-    event: ChangeEvent<HTMLInputElement>
-  ): void => {
-    setSelectedOrders(
-      event.target.checked ? orders.map((order) => order.id) : []
-    );
-  };
-
-  const handleSelectOneOrder = (
-    event: ChangeEvent<HTMLInputElement>,
-    orderId: string
-  ): void => {
-    if (!selectedOrders.includes(orderId)) {
-      setSelectedOrders((prevSelected) => [...prevSelected, orderId]);
-    } else {
-      setSelectedOrders((prevSelected) =>
-        prevSelected.filter((id) => id !== orderId)
-      );
-    }
-  };
-
-  const handlePageChange = (event: any, newPage: number): void => {
+  const handleChangePage = (_, newPage: number) => {
     setPage(newPage);
   };
 
-  const handleLimitChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    setLimit(parseInt(event.target.value));
+  const handleChangeRowsPerPage = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
   };
 
-  const filteredOrders = applyFilters(orders, filters);
-  const paginatedOrders = applyPagination(filteredOrders, page, limit);
-  const selectedSomeOrders =
-    selectedOrders.length > 0 && selectedOrders.length < orders.length;
-  const selectedAllOrders = selectedOrders.length === orders.length;
-  const theme = useTheme();
+  // Filter orders based on search query
+  const filteredOrders = orders.filter((order) =>
+    `${order.name} ${order.userName}`
+      .toLowerCase()
+      .includes(searchQuery.toLowerCase())
+  );
 
   return (
     <Card>
       <CardHeader
-        action={
-          <>
-            <FormControl fullWidth variant="outlined">
-              <InputLabel>Status</InputLabel>
-              <Select
-                value={filters?.orderType || 'all'}
-                onChange={handleStatusChange}
-                label="Status"
-                autoWidth
-              >
-                {statusOptions.map((statusOption) => (
-                  <MenuItem key={statusOption.id} value={statusOption.id}>
-                    {statusOption.name}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </>
-        }
+        action={<FormControl fullWidth variant="outlined"></FormControl>}
         title="Recent Orders"
       />
       <Divider />
+      <Box sx={{ padding: '0 16px' }}>
+        <TextField
+          label="Search"
+          variant="outlined"
+          fullWidth
+          value={searchQuery}
+          onChange={(e) => {
+            setSearchQuery(e.target.value);
+            setPage(0);
+          }}
+        />
+      </Box>
       <TableContainer>
         <Table>
           <TableHead>
@@ -174,45 +82,32 @@ const OrdersTable: FC<OrdersTableProps> = ({ orders }) => {
               <TableCell>Order Count</TableCell>
               <TableCell>Order Type</TableCell>
               <TableCell>Name</TableCell>
-
               <TableCell>Order Status</TableCell>
               <TableCell>User ID</TableCell>
               <TableCell>Date</TableCell>
-
               <TableCell>Actions</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {paginatedOrders.map((order: OrderType) => {
-              const isOrderSelected = selectedOrders.includes(order.id);
-              return (
-                <TableRow
-                  hover
-                  key={order.id}
-                  selected={isOrderSelected}
-                  style={{ cursor: 'pointer' }}
-                >
+            {filteredOrders
+              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+              .map((order) => (
+                <TableRow hover key={order.id} style={{ cursor: 'pointer' }}>
                   <TableCell
+                    onClick={() => {
+                      navigate(`/admin/orders/${order.id}`);
+                    }}
                     sx={{
                       '&:hover': {
                         background: theme.colors.primary.lighter
                       }
-                    }}
-                    onClick={() => {
-                      navigate(`/admin/orders/${order.id}`);
                     }}
                   >
                     {order.id}
                   </TableCell>
                   <TableCell>{order.itemCount}</TableCell>
                   <TableCell>{order.orderType}</TableCell>
-
                   <TableCell
-                    sx={{
-                      '&:hover': {
-                        background: theme.colors.primary.lighter
-                      }
-                    }}
                     onClick={() => {
                       navigate(
                         `/admin/${
@@ -225,19 +120,13 @@ const OrdersTable: FC<OrdersTableProps> = ({ orders }) => {
                   </TableCell>
                   <TableCell>{order.status}</TableCell>
                   <TableCell
-                    sx={{
-                      '&:hover': {
-                        background: theme.colors.primary.lighter
-                      }
-                    }}
                     onClick={() => {
                       navigate(`/admin/users/${order.userId}`);
                     }}
                   >
-                    {order.userId}
+                    {order.userName}
                   </TableCell>
                   <TableCell>{DateFormatter(order?.createdDate)}</TableCell>
-
                   <TableCell>
                     <Tooltip title="Edit Order" arrow>
                       <IconButton
@@ -254,22 +143,14 @@ const OrdersTable: FC<OrdersTableProps> = ({ orders }) => {
                         <EditTwoToneIcon fontSize="small" />
                       </IconButton>
                     </Tooltip>
-                    <Tooltip title="Delete Order" arrow>
-                      <IconButton
-                        sx={{
-                          '&:hover': { background: theme.colors.error.lighter },
-                          color: theme.palette.error.main
-                        }}
-                        color="inherit"
-                        size="small"
-                      >
-                        <DeleteTwoToneIcon fontSize="small" />
-                      </IconButton>
-                    </Tooltip>
+                    <DeleteOrder
+                      theme={theme}
+                      id={order.id}
+                      userId={order.userId}
+                    />
                   </TableCell>
                 </TableRow>
-              );
-            })}
+              ))}
           </TableBody>
         </Table>
       </TableContainer>
@@ -277,23 +158,15 @@ const OrdersTable: FC<OrdersTableProps> = ({ orders }) => {
         <TablePagination
           component="div"
           count={filteredOrders.length}
-          onPageChange={handlePageChange}
-          onRowsPerPageChange={handleLimitChange}
           page={page}
-          rowsPerPage={limit}
+          onPageChange={handleChangePage}
+          rowsPerPage={rowsPerPage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
           rowsPerPageOptions={[5, 10, 25, 30]}
         />
       </Box>
     </Card>
   );
-};
-
-OrdersTable.propTypes = {
-  orders: PropTypes.array.isRequired
-};
-
-OrdersTable.defaultProps = {
-  orders: []
 };
 
 export default OrdersTable;

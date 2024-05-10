@@ -13,11 +13,8 @@ function OrdersPageHeader() {
         <Typography variant="h3" component="h3" gutterBottom>
           Orders
         </Typography>
-        <Typography variant="subtitle2">
-          {user.name}, these are your recent transactions
-        </Typography>
       </Grid>
-      <Grid item>
+      {/* <Grid item>
         <Button
           href={'/admin/orders/new'}
           sx={{ mt: { xs: 2, md: 0 } }}
@@ -26,7 +23,7 @@ function OrdersPageHeader() {
         >
           Create order
         </Button>
-      </Grid>
+      </Grid> */}
     </Grid>
   );
 }
