@@ -3,10 +3,6 @@ import { Typography, Button, Grid, Card } from '@mui/material';
 import AddTwoToneIcon from '@mui/icons-material/AddTwoTone';
 
 function UsersPageHeader() {
-  const user = {
-    name: 'Catherine Pike',
-    avatar: '/static/images/avatars/1.jpg'
-  };
   return (
     <Card
       sx={{
