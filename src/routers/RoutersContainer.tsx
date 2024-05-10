@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import modules from './routers';
 import { RootState } from '../store';
 import { useAppSelector } from '../store';
+import Status404 from 'src/content/pages/Status/Status404';
 
 const RoutersContainer: () => JSX.Element = () => {
   const { isLoggedIn } = useAppSelector((state: RootState) => {
@@ -14,7 +15,10 @@ const RoutersContainer: () => JSX.Element = () => {
         {modules.map(({ isPrivate, routerProps }) => {
           return routerProps.map((flan) =>
             isPrivate && !isLoggedIn ? (
-              <Route path={flan.path} element={<Navigate to="/login" />} />
+              <Route
+                path={flan.path}
+                element={<Navigate to="/admin/login" />}
+              />
             ) : !isPrivate && isLoggedIn ? (
               <Route
                 path={flan.path}
@@ -25,7 +29,7 @@ const RoutersContainer: () => JSX.Element = () => {
             )
           );
         })}
-        <Route path={'*'} element={<>not found</>} />
+        <Route path={'*'} element={<Status404 />} />
       </Routes>
     </BrowserRouter>
   );
