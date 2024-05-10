@@ -1,5 +1,8 @@
 import axios from 'axios';
+import { SignInByRefreshTocenRequest } from '../services/auth.service';
 import { apiBaseUrl } from './index';
+import { store } from '../store';
+import { logOutEffect } from '../store/effects/auth/auth.effects';
 
 const instance = axios.create({
   baseURL: apiBaseUrl
@@ -8,6 +11,8 @@ const instance = axios.create({
 instance.interceptors.request.use(function (config: any) {
   const token = localStorage.getItem('accessToken');
   config.headers.Authorization = token ? `Bearer ${token}` : '';
+  config.headers.admin = 'FTS';
+
   return config;
 });
 
@@ -15,6 +20,8 @@ instance.interceptors.request.use(function (config: any) {
 instance.interceptors.response.use(
   (response) => response,
   async (err) => {
+    console.log('err.response?.status', err.response?.status);
+
     if (
       err.response?.status === 401 &&
       !err.config.alreadyRetried &&
@@ -22,19 +29,20 @@ instance.interceptors.response.use(
     ) {
       try {
         const userRefreshToken = localStorage.getItem('refreshToken');
-        // const res = await SignInByRefreshTocenRequest({ refreshToken: userRefreshToken })
-        // const { accessToken, refreshToken } = res.data
-        // if (refreshToken) {
-        //     await localStorage.setItem("accessToken", accessToken)
-        //     await localStorage.setItem("refreshToken", refreshToken)
-        //     err.config.alreadyRetried = true
-        //     err.config.headers.Authorization = `Bearer ${accessToken}`
-        //     return await instance.request(err.config)
-        // }
-      } catch (err: any) {
-        console.log(err);
+        const res = await SignInByRefreshTocenRequest({
+          refreshToken: userRefreshToken
+        });
 
-        // store.dispatch(logoutWithAxiosInterceptorEffect() as any)
+        const { access_token, refresh_token } = res.data;
+        if (refresh_token) {
+          await localStorage.setItem('accessToken', access_token);
+          await localStorage.setItem('refreshToken', refresh_token);
+          err.config.alreadyRetried = true;
+          err.config.headers.Authorization = `Bearer ${access_token}`;
+          return await instance.request(err.config);
+        }
+      } catch (err: any) {
+        store.dispatch(logOutEffect() as any);
       }
     }
     return Promise.reject(err);

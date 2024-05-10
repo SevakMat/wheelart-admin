@@ -10,7 +10,8 @@ import {
 
 export const loginEffect = (
   loginData: LoginData,
-  navigate: NavigateFunction
+  navigate: NavigateFunction,
+  addToast: any
 ): any => {
   return async (dispatch: AppDispatch) => {
     try {
@@ -18,15 +19,19 @@ export const loginEffect = (
       // Get user
       const result = await loginRequest(loginData);
       const {
-        data: { access_token, user }
+        data: { access_token, refresh_token, user }
       } = result;
 
       await localStorage.setItem('accessToken', access_token);
+      await localStorage.setItem('refreshToken', refresh_token);
+
       dispatch(loginRequestSuccess(user));
 
       navigate('/admin/users');
     } catch (error: any) {
-      console.log(error.response.status);
+      console.log(error.response?.data);
+
+      addToast(error.response?.data?.message, { appearance: 'error' });
     } finally {
       dispatch(setLoadingEffect(false));
     }

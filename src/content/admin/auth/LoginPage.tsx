@@ -17,6 +17,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { Button } from '@mui/material';
 import { AppDispatch } from 'src/store';
 import { loginEffect } from 'src/store/effects/auth/auth.effects';
+import { useToasts } from 'react-toast-notifications';
 
 const theme = createTheme();
 
@@ -24,6 +25,7 @@ const Login = () => {
   const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const { addToast } = useToasts();
 
   const {
     control,
@@ -33,7 +35,7 @@ const Login = () => {
 
   const onSubmit = async (data: any) => {
     setLoading(true);
-    await dispatch(loginEffect(data, navigate));
+    await dispatch(loginEffect(data, navigate, addToast));
     setLoading(false);
   };
 
