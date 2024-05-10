@@ -1,43 +1,51 @@
-import axios from "axios"
-// import { SignInByRefreshTocenRequest } from "../services/auth.service"
-import { apiBaseUrl } from "./index"
-// import {store} from "../store"
+import axios from 'axios';
+import { SignInByRefreshTocenRequest } from '../services/auth.service';
+import { apiBaseUrl } from './index';
+import { store } from '../store';
+import { logOutEffect } from '../store/effects/auth/auth.effects';
 
 const instance = axios.create({
-    baseURL: apiBaseUrl,
-})
+  baseURL: apiBaseUrl
+});
 
 instance.interceptors.request.use(function (config: any) {
+  const token = localStorage.getItem('accessToken');
+  config.headers.Authorization = token ? `Bearer ${token}` : '';
+  config.headers.admin = 'FTS';
 
-    const token = localStorage.getItem("accessToken")
-    config.headers.Authorization = token ? `Bearer ${token}` : ""
-    return config
-})
+  return config;
+});
 
 // Also add/ configure interceptors && all the other cool stuff
 instance.interceptors.response.use(
-    response => response,
-    async err => {
-        if (err.response?.status === 401 && !err.config.alreadyRetried && err.config.url !== 'api/v1/auth/login') {
-            try {
-                const userRefreshToken = localStorage.getItem("refreshToken")
-                // const res = await SignInByRefreshTocenRequest({ refreshToken: userRefreshToken })
-                // const { accessToken, refreshToken } = res.data
-                // if (refreshToken) {
-                //     await localStorage.setItem("accessToken", accessToken)
-                //     await localStorage.setItem("refreshToken", refreshToken)
-                //     err.config.alreadyRetried = true
-                //     err.config.headers.Authorization = `Bearer ${accessToken}`
-                //     return await instance.request(err.config)
-                // }
+  (response) => response,
+  async (err) => {
+    console.log('err.response?.status', err.response?.status);
 
-            } catch (err: any) {
-                console.log(err);
+    if (
+      err.response?.status === 401 &&
+      !err.config.alreadyRetried &&
+      err.config.url !== 'api/v1/auth/login'
+    ) {
+      try {
+        const userRefreshToken = localStorage.getItem('refreshToken');
+        const res = await SignInByRefreshTocenRequest({
+          refreshToken: userRefreshToken
+        });
 
-                // store.dispatch(logoutWithAxiosInterceptorEffect() as any)
-            }
+        const { access_token, refresh_token } = res.data;
+        if (refresh_token) {
+          await localStorage.setItem('accessToken', access_token);
+          await localStorage.setItem('refreshToken', refresh_token);
+          err.config.alreadyRetried = true;
+          err.config.headers.Authorization = `Bearer ${access_token}`;
+          return await instance.request(err.config);
         }
-        return Promise.reject(err);
+      } catch (err: any) {
+        store.dispatch(logOutEffect() as any);
+      }
     }
-)
-export default instance
+    return Promise.reject(err);
+  }
+);
+export default instance;

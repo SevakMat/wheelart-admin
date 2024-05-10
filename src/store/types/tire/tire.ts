@@ -1,6 +1,7 @@
 export enum TireServerTypes {
   GET_TIRES_SUCCESS = 'GET_TIRES_SUCCESS',
-  GET_TIRE_SUCCESS = 'GET_TIRE_SUCCESS'
+  GET_TIRE_SUCCESS = 'GET_TIRE_SUCCESS',
+  DELETE_TIRE_SUCCESS = 'DELETE_TIRE_SUCCESS'
 }
 
 export interface TireType {
@@ -28,5 +29,12 @@ export interface getTireActionType {
   type: TireServerTypes.GET_TIRE_SUCCESS;
   tire: TireType;
 }
+export interface deleteTireActionType {
+  type: TireServerTypes.DELETE_TIRE_SUCCESS;
+  id: string;
+}
 
-export type TireActionTypes = getTiresActionType | getTireActionType;
+export type TireActionTypes =
+  | getTiresActionType
+  | getTireActionType
+  | deleteTireActionType;

@@ -1,4 +1,4 @@
-import axios from "../config/axios";
+import axios from '../config/axios';
 
 // Route to get all users
 export const getAllUsersService = async (): Promise<any> => {
@@ -15,11 +15,20 @@ export const createUserService = async (userData: any): Promise<any> => {
 // Route to get a user by ID
 export const getUserByIdService = async (userId: string): Promise<any> => {
   const url = `/api/admin/users/${userId}`;
-  return axios.get(url);
+  const res = await axios.get(url);
+  const {
+    data: {
+      data: { user }
+    }
+  } = res;
+  return user;
 };
 
 // Route to update a user by ID
-export const updateUserService = async (userId: string, userData: any): Promise<any> => {
+export const updateUserService = async (
+  userId: string,
+  userData: any
+): Promise<any> => {
   const url = `/api/admin/users/${userId}`;
   return axios.put(url, userData);
 };

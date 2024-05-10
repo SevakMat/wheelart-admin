@@ -7,9 +7,14 @@ import {
 } from '../../../services/rim.service'; // Replace "path/to/rim.service" with the correct path
 
 import { AppDispatch } from '../..';
-import { getRimAction, getRimsAction } from 'src/store/actions/rim/rim';
+import {
+  delelteRimAction,
+  getRimAction,
+  getRimsAction
+} from 'src/store/actions/rim/rim';
 import { RimType } from 'src/store/types/rim/rim';
 import { NavigateFunction } from 'react-router';
+import { delelteUserAction } from 'src/store/actions/user/user';
 
 // Effect function to get all rims
 export const getAllRimsEffect = (): any => {
@@ -57,24 +62,16 @@ export const createRimEffect = (rimData: RimType, navigate): any => {
 };
 
 // Effect function to get a rim by ID
-export const getRimByIdEffect = (rimId: string): any => {
-  return async (dispatch: AppDispatch) => {
-    try {
-      const result = await getRimByIdService(rimId);
-      const {
-        data: {
-          data: { rim }
-        }
-      } = result;
-
-      dispatch(getRimAction(rim));
-      // Dispatch any action or store the rim data as needed
-    } catch (error: any) {
-      console.log(error);
-    } finally {
-      // Any cleanup code if needed
-    }
-  };
+export const getRimByIdEffect = async (rimId: string): Promise<any> => {
+  try {
+    const rim = await getRimByIdService(rimId);
+    return rim;
+    // Dispatch any action or store the rim data as needed
+  } catch (error: any) {
+    console.log(error);
+  } finally {
+    // Any cleanup code if needed
+  }
 };
 
 // Effect function to update a rim by ID
@@ -110,9 +107,12 @@ export const deleteRimEffect = (rimId: string): any => {
   return async (dispatch: AppDispatch) => {
     try {
       await deleteRimService(rimId);
+      dispatch(delelteRimAction(rimId));
+
       // Handle success response as needed
     } catch (error: any) {
       console.log(error);
+
       // Handle error response as needed
     } finally {
       // Any cleanup code if needed

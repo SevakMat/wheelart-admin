@@ -1,21 +1,22 @@
-import Users from 'src/content/applications/Users/UsersTable';
+import Users from 'src/content/admin/Users/UsersTable';
 import ProtectedRoute from '../types/ProtectedRoute';
-import NewUser from 'src/content/applications/Users/NewUser';
-import User from 'src/content/applications/Users/User';
-import EditUserConteiner from 'src/content/applications/Users/EditUsers';
-import Rims from 'src/content/applications/Rims/RimTable';
-import Rim from 'src/content/applications/Rims/Rim';
-import EditRimConteiner from 'src/content/applications/Rims/EditRim';
-import Tires from 'src/content/applications/Tires/TireTable';
-import NewTire from 'src/content/applications/Tires/NewTire';
-import Tire from 'src/content/applications/Tires/Tire';
-import EditTireConteiner from 'src/content/applications/Tires/EditTire';
-import Orders from 'src/content/applications/Orders/OrderTable';
-import NewOrder from 'src/content/applications/Orders/NewOrder';
-import Order from 'src/content/applications/Orders/Order';
-import EditOrderConteiner from 'src/content/applications/Orders/EditOrder';
+import NewUser from 'src/content/admin/Users/NewUser';
+import User from 'src/content/admin/Users/User';
+import EditUserConteiner from 'src/content/admin/Users/EditUsers';
+import Rims from 'src/content/admin/Rims/RimTable';
+import Rim from 'src/content/admin/Rims/Rim';
+import EditRimConteiner from 'src/content/admin/Rims/EditRim';
+import Tires from 'src/content/admin/Tires/TireTable';
+import NewTire from 'src/content/admin/Tires/NewTire';
+import Tire from 'src/content/admin/Tires/Tire';
+import EditTireConteiner from 'src/content/admin/Tires/EditTire';
+import Orders from 'src/content/admin/Orders/OrderTable';
+import NewOrder from 'src/content/admin/Orders/NewOrder';
+import Order from 'src/content/admin/Orders/Order';
+import EditOrderConteiner from 'src/content/admin/Orders/EditOrder';
 import SidebarLayout from 'src/layouts/SidebarLayout';
 import { ReactNode } from 'react';
+import NewRim from 'src/content/admin/Rims/NewRim';
 
 const Routers = [
   {
@@ -41,7 +42,7 @@ const Routers = [
   },
   {
     path: '/admin/rims/new',
-    element: <NewUser />
+    element: <NewRim />
   },
   {
     path: '/admin/rims/:id',

@@ -1,6 +1,4 @@
-import { AxiosPromise } from 'axios';
 import axios from '../config/axios';
-import { RimType } from 'src/models/rim';
 
 // Route to get all rims
 export const getAllRimsService = async (): Promise<any> => {
@@ -26,7 +24,13 @@ export const integreateRimEXELFileService = async (
 // Route to get a rim by ID
 export const getRimByIdService = async (rimId: string): Promise<any> => {
   const url = `/api/admin/rims/${rimId}`;
-  return axios.get(url);
+  const res = await axios.get(url);
+  const {
+    data: {
+      data: { rim }
+    }
+  } = res;
+  return rim;
 };
 
 // Route to update a rim by ID

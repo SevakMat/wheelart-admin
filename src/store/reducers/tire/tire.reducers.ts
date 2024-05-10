@@ -1,5 +1,9 @@
-import { Reducer } from "redux";
-import { TireActionTypes, TireServerTypes, TireState } from "src/store/types/tire/tire";
+import { Reducer } from 'redux';
+import {
+  TireActionTypes,
+  TireServerTypes,
+  TireState
+} from 'src/store/types/tire/tire';
 
 const initialState: TireState = {
   tireList: [],
@@ -15,13 +19,22 @@ const reducer: ReducerType = (state, action: TireActionTypes) => {
     case TireServerTypes.GET_TIRES_SUCCESS:
       return {
         ...state,
-        tireList: action.tireList,
+        tireList: action.tireList
       };
 
     case TireServerTypes.GET_TIRE_SUCCESS:
       return {
         ...state,
-        tire: action.tire,
+        tire: action.tire
+      };
+
+    case TireServerTypes.DELETE_TIRE_SUCCESS:
+      const updatedTireList = state.tireList.filter(
+        (tire) => tire.id !== action.id
+      );
+      return {
+        ...state,
+        tireList: updatedTireList
       };
 
     default:

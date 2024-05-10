@@ -28,6 +28,15 @@ const reducer: ReducerType = (state, action: OrderActionTypes) => {
         order: action.order
       };
 
+    case OrderServerTypes.DELETE_ORDER_SUCCESS:
+      const updatedOrderList = state.orderList.filter(
+        (order) => order.id !== action.id
+      );
+      return {
+        ...state,
+        orderList: updatedOrderList
+      };
+
     default:
       return state;
   }

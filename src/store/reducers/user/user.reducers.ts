@@ -28,6 +28,15 @@ const reducer: ReducerType = (state, action: UserActionTypes) => {
         user: action.user
       };
 
+    case UserServerTypes.DELETE_USER_SUCCESS:
+      const updatedUserList = state.userList.filter(
+        (user) => user.id !== action.id
+      );
+      return {
+        ...state,
+        userList: updatedUserList
+      };
+
     default:
       return state;
   }

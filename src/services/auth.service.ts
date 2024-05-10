@@ -12,7 +12,7 @@ export const logOutRequest = async (): Promise<any> => {
 export const SignInByRefreshTocenRequest = async (
   refreshToken: RefreshToken
 ): Promise<any> => {
-  return axios.post('api/v1/auth/sign-in-by-refresh-token', {
+  return axios.post('api/auth/refresh-token', {
     ...refreshToken
   });
 };

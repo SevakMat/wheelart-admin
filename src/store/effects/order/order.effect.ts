@@ -7,7 +7,11 @@ import {
   getOrderByIdService,
   updateOrderService
 } from 'src/services/order.service';
-import { getOrderAction, getOrdersAction } from 'src/store/actions/order/order';
+import {
+  delelteOrderAction,
+  getOrderAction,
+  getOrdersAction
+} from 'src/store/actions/order/order';
 import { OrderType } from 'src/store/types/order/order';
 
 // Effect function to get all orders
@@ -98,13 +102,14 @@ export const updateOrderEffect = (
 };
 
 // Effect function to delete a order by ID
-export const deleteOrderEffect = (orderId: string): any => {
+export const deleteOrderEffect = (orderId: string, userId: string): any => {
   return async (dispatch: AppDispatch) => {
     try {
-      await deleteOrderService(orderId);
-      // Handle success response as needed
+      await deleteOrderService(orderId, userId);
+      dispatch(delelteOrderAction(orderId));
     } catch (error: any) {
       console.log(error);
+
       // Handle error response as needed
     } finally {
       // Any cleanup code if needed
