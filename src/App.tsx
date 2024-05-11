@@ -9,8 +9,6 @@ import { ToastProvider, useToasts } from 'react-toast-notifications';
 import RoutersContainer from './routers/RoutersContainer';
 
 function App() {
-  // const content = useRoutes(router);
-
   return (
     <ThemeProvider>
       <LocalizationProvider dateAdapter={AdapterDateFns}>
