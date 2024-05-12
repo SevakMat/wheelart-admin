@@ -7,12 +7,12 @@ import {
   Button,
   FormControl,
   OutlinedInput,
-  InputAdornment
-} from '@mui/material';
-import { Helmet } from 'react-helmet-async';
-import SearchTwoToneIcon from '@mui/icons-material/SearchTwoTone';
+  InputAdornment,
+} from "@mui/material";
+import { Helmet } from "react-helmet-async";
+import SearchTwoToneIcon from "@mui/icons-material/SearchTwoTone";
 
-import { styled } from '@mui/material/styles';
+import { styled } from "@mui/material/styles";
 
 const MainContent = styled(Box)(
   ({ theme }) => `
@@ -39,6 +39,8 @@ const ButtonSearch = styled(Button)(
 );
 
 function Status404() {
+  console.log("404");
+
   return (
     <>
       <Helmet>
@@ -62,7 +64,7 @@ function Status404() {
             </Typography>
           </Box>
           <Container maxWidth="sm">
-            <Card sx={{ textAlign: 'center', mt: 3, p: 4 }}>
+            <Card sx={{ textAlign: "center", mt: 3, p: 4 }}>
               <Button href="/admin/login" variant="outlined">
                 Go to homepage
               </Button>

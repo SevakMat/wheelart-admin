@@ -7,6 +7,7 @@
     "name": "BloomUI.com",
     "url": "https://bloomui.com"
   },
+  "homepage": ".",
   "private": false,
   "dependencies": {
     "@emotion/react": "11.9.0",
@@ -34,7 +35,7 @@
     "react-hook-form": "^7.51.4",
     "react-redux": "^8.0.5",
     "react-router": "6.3.0",
-    "react-router-dom": "6.3.0",
+    "react-router-dom": "^6.4.3",
     "react-scripts": "5.0.1",
     "react-toast-notifications": "^2.5.1",
     "redux-persist": "^6.0.0",
@@ -46,11 +47,9 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build && cp ./serve.json ./build",
-    "eject": "react-scripts eject",
-    "lint": "eslint .",
-    "lint:fix": "eslint --fix",
-    "format": "prettier --write \"./**/*.{ts,tsx,js,jsx,json}\" --config ./.prettierrc"
+    "build": "set \"GENERATE_SOURCEMAP=true\" && react-scripts build && cp ./serve.json ./build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
   "browserslist": {
     "production": [

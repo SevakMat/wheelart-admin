@@ -1,8 +1,8 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import modules from './routers';
-import { RootState } from '../store';
-import { useAppSelector } from '../store';
-import Status404 from 'src/content/pages/Status/Status404';
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import modules from "./routers";
+import { RootState } from "../store";
+import { useAppSelector } from "../store";
+import Status404 from "src/content/pages/Status/Status404";
 
 const RoutersContainer: () => JSX.Element = () => {
   const { isLoggedIn } = useAppSelector((state: RootState) => {
@@ -28,7 +28,7 @@ const RoutersContainer: () => JSX.Element = () => {
             )
           );
         })}
-        <Route path={'*'} element={<Status404 />} />
+        <Route path={"*"} element={<Status404 />} />
       </Routes>
     </BrowserRouter>
   );
