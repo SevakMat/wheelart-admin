@@ -10,8 +10,8 @@ const Order = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    dispatch(getOrderByIdEffect(id));
-  }, []);
+    if (id) dispatch(getOrderByIdEffect(id));
+  }, [id]);
 
   const { order } = useAppSelector((state: RootState) => state.order);
 

@@ -11,7 +11,7 @@ const User = () => {
 
   const { id } = useParams();
 
-  const getUser = async () => {
+  const getUser = async (id: string) => {
     try {
       const user = await getUserByIdEffect(id);
       setUser(user);
@@ -22,7 +22,7 @@ const User = () => {
   };
 
   useEffect(() => {
-    getUser();
+    if (id) getUser(id);
   }, [id]);
 
   if (!user) return <div>User not exist</div>;

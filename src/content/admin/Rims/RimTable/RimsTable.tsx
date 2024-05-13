@@ -1,9 +1,6 @@
-import { FC, ChangeEvent, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-
-import PropTypes from 'prop-types';
+import { FC, ChangeEvent, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
-  Tooltip,
   Divider,
   Box,
   FormControl,
@@ -19,12 +16,12 @@ import {
   TableContainer,
   useTheme,
   CardHeader,
-  TextField
-} from '@mui/material';
-import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
-import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
-import { RimType } from 'src/store/types/rim/rim';
-import DeleteRim from './DeleteRim';
+  TextField,
+} from "@mui/material";
+import EditTwoToneIcon from "@mui/icons-material/EditTwoTone";
+import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
+import { RimType } from "src/store/types/rim/rim";
+import DeleteRim from "./DeleteRim";
 
 interface RimsTableProps {
   className?: string;
@@ -34,10 +31,10 @@ interface RimsTableProps {
 const RimsTable: FC<RimsTableProps> = ({ rims }) => {
   const [page, setPage] = useState<number>(0);
   const [rowsPerPage, setRowsPerPage] = useState<number>(5);
-  const [searchQuery, setSearchQuery] = useState<string>(''); // State for search query
+  const [searchQuery, setSearchQuery] = useState<string>(""); // State for search query
   const navigate = useNavigate();
 
-  const handleChangePage = (_, newPage: number) => {
+  const handleChangePage = (asd: any, newPage: number) => {
     setPage(newPage);
   };
 
@@ -66,7 +63,7 @@ const RimsTable: FC<RimsTableProps> = ({ rims }) => {
         title="Recent Rims"
       />
       <Divider />
-      <Box sx={{ padding: '0 16px' }}>
+      <Box sx={{ padding: "0 16px" }}>
         <TextField
           label="Search"
           variant="outlined"
@@ -100,13 +97,13 @@ const RimsTable: FC<RimsTableProps> = ({ rims }) => {
             {filteredUsers
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((rim) => (
-                <TableRow hover key={rim.id} style={{ cursor: 'pointer' }}>
+                <TableRow hover key={rim.id} style={{ cursor: "pointer" }}>
                   <TableCell>{rim.id}</TableCell>
                   <TableCell
                     sx={{
-                      '&:hover': {
-                        background: theme.colors.primary.lighter
-                      }
+                      "&:hover": {
+                        background: theme.colors.primary.lighter,
+                      },
                     }}
                     onClick={(e) => {
                       navigate(`/admin/rims/${rim.id}`);
@@ -125,13 +122,13 @@ const RimsTable: FC<RimsTableProps> = ({ rims }) => {
                   <TableCell>{rim.price}</TableCell>
                   <TableCell>{rim.stock}</TableCell>
                   <TableCell>
-                    <Tooltip title="Edit Rim" arrow>
+                    <Box>
                       <IconButton
                         sx={{
-                          '&:hover': {
-                            background: theme.colors.primary.lighter
+                          "&:hover": {
+                            background: theme.colors.primary.lighter,
                           },
-                          color: theme.palette.primary.main
+                          color: theme.palette.primary.main,
                         }}
                         color="inherit"
                         size="small"
@@ -141,10 +138,12 @@ const RimsTable: FC<RimsTableProps> = ({ rims }) => {
                       >
                         <EditTwoToneIcon fontSize="small" />
                       </IconButton>
-                    </Tooltip>
-                    <Tooltip title="Delete Rim" arrow>
-                      <DeleteRim theme={theme} id={rim.id} />
-                    </Tooltip>
+                    </Box>
+                    {rim.id && (
+                      <Box>
+                        <DeleteRim theme={theme} id={rim.id} />
+                      </Box>
+                    )}
                   </TableCell>
                 </TableRow>
               ))}

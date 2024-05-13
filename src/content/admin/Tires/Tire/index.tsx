@@ -11,7 +11,7 @@ const Tire = () => {
 
   const { id } = useParams();
 
-  const getTire = async () => {
+  const getTire = async (id: string) => {
     try {
       const tire = await getTireByIdEffect(id);
       setTire(tire);
@@ -22,7 +22,7 @@ const Tire = () => {
   };
 
   useEffect(() => {
-    getTire();
+    if (id) getTire(id);
   }, [id]);
 
   if (!tire) return <div>Tire not exist</div>;

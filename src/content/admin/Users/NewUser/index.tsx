@@ -72,7 +72,6 @@ const NewUser: React.FC = () => {
       <Helmet>
         <title>Create User</title>
       </Helmet>
-      <PageTitleWrapper></PageTitleWrapper>
       <Container maxWidth="lg">
         <Grid
           container
@@ -101,24 +100,25 @@ const NewUser: React.FC = () => {
                     alignItems="stretch"
                     spacing={3}
                   >
-                    {Object.keys(formData).map((key: keyof UserType) => {
-                      if (key === "role") return;
-                      return (
-                        <Grid item xs={12} sm={4} key={key}>
-                          <TextField
-                            id={key}
-                            label={key}
-                            value={formData[key]}
-                            onChange={handleChange}
-                            variant="filled"
-                            required
-                            error={!!errors[key]}
-                            helperText={errors[key]}
-                            type={fieldTypes[key]}
-                          />
-                        </Grid>
-                      );
-                    })}
+                    {Object.keys(formData).map(
+                      (key: keyof UserType, index: number) => {
+                        if (key === "role") return;
+                        return (
+                          <Grid item xs={12} sm={4} key={index}>
+                            <TextField
+                              label={key}
+                              value={formData[key]}
+                              onChange={handleChange}
+                              variant="filled"
+                              required
+                              error={!!errors[key]}
+                              helperText={errors[key]}
+                              type={fieldTypes[key]}
+                            />
+                          </Grid>
+                        );
+                      }
+                    )}
                     <Grid item xs={12} sm={4}>
                       <UserRoleSelection
                         handleChange={handleChange}

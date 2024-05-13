@@ -1,8 +1,6 @@
-import React, { FC, ChangeEvent, useState } from "react";
+import { FC, ChangeEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
 import {
-  Tooltip,
   Divider,
   Box,
   FormControl,
@@ -38,7 +36,7 @@ const TiresTable: FC<TiresTableProps> = ({ tires }) => {
   const navigate = useNavigate();
   const theme = useTheme();
 
-  const handleChangePage = (_, newPage: number) => {
+  const handleChangePage = (asd: any, newPage: number) => {
     setPage(newPage);
   };
 
@@ -111,7 +109,7 @@ const TiresTable: FC<TiresTableProps> = ({ tires }) => {
                   <TableCell>{tire.stock}</TableCell>
                   <TableCell>{tire.price}</TableCell>
                   <TableCell>
-                    <Tooltip title="Edit Tire" arrow>
+                    <Box>
                       <IconButton
                         sx={{
                           "&:hover": {
@@ -121,12 +119,14 @@ const TiresTable: FC<TiresTableProps> = ({ tires }) => {
                         }}
                         color="inherit"
                         size="small"
-                        href={`./tires/${tire.id}/edit`}
+                        onClick={() => {
+                          navigate(`/tires/${tire.id}/edit`);
+                        }}
                       >
                         <EditTwoToneIcon fontSize="small" />
                       </IconButton>
-                    </Tooltip>
-                    <DeleteTire theme={theme} id={tire.id} />
+                    </Box>
+                    {tire.id && <DeleteTire theme={theme} id={tire.id} />}
                   </TableCell>
                 </TableRow>
               ))}

@@ -11,7 +11,7 @@ const Rim = () => {
 
   const { id } = useParams();
 
-  const getRim = async () => {
+  const getRim = async (id: string) => {
     try {
       const rim = await getRimByIdEffect(id);
       setRim(rim);
@@ -22,7 +22,7 @@ const Rim = () => {
   };
 
   useEffect(() => {
-    getRim();
+    if (id) getRim(id);
   }, [id]);
 
   if (!rim) return <div>rim not exist</div>;

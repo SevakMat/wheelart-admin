@@ -1,14 +1,13 @@
-import { useState } from 'react';
-
-import { Typography, Button, Grid } from '@mui/material';
-
-import AddTwoToneIcon from '@mui/icons-material/AddTwoTone';
-import UploadModals from '../../Rims/RimTable/UploadPopup';
-import { integreateTireEXELFileService } from 'src/services/tire.service';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Typography, Button, Grid } from "@mui/material";
+import AddTwoToneIcon from "@mui/icons-material/AddTwoTone";
+import UploadModals from "../../Rims/RimTable/UploadPopup";
+import { integreateTireEXELFileService } from "src/services/tire.service";
 
 function TiresPageHeader() {
   const [isOpenPopup, setIsOpenPopup] = useState<boolean>(false);
-
+  const navigate = useNavigate();
   return (
     <Grid container justifyContent="space-between" alignItems="center">
       <Grid item>
@@ -18,7 +17,9 @@ function TiresPageHeader() {
       </Grid>
       <Grid item>
         <Button
-          href={'/admin/tires/new'}
+          onClick={() => {
+            navigate(`/admin/tires/new`);
+          }}
           sx={{ mt: { xs: 2, md: 0 } }}
           variant="contained"
           startIcon={<AddTwoToneIcon fontSize="small" />}

@@ -1,7 +1,6 @@
 import { FC, ChangeEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
-  Tooltip,
   Divider,
   Box,
   FormControl,
@@ -40,7 +39,7 @@ const UsersTable: FC<UsersTableProps> = ({ users }) => {
   const navigate = useNavigate();
   const theme = useTheme();
 
-  const handleChangePage = (_, newPage: number) => {
+  const handleChangePage = (asd: any, newPage: number) => {
     setPage(newPage);
   };
 
@@ -55,7 +54,6 @@ const UsersTable: FC<UsersTableProps> = ({ users }) => {
       .toLowerCase()
       .includes(searchQuery.toLowerCase())
   );
-
   return (
     <Card>
       <CardHeader
@@ -109,7 +107,7 @@ const UsersTable: FC<UsersTableProps> = ({ users }) => {
                   <TableCell>{user?.email}</TableCell>
                   <TableCell>{user?.role}</TableCell>
                   <TableCell>
-                    <Tooltip title="Edit User" arrow>
+                    <Box>
                       <IconButton
                         sx={{
                           "&:hover": {
@@ -119,16 +117,19 @@ const UsersTable: FC<UsersTableProps> = ({ users }) => {
                         }}
                         color="inherit"
                         size="small"
-                        href={`/admin/users/${user?.id}/edit`}
+                        onClick={() => {
+                          navigate(`/admin/users/${user?.id}/edit`);
+                        }}
                       >
                         <EditTwoToneIcon fontSize="small" />
                       </IconButton>
-                    </Tooltip>
-                    {user.id.toString() !== auth_user?.id.toString() && (
-                      <Tooltip title="Delete User" arrow>
-                        <DeleteUser theme={theme} id={user.id} />
-                      </Tooltip>
-                    )}
+                    </Box>
+                    {user.id &&
+                      user.id.toString() !== auth_user?.id.toString() && (
+                        <Box>
+                          <DeleteUser theme={theme} id={user.id} />
+                        </Box>
+                      )}
                   </TableCell>
                 </TableRow>
               ))}

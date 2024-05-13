@@ -11,7 +11,7 @@ const EditRimConteiner = () => {
   const { addToast } = useToasts();
   const navigate = useNavigate();
 
-  const getRim = async () => {
+  const getRim = async (id: string) => {
     try {
       const rim = await getRimByIdEffect(id);
       setRim(rim);
@@ -22,7 +22,7 @@ const EditRimConteiner = () => {
   };
 
   useEffect(() => {
-    getRim();
+    if (id) getRim(id);
   }, [id]);
 
   if (!rim) return <div>Rim not exist</div>;

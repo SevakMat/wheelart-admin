@@ -38,7 +38,10 @@ export const getAllRimsEffect = (): any => {
 };
 
 // Effect function to create a new rim
-export const createRimEffect = (rimData: RimType, navigate): any => {
+export const createRimEffect = (
+  rimData: RimType,
+  navigate: NavigateFunction
+): any => {
   return async (dispatch: AppDispatch) => {
     try {
       // You can dispatch actions before making the API call if needed

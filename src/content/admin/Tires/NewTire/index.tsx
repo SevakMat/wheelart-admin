@@ -14,7 +14,6 @@ import {
 import { AppDispatch } from "src/store";
 import { useDispatch } from "react-redux";
 import { Helmet } from "react-helmet-async";
-import PageTitleWrapper from "src/components/PageTitleWrapper";
 import { TireType } from "src/store/types/tire/tire";
 import { createTireEffect } from "src/store/effects/tire/tire.effect";
 
@@ -70,7 +69,6 @@ const NewTire: React.FC = () => {
       <Helmet>
         <title>Forms - Components</title>
       </Helmet>
-      <PageTitleWrapper></PageTitleWrapper>
       <Container maxWidth="lg">
         <Grid
           container

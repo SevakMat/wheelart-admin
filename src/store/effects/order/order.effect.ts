@@ -1,18 +1,18 @@
-import { AppDispatch } from '../..';
-import { NavigateFunction } from 'react-router';
+import { AppDispatch } from "../..";
+import { NavigateFunction } from "react-router";
 import {
   createOrderService,
   deleteOrderService,
   getAllOrdersService,
   getOrderByIdService,
-  updateOrderService
-} from 'src/services/order.service';
+  updateOrderService,
+} from "src/services/order.service";
 import {
   delelteOrderAction,
   getOrderAction,
-  getOrdersAction
-} from 'src/store/actions/order/order';
-import { OrderType } from 'src/store/types/order/order';
+  getOrdersAction,
+} from "src/store/actions/order/order";
+import { OrderType } from "src/store/types/order/order";
 
 // Effect function to get all orders
 export const getAllOrdersEffect = (): any => {
@@ -21,8 +21,8 @@ export const getAllOrdersEffect = (): any => {
       const result = await getAllOrdersService();
       const {
         data: {
-          data: { orders }
-        }
+          data: { orders },
+        },
       } = result;
 
       dispatch(getOrdersAction(orders));
@@ -59,16 +59,13 @@ export const getOrderByIdEffect = (orderId: string): any => {
       const result = await getOrderByIdService(orderId);
       const {
         data: {
-          data: { order }
-        }
+          data: { order },
+        },
       } = result;
 
       dispatch(getOrderAction(order));
-      // Dispatch any action or store the order data as needed
     } catch (error: any) {
       console.log(error);
-    } finally {
-      // Any cleanup code if needed
     }
   };
 };
@@ -84,8 +81,8 @@ export const updateOrderEffect = (
       const result = await updateOrderService(orderId, orderData);
       const {
         data: {
-          data: { order }
-        }
+          data: { order },
+        },
       } = result;
 
       dispatch(getOrderAction(order));

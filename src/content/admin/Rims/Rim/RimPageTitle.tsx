@@ -13,7 +13,6 @@ interface RimPageTitleProps {
 const RimPageTitle: FC<RimPageTitleProps> = ({
   heading = "",
   subHeading = "",
-  docs = "",
   rimId,
 }) => {
   const navigate = useNavigate();
@@ -28,9 +27,6 @@ const RimPageTitle: FC<RimPageTitleProps> = ({
       </Grid>
       <Grid item>
         <Button
-          href={docs}
-          target="_blank"
-          rel="noopener noreferrer"
           sx={{ mt: { xs: 2, md: 0 } }}
           variant="contained"
           startIcon={<AddTwoToneIcon fontSize="small" />}
@@ -41,9 +37,6 @@ const RimPageTitle: FC<RimPageTitleProps> = ({
           Add Rim
         </Button>
         <Button
-          href={docs}
-          target="_blank"
-          rel="noopener noreferrer"
           sx={{ mt: { xs: 2, md: 0 }, ml: 4 }}
           variant="contained"
           startIcon={<AddTwoToneIcon fontSize="small" />}

@@ -16,7 +16,6 @@ import { updateRimEffect } from "src/store/effects/rim/rim.effect";
 import { AppDispatch } from "src/store";
 import { useDispatch } from "react-redux";
 import { Helmet } from "react-helmet-async";
-import PageTitleWrapper from "src/components/PageTitleWrapper";
 type EditRimProps = {
   rim: RimType;
 };
@@ -63,7 +62,7 @@ const EditRim: React.FC<EditRimProps> = ({ rim }) => {
       return;
     }
 
-    dispatch(updateRimEffect(rim.id, formData, navigate));
+    if (rim.id) dispatch(updateRimEffect(rim.id, formData, navigate));
   };
 
   return (
@@ -71,7 +70,6 @@ const EditRim: React.FC<EditRimProps> = ({ rim }) => {
       <Helmet>
         <title>Edit Rim</title>
       </Helmet>
-      <PageTitleWrapper></PageTitleWrapper>
       <Container maxWidth="lg">
         <Grid
           container

@@ -28,9 +28,6 @@ const TirePageTitle: FC<TirePageTitleProps> = ({
       </Grid>
       <Grid item>
         <Button
-          href={docs}
-          target="_blank"
-          rel="noopener noreferrer"
           sx={{ mt: { xs: 2, md: 0 } }}
           variant="contained"
           startIcon={<AddTwoToneIcon fontSize="small" />}
@@ -41,9 +38,6 @@ const TirePageTitle: FC<TirePageTitleProps> = ({
           Add Tire
         </Button>
         <Button
-          href={docs}
-          target="_blank"
-          rel="noopener noreferrer"
           sx={{ mt: { xs: 2, md: 0 }, ml: 5 }}
           variant="contained"
           startIcon={<AddTwoToneIcon fontSize="small" />}

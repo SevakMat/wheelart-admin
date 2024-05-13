@@ -22,7 +22,7 @@ import { updateOrderEffect } from "src/store/effects/order/order.effect";
 import OrderTypeSelection from "src/components/public/OrderTypeSelection/OrderTypeSelection";
 
 type EditOrderProps = {
-  order: OrderType | null;
+  order: OrderType;
 };
 
 const EditOrder: React.FC<EditOrderProps> = ({ order }) => {
@@ -59,8 +59,7 @@ const EditOrder: React.FC<EditOrderProps> = ({ order }) => {
       setErrors(formErrors);
       return;
     }
-
-    dispatch(updateOrderEffect(order.id, formData, navigate));
+    if (order.id) dispatch(updateOrderEffect(order.id, formData, navigate));
   };
 
   return (

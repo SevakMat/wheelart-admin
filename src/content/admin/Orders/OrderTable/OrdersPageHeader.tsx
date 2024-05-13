@@ -1,6 +1,6 @@
-import { Typography, Button, Grid } from '@mui/material';
+import { Typography, Button, Grid } from "@mui/material";
 
-import AddTwoToneIcon from '@mui/icons-material/AddTwoTone';
+import AddTwoToneIcon from "@mui/icons-material/AddTwoTone";
 
 function OrdersPageHeader() {
   return (
@@ -10,16 +10,6 @@ function OrdersPageHeader() {
           Orders
         </Typography>
       </Grid>
-      {/* <Grid item>
-        <Button
-          href={'/admin/orders/new'}
-          sx={{ mt: { xs: 2, md: 0 } }}
-          variant="contained"
-          startIcon={<AddTwoToneIcon fontSize="small" />}
-        >
-          Create order
-        </Button>
-      </Grid> */}
     </Grid>
   );
 }
