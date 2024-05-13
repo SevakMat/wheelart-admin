@@ -9,28 +9,20 @@ const RoutersContainer: () => JSX.Element = () => {
     return state.auth;
   });
   return (
-    <BrowserRouter>
-      <Routes>
-        {modules.map(({ isPrivate, routerProps }) => {
-          return routerProps.map((flan) =>
-            isPrivate && !isLoggedIn ? (
-              <Route
-                path={flan.path}
-                element={<Navigate to="/admin/login" />}
-              />
-            ) : !isPrivate && isLoggedIn ? (
-              <Route
-                path={flan.path}
-                element={<Navigate to="/admin/users" />}
-              />
-            ) : (
-              <Route path={flan.path} element={flan.element} />
-            )
-          );
-        })}
-        <Route path={"*"} element={<Status404 />} />
-      </Routes>
-    </BrowserRouter>
+    <Routes>
+      {modules.map(({ isPrivate, routerProps }) => {
+        return routerProps.map((flan) =>
+          isPrivate && !isLoggedIn ? (
+            <Route path={flan.path} element={<Navigate to="/admin/login" />} />
+          ) : !isPrivate && isLoggedIn ? (
+            <Route path={flan.path} element={<Navigate to="/admin/users" />} />
+          ) : (
+            <Route path={flan.path} element={flan.element} />
+          )
+        );
+      })}
+      <Route path={"*"} element={<Status404 />} />
+    </Routes>
   );
 };
 

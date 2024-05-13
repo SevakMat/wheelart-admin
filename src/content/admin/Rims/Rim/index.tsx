@@ -1,8 +1,8 @@
-import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { useToasts } from 'react-toast-notifications';
-import RimContainer from './RimContainer';
-import { getRimByIdEffect } from 'src/store/effects/rim/rim.effect';
+import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useToasts } from "react-toast-notifications";
+import RimContainer from "./RimContainer";
+import { getRimByIdEffect } from "src/store/effects/rim/rim.effect";
 
 const Rim = () => {
   const [rim, setRim] = useState(null);
@@ -16,8 +16,8 @@ const Rim = () => {
       const rim = await getRimByIdEffect(id);
       setRim(rim);
     } catch (error) {
-      addToast('Rim not found', { appearance: 'error' });
-      navigate('/admin/rims');
+      addToast("Rim not found", { appearance: "error" });
+      navigate("/admin/rims");
     }
   };
 

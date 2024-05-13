@@ -1,5 +1,5 @@
-import React, { FC, ChangeEvent, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { FC, ChangeEvent, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import {
   Tooltip,
@@ -19,12 +19,11 @@ import {
   Checkbox,
   useTheme,
   CardHeader,
-  TextField
-} from '@mui/material';
-import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
-import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
-import { TireType } from 'src/store/types/tire/tire';
-import DeleteTire from './DeleteTIre';
+  TextField,
+} from "@mui/material";
+import EditTwoToneIcon from "@mui/icons-material/EditTwoTone";
+import { TireType } from "src/store/types/tire/tire";
+import DeleteTire from "./DeleteTIre";
 
 interface TiresTableProps {
   className?: string;
@@ -35,7 +34,7 @@ const TiresTable: FC<TiresTableProps> = ({ tires }) => {
   const [selectedTires, setSelectedTires] = useState<string[]>([]);
   const [page, setPage] = useState<number>(0);
   const [rowsPerPage, setRowsPerPage] = useState<number>(5);
-  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [searchQuery, setSearchQuery] = useState<string>("");
   const navigate = useNavigate();
   const theme = useTheme();
 
@@ -66,7 +65,7 @@ const TiresTable: FC<TiresTableProps> = ({ tires }) => {
         title="Recent Tires"
       />
       <Divider />
-      <Box sx={{ padding: '0 16px' }}>
+      <Box sx={{ padding: "0 16px" }}>
         <FormControl fullWidth variant="outlined">
           <TextField
             label="Search"
@@ -97,16 +96,11 @@ const TiresTable: FC<TiresTableProps> = ({ tires }) => {
             {filteredTires
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((tire) => (
-                <TableRow
-                  hover
-                  key={tire.id}
-                  style={{ cursor: 'pointer' }}
-                  selected={selectedTires.includes(tire.id)}
-                >
+                <TableRow hover key={tire.id} style={{ cursor: "pointer" }}>
                   <TableCell
                     onClick={() => navigate(`/admin/tires/${tire.id}`)}
                     sx={{
-                      '&:hover': { background: theme.colors.primary.lighter }
+                      "&:hover": { background: theme.colors.primary.lighter },
                     }}
                   >
                     {tire.marka}
@@ -120,10 +114,10 @@ const TiresTable: FC<TiresTableProps> = ({ tires }) => {
                     <Tooltip title="Edit Tire" arrow>
                       <IconButton
                         sx={{
-                          '&:hover': {
-                            background: theme.colors.primary.lighter
+                          "&:hover": {
+                            background: theme.colors.primary.lighter,
                           },
-                          color: theme.palette.primary.main
+                          color: theme.palette.primary.main,
                         }}
                         color="inherit"
                         size="small"

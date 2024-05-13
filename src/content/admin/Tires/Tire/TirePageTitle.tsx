@@ -1,8 +1,7 @@
-import { FC } from 'react';
-import PropTypes from 'prop-types';
-import AddTwoToneIcon from '@mui/icons-material/AddTwoTone';
-import { Typography, Button, Grid } from '@mui/material';
-import { useNavigate } from 'react-router';
+import { FC } from "react";
+import { useNavigate } from "react-router-dom";
+import AddTwoToneIcon from "@mui/icons-material/AddTwoTone";
+import { Typography, Button, Grid } from "@mui/material";
 
 interface TirePageTitleProps {
   heading?: string;
@@ -12,10 +11,10 @@ interface TirePageTitleProps {
 }
 
 const TirePageTitle: FC<TirePageTitleProps> = ({
-  heading = '',
-  subHeading = '',
-  docs = '',
-  tireId
+  heading = "",
+  subHeading = "",
+  docs = "",
+  tireId,
 }) => {
   const navigate = useNavigate();
 

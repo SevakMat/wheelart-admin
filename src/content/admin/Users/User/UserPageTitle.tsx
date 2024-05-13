@@ -1,7 +1,7 @@
-import { FC } from 'react';
-import AddTwoToneIcon from '@mui/icons-material/AddTwoTone';
-import { Typography, Button, Grid } from '@mui/material';
-import { useNavigate } from 'react-router';
+import { FC } from "react";
+import AddTwoToneIcon from "@mui/icons-material/AddTwoTone";
+import { Typography, Button, Grid } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 interface UserPageTitleProps {
   heading?: string;
@@ -11,10 +11,10 @@ interface UserPageTitleProps {
 }
 
 const UserPageTitle: FC<UserPageTitleProps> = ({
-  heading = '',
-  subHeading = '',
-  docs = '',
-  userId
+  heading = "",
+  subHeading = "",
+  docs = "",
+  userId,
 }) => {
   const navigate = useNavigate();
 

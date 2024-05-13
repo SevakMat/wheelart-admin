@@ -1,8 +1,7 @@
-import { FC } from 'react';
-import PropTypes from 'prop-types';
-import AddTwoToneIcon from '@mui/icons-material/AddTwoTone';
-import { Typography, Button, Grid } from '@mui/material';
-import { useNavigate } from 'react-router';
+import { FC } from "react";
+import AddTwoToneIcon from "@mui/icons-material/AddTwoTone";
+import { Typography, Button, Grid } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 interface OrderPageTitleProps {
   heading?: string;
@@ -12,10 +11,10 @@ interface OrderPageTitleProps {
 }
 
 const OrderPageTitle: FC<OrderPageTitleProps> = ({
-  heading = '',
-  subHeading = '',
-  docs = '',
-  orderId
+  heading = "",
+  subHeading = "",
+  docs = "",
+  orderId,
 }) => {
   const navigate = useNavigate();
 

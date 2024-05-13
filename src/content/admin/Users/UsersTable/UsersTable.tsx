@@ -1,6 +1,5 @@
-import React, { FC, ChangeEvent, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import PropTypes from 'prop-types';
+import { FC, ChangeEvent, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Tooltip,
   Divider,
@@ -18,12 +17,12 @@ import {
   TableContainer,
   useTheme,
   CardHeader,
-  TextField // Import TextField component from MUI
-} from '@mui/material';
-import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
-import { UserType } from 'src/store/types/user/user';
-import DeleteUser from './DeleteUser';
-import { RootState, useAppSelector } from 'src/store';
+  TextField, // Import TextField component from MUI
+} from "@mui/material";
+import EditTwoToneIcon from "@mui/icons-material/EditTwoTone";
+import { UserType } from "src/store/types/user/user";
+import DeleteUser from "./DeleteUser";
+import { RootState, useAppSelector } from "src/store";
 
 interface UsersTableProps {
   className?: string;
@@ -37,7 +36,7 @@ const UsersTable: FC<UsersTableProps> = ({ users }) => {
 
   const [page, setPage] = useState<number>(0);
   const [rowsPerPage, setRowsPerPage] = useState<number>(5);
-  const [searchQuery, setSearchQuery] = useState<string>(''); // State for search query
+  const [searchQuery, setSearchQuery] = useState<string>(""); // State for search query
   const navigate = useNavigate();
   const theme = useTheme();
 
@@ -68,7 +67,7 @@ const UsersTable: FC<UsersTableProps> = ({ users }) => {
         title="Recent Users"
       />
       <Divider />
-      <Box sx={{ padding: '0 16px' }}>
+      <Box sx={{ padding: "0 16px" }}>
         <TextField
           label="Search"
           variant="outlined"
@@ -96,11 +95,11 @@ const UsersTable: FC<UsersTableProps> = ({ users }) => {
             {filteredUsers
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((user) => (
-                <TableRow hover key={user?.id} style={{ cursor: 'pointer' }}>
+                <TableRow hover key={user?.id} style={{ cursor: "pointer" }}>
                   <TableCell
                     onClick={() => navigate(`/admin/users/${user?.id}`)}
                     sx={{
-                      '&:hover': { background: theme.colors.primary.lighter }
+                      "&:hover": { background: theme.colors.primary.lighter },
                     }}
                   >
                     {user?.firstName}
@@ -113,10 +112,10 @@ const UsersTable: FC<UsersTableProps> = ({ users }) => {
                     <Tooltip title="Edit User" arrow>
                       <IconButton
                         sx={{
-                          '&:hover': {
-                            background: theme.colors.primary.lighter
+                          "&:hover": {
+                            background: theme.colors.primary.lighter,
                           },
-                          color: theme.palette.primary.main
+                          color: theme.palette.primary.main,
                         }}
                         color="inherit"
                         size="small"

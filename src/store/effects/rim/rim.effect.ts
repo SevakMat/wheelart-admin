@@ -3,18 +3,17 @@ import {
   createRimService,
   getRimByIdService,
   updateRimService,
-  deleteRimService
-} from '../../../services/rim.service'; // Replace "path/to/rim.service" with the correct path
+  deleteRimService,
+} from "../../../services/rim.service"; // Replace "path/to/rim.service" with the correct path
 
-import { AppDispatch } from '../..';
+import { AppDispatch } from "../..";
 import {
   delelteRimAction,
   getRimAction,
-  getRimsAction
-} from 'src/store/actions/rim/rim';
-import { RimType } from 'src/store/types/rim/rim';
-import { NavigateFunction } from 'react-router';
-import { delelteUserAction } from 'src/store/actions/user/user';
+  getRimsAction,
+} from "src/store/actions/rim/rim";
+import { RimType } from "src/store/types/rim/rim";
+import { NavigateFunction } from "react-router";
 
 // Effect function to get all rims
 export const getAllRimsEffect = (): any => {
@@ -23,8 +22,8 @@ export const getAllRimsEffect = (): any => {
       const result = await getAllRimsService();
       const {
         data: {
-          data: { rims }
-        }
+          data: { rims },
+        },
       } = result;
 
       dispatch(getRimsAction(rims));
@@ -47,8 +46,8 @@ export const createRimEffect = (rimData: RimType, navigate): any => {
 
       const {
         data: {
-          data: { rim }
-        }
+          data: { rim },
+        },
       } = response;
 
       navigate(`/admin/rims/${rim.id}`);
@@ -85,8 +84,8 @@ export const updateRimEffect = (
       const result = await updateRimService(rimId, rimData);
       const {
         data: {
-          data: { rim }
-        }
+          data: { rim },
+        },
       } = result;
 
       dispatch(getRimAction(rim));
