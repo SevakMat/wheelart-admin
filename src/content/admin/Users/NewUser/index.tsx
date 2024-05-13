@@ -104,8 +104,9 @@ const NewUser: React.FC = () => {
                       (key: keyof UserType, index: number) => {
                         if (key === "role") return;
                         return (
-                          <Grid item xs={12} sm={4} key={index}>
+                          <Grid item xs={12} sm={4} key={key}>
                             <TextField
+                              id={key}
                               label={key}
                               value={formData[key]}
                               onChange={handleChange}

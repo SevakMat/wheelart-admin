@@ -120,7 +120,7 @@ const TiresTable: FC<TiresTableProps> = ({ tires }) => {
                         color="inherit"
                         size="small"
                         onClick={() => {
-                          navigate(`/tires/${tire.id}/edit`);
+                          navigate(`/admin/tires/${tire.id}/edit`);
                         }}
                       >
                         <EditTwoToneIcon fontSize="small" />
