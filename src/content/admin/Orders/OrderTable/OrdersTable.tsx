@@ -82,7 +82,7 @@ const OrdersTable: FC<OrdersTableProps> = ({ orders }) => {
               <TableCell>Order Type</TableCell>
               <TableCell>Name</TableCell>
               <TableCell>Order Status</TableCell>
-              <TableCell>User ID</TableCell>
+              <TableCell>User Name</TableCell>
               <TableCell>Date</TableCell>
               <TableCell>Actions</TableCell>
             </TableRow>
@@ -110,8 +110,10 @@ const OrdersTable: FC<OrdersTableProps> = ({ orders }) => {
                     onClick={() => {
                       navigate(
                         `/admin/${
-                          order.orderType === "RIM" ? "rims" : "tires"
-                        }/${order.itemId}`
+                          order.orderType === "RIM"
+                            ? `rims/${order.itemId}`
+                            : `tires/${order.itemId}`
+                        }`
                       );
                     }}
                   >
@@ -140,7 +142,7 @@ const OrdersTable: FC<OrdersTableProps> = ({ orders }) => {
                         color="inherit"
                         size="small"
                         onClick={() => {
-                          navigate(`/orders/${order.id}/edit`);
+                          navigate(`/admin/orders/${order.id}/edit`);
                         }}
                       >
                         <EditTwoToneIcon fontSize="small" />

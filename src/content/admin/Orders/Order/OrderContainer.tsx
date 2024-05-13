@@ -50,7 +50,7 @@ const OrderContainer: React.FC<OrderProps> = ({ order }) => {
                   <strong>Item Count:</strong> {order?.itemCount || "-"}
                 </Typography>
                 <Typography variant="body1" color="text.secondary" paragraph>
-                  <strong>Order ItemId:</strong> {order?.itemId || "-"}
+                  <strong>Order ItemId:</strong> {order?.id || "-"}
                 </Typography>
                 <Typography variant="body1" color="text.secondary" paragraph>
                   <strong>Order Type:</strong> {order?.orderType || "-"}

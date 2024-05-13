@@ -34,8 +34,9 @@ const EditOrder: React.FC<EditOrderProps> = ({ order }) => {
   const fieldTypes: { [key in keyof OrderType]: string } = {
     orderType: "text",
     status: "text",
-    itemId: "number",
     itemCount: "number",
+    rimId: "text",
+    tireId: "text",
   };
 
   const [errors, setErrors] = useState<Partial<OrderType>>({});
@@ -44,21 +45,11 @@ const EditOrder: React.FC<EditOrderProps> = ({ order }) => {
     const { id, value } = event.target;
 
     setFormData({ ...formData, [id]: value });
-    setErrors({ ...errors, [id]: "" }); // Clear error when user starts typing
   };
 
   const handleSubmit = () => {
     const formErrors: any = {};
-    Object.keys(formData).forEach((key) => {
-      if (!formData[key as keyof OrderType]) {
-        formErrors[key as keyof OrderType] = "This field is required";
-      }
-    });
 
-    if (Object.keys(formErrors).length > 0) {
-      setErrors(formErrors);
-      return;
-    }
     if (order.id) dispatch(updateOrderEffect(order.id, formData, navigate));
   };
 
@@ -101,7 +92,7 @@ const EditOrder: React.FC<EditOrderProps> = ({ order }) => {
                     alignItems="stretch"
                     spacing={3}
                   >
-                    <Grid item xs={12} sm={4} key={"id"}>
+                    <Grid item xs={12} sm={4} key={"status"}>
                       <OrderTypeSelection
                         handleChange={handleChange}
                         value={formData["status"]}
@@ -135,12 +126,11 @@ const EditOrder: React.FC<EditOrderProps> = ({ order }) => {
                         type={fieldTypes["orderType"]}
                       />
                     </Grid>
-                    <Grid item xs={12} sm={4} key={"itemId"}>
+                    {/* <Grid item xs={12} sm={4} key={"itemId"}>
                       <TextField
                         id={"itemId"}
                         label={"itemId"}
                         value={formData["itemId"]}
-                        onChange={handleChange}
                         variant="filled"
                         required
                         inputProps={{ readOnly: true }}
@@ -148,7 +138,7 @@ const EditOrder: React.FC<EditOrderProps> = ({ order }) => {
                         helperText={errors["itemId"]}
                         type={fieldTypes["itemId"]}
                       />
-                    </Grid>
+                    </Grid> */}
                     <Grid item xs={12} sm={4} key={"itemCount"}>
                       <TextField
                         id={"itemCount"}

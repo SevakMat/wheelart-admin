@@ -1,19 +1,21 @@
 export enum OrderServerTypes {
-  GET_ORDERS_SUCCESS = 'GET_ORDERS_SUCCESS',
-  GET_ORDER_SUCCESS = 'GET_ORDER_SUCCESS',
-  DELETE_ORDER_SUCCESS = 'DELETE_ORDER_SUCCESS'
+  GET_ORDERS_SUCCESS = "GET_ORDERS_SUCCESS",
+  GET_ORDER_SUCCESS = "GET_ORDER_SUCCESS",
+  DELETE_ORDER_SUCCESS = "DELETE_ORDER_SUCCESS",
 }
 
 export interface OrderType {
   id?: string;
   orderType: string;
   status: string;
-  itemId: string;
   itemCount: string;
   userId?: string;
+  itemId?: string;
   createdDate?: string;
   name?: string;
   userName?: string;
+  rimId?: string;
+  tireId?: string;
 }
 
 export interface OrderState {
