@@ -1,19 +1,19 @@
-import { ChangeEvent, useState } from 'react';
-import { createStyles, makeStyles } from '@mui/styles';
-import { Button, Typography } from '@mui/material';
-import { useToasts } from 'react-toast-notifications';
+import { ChangeEvent, useState } from "react";
+import { createStyles, makeStyles } from "@mui/styles";
+import { Button, Typography } from "@mui/material";
+import { useToasts } from "react-toast-notifications";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
     root: {
-      textAlign: 'center',
+      textAlign: "center",
       height: 200,
       width: 400,
-      dispalay: 'flex'
+      dispalay: "flex",
     },
     fileInput: {
-      display: 'none'
-    }
+      display: "none",
+    },
   })
 );
 
@@ -23,7 +23,7 @@ interface RimIntegrationProps {
 }
 const ExcelIntegration = ({
   setIsOpenPopup,
-  integreateEXELFileService
+  integreateEXELFileService,
 }: RimIntegrationProps) => {
   const classes = useStyles();
   const [file, setFile] = useState<File | null>(null);
@@ -31,20 +31,18 @@ const ExcelIntegration = ({
   const { addToast } = useToasts();
 
   const handleFileChange = ({
-    target: { files }
+    target: { files },
   }: ChangeEvent<HTMLInputElement>) => {
-    setFile(files[0]);
+    if (files) setFile(files[0]);
   };
 
   const handleUpload = async () => {
     try {
       setIsloading(true);
-      await integreateEXELFileService(file);
-      addToast('Uploading success', { appearance: 'success' });
-    } catch (error) {
-      console.log('errorerrorerrorerror', error);
-
-      addToast(error?.response?.data?.message, { appearance: 'error' });
+      if (file) await integreateEXELFileService(file);
+      addToast("Uploading success", { appearance: "success" });
+    } catch (error: any) {
+      addToast(error?.response?.data?.message, { appearance: "error" });
       setIsloading(false);
     } finally {
       setIsOpenPopup(false);
@@ -80,7 +78,7 @@ const ExcelIntegration = ({
         onClick={handleUpload}
         disabled={!file || isLoading}
       >
-        {isLoading ? 'Loading' : 'Upload'}
+        {isLoading ? "Loading" : "Upload"}
       </Button>
     </div>
   );

@@ -1,8 +1,7 @@
-import { FC } from 'react';
-import PropTypes from 'prop-types';
-import AddTwoToneIcon from '@mui/icons-material/AddTwoTone';
-import { Typography, Button, Grid } from '@mui/material';
-import { useNavigate } from 'react-router';
+import { FC } from "react";
+import AddTwoToneIcon from "@mui/icons-material/AddTwoTone";
+import { Typography, Button, Grid } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 interface OrderPageTitleProps {
   heading?: string;
@@ -12,10 +11,10 @@ interface OrderPageTitleProps {
 }
 
 const OrderPageTitle: FC<OrderPageTitleProps> = ({
-  heading = '',
-  subHeading = '',
-  docs = '',
-  orderId
+  heading = "",
+  subHeading = "",
+  docs = "",
+  orderId,
 }) => {
   const navigate = useNavigate();
 
@@ -28,23 +27,8 @@ const OrderPageTitle: FC<OrderPageTitleProps> = ({
         <Typography variant="subtitle2">{subHeading}</Typography>
       </Grid>
       <Grid item>
-        {/* <Button
-          href={docs}
-          target="_blank"
-          rel="noopener noreferrer"
-          sx={{ mt: { xs: 2, md: 0 } }}
-          variant="contained"
-          startIcon={<AddTwoToneIcon fontSize="small" />}
-          onClick={() => {
-            navigate(`/admin/orders/new`);
-          }}
-        >
-          Add Order
-        </Button> */}
         <Button
-          href={docs}
-          target="_blank"
-          rel="noopener noreferrer"
+          type="button"
           sx={{ mt: { xs: 2, md: 0 } }}
           variant="contained"
           startIcon={<AddTwoToneIcon fontSize="small" />}

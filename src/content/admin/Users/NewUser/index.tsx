@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Box,
   Card,
@@ -8,17 +9,16 @@ import {
   Grid,
   Container,
   CardHeader,
-  Divider
-} from '@mui/material';
-import { AppDispatch } from 'src/store';
-import { useDispatch } from 'react-redux';
-import { Helmet } from 'react-helmet-async';
-import PageTitleWrapper from 'src/components/PageTitleWrapper';
-import { UserType } from 'src/store/types/user/user';
-import { createUserEffect } from 'src/store/effects/user/user.effect';
-import UserRoleSelection from 'src/components/public/UserRoleSelection/UserRoleSelection';
-import { useToasts } from 'react-toast-notifications';
-import { useNavigate } from 'react-router';
+  Divider,
+} from "@mui/material";
+import { AppDispatch } from "src/store";
+import { useDispatch } from "react-redux";
+import { Helmet } from "react-helmet-async";
+import PageTitleWrapper from "src/components/PageTitleWrapper";
+import { UserType } from "src/store/types/user/user";
+import { createUserEffect } from "src/store/effects/user/user.effect";
+import UserRoleSelection from "src/components/public/UserRoleSelection/UserRoleSelection";
+import { useToasts } from "react-toast-notifications";
 
 const NewUser: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
@@ -26,21 +26,21 @@ const NewUser: React.FC = () => {
   const { addToast } = useToasts();
   const navigate = useNavigate();
   const [formData, setFormData] = useState<UserType>({
-    firstName: '',
-    lastName: '',
-    phoneNumber: '',
-    email: '',
-    password: '',
-    role: 'user'
+    firstName: "",
+    lastName: "",
+    phoneNumber: "",
+    email: "",
+    password: "",
+    role: "user",
   });
 
   const fieldTypes: { [key in keyof UserType]: string } = {
-    firstName: 'text',
-    lastName: 'text',
-    phoneNumber: 'text',
-    email: 'text',
-    password: 'text',
-    role: 'text'
+    firstName: "text",
+    lastName: "text",
+    phoneNumber: "text",
+    email: "text",
+    password: "text",
+    role: "text",
   };
 
   const [errors, setErrors] = useState<Partial<UserType>>({});
@@ -48,14 +48,14 @@ const NewUser: React.FC = () => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = event.target;
     setFormData({ ...formData, [id]: value });
-    setErrors({ ...errors, [id]: '' }); // Clear error when user starts typing
+    setErrors({ ...errors, [id]: "" }); // Clear error when user starts typing
   };
 
   const handleSubmit = () => {
     const formErrors: Partial<UserType> = {};
     Object.keys(formData).forEach((key) => {
       if (!formData[key as keyof UserType]) {
-        formErrors[key as keyof UserType] = 'This field is required';
+        formErrors[key as keyof UserType] = "This field is required";
       }
     });
 
@@ -72,7 +72,6 @@ const NewUser: React.FC = () => {
       <Helmet>
         <title>Create User</title>
       </Helmet>
-      <PageTitleWrapper></PageTitleWrapper>
       <Container maxWidth="lg">
         <Grid
           container
@@ -89,7 +88,7 @@ const NewUser: React.FC = () => {
                 <Box
                   component="form"
                   sx={{
-                    '& .MuiTextField-root': { m: 1, width: '25ch' }
+                    "& .MuiTextField-root": { m: 1, width: "25ch" },
                   }}
                   noValidate
                   autoComplete="off"
@@ -101,37 +100,38 @@ const NewUser: React.FC = () => {
                     alignItems="stretch"
                     spacing={3}
                   >
-                    {Object.keys(formData).map((key: keyof UserType) => {
-                      if (key === 'role') return;
-                      return (
-                        <Grid item xs={12} sm={4} key={key}>
-                          <TextField
-                            id={key}
-                            label={key}
-                            value={formData[key]}
-                            onChange={handleChange}
-                            variant="filled"
-                            required
-                            error={!!errors[key]}
-                            helperText={errors[key]}
-                            type={fieldTypes[key]}
-                          />
-                        </Grid>
-                      );
-                    })}
+                    {Object.keys(formData).map(
+                      (key: keyof UserType, index: number) => {
+                        if (key === "role") return;
+                        return (
+                          <Grid item xs={12} sm={4} key={index}>
+                            <TextField
+                              label={key}
+                              value={formData[key]}
+                              onChange={handleChange}
+                              variant="filled"
+                              required
+                              error={!!errors[key]}
+                              helperText={errors[key]}
+                              type={fieldTypes[key]}
+                            />
+                          </Grid>
+                        );
+                      }
+                    )}
                     <Grid item xs={12} sm={4}>
                       <UserRoleSelection
                         handleChange={handleChange}
-                        value={formData['role']}
+                        value={formData["role"]}
                       />
                     </Grid>
                   </Grid>
                 </Box>
                 <Box
                   sx={{
-                    display: 'flex',
-                    justifyContent: 'flex-end',
-                    marginTop: 2
+                    display: "flex",
+                    justifyContent: "flex-end",
+                    marginTop: 2,
                   }}
                 >
                   <Button
@@ -141,7 +141,7 @@ const NewUser: React.FC = () => {
                     onClick={handleSubmit}
                     disabled={loading}
                   >
-                    {loading ? 'Loading' : 'Submit'}
+                    {loading ? "Loading" : "Submit"}
                   </Button>
                 </Box>
               </CardContent>

@@ -1,18 +1,18 @@
-import { AppDispatch } from '../..';
-import { NavigateFunction } from 'react-router';
+import { AppDispatch } from "../..";
+import { NavigateFunction } from "react-router";
 import {
   createUserService,
   deleteUserService,
   getAllUsersService,
   getUserByIdService,
-  updateUserService
-} from 'src/services/user.service';
+  updateUserService,
+} from "src/services/user.service";
 import {
   delelteUserAction,
   getUserAction,
-  getUsersAction
-} from 'src/store/actions/user/user';
-import { UserType } from 'src/store/types/user/user';
+  getUsersAction,
+} from "src/store/actions/user/user";
+import { UserType } from "src/store/types/user/user";
 
 // Effect function to get all users
 export const getAllUsersEffect = (): any => {
@@ -21,8 +21,8 @@ export const getAllUsersEffect = (): any => {
       const result = await getAllUsersService();
       const {
         data: {
-          data: { users }
-        }
+          data: { users },
+        },
       } = result;
 
       dispatch(getUsersAction(users));
@@ -39,15 +39,15 @@ export const createUserEffect = (
   userData: UserType,
   setLoading: any,
   addToast: any,
-  navigate
+  navigate: NavigateFunction
 ): any => {
   return async (dispatch: AppDispatch) => {
     try {
       await createUserService(userData);
-      navigate('/admin/users');
+      navigate("/admin/users");
     } catch (error: any) {
       const message = error?.response?.data?.message;
-      addToast(message, { appearance: 'error' });
+      addToast(message, { appearance: "error" });
     } finally {
       setLoading(false);
     }
@@ -74,8 +74,8 @@ export const updateUserEffect = (
       const result = await updateUserService(userId, userData);
       const {
         data: {
-          data: { user }
-        }
+          data: { user },
+        },
       } = result;
 
       dispatch(getUserAction(user));

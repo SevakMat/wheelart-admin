@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Box,
   Card,
@@ -9,13 +9,13 @@ import {
   Grid,
   Container,
   CardHeader,
-  Divider
-} from '@mui/material';
-import { AppDispatch } from 'src/store';
-import { useDispatch } from 'react-redux';
-import { Helmet } from 'react-helmet-async';
-import { TireType } from 'src/store/types/tire/tire';
-import { updateTireEffect } from 'src/store/effects/tire/tire.effect';
+  Divider,
+} from "@mui/material";
+import { AppDispatch } from "src/store";
+import { useDispatch } from "react-redux";
+import { Helmet } from "react-helmet-async";
+import { TireType } from "src/store/types/tire/tire";
+import { updateTireEffect } from "src/store/effects/tire/tire.effect";
 
 type EditTireProps = {
   tire: TireType;
@@ -28,13 +28,13 @@ const EditTire: React.FC<EditTireProps> = ({ tire }) => {
   const [formData, setFormData] = useState<TireType>(tire);
 
   const fieldTypes: { [key in keyof TireType]: string } = {
-    tireWidth: 'number',
-    tireAspectRatio: 'number',
-    rimDiameter: 'number',
-    marka: 'text',
-    stock: 'number',
-    imageUrl: 'text',
-    price: 'number'
+    tireWidth: "number",
+    tireAspectRatio: "number",
+    rimDiameter: "number",
+    marka: "text",
+    stock: "number",
+    imageUrl: "text",
+    price: "number",
   };
 
   const [errors, setErrors] = useState<Partial<TireType>>({});
@@ -42,14 +42,14 @@ const EditTire: React.FC<EditTireProps> = ({ tire }) => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = event.target;
     setFormData({ ...formData, [id]: value });
-    setErrors({ ...errors, [id]: '' }); // Clear error when user starts typing
+    setErrors({ ...errors, [id]: "" }); // Clear error when user starts typing
   };
 
   const handleSubmit = () => {
     const formErrors: Partial<TireType> = {};
     Object.keys(formData).forEach((key) => {
       if (!formData[key as keyof TireType]) {
-        formErrors[key as keyof TireType] = 'This field is required';
+        formErrors[key as keyof TireType] = "This field is required";
       }
     });
 
@@ -58,7 +58,7 @@ const EditTire: React.FC<EditTireProps> = ({ tire }) => {
       return;
     }
 
-    dispatch(updateTireEffect(tire.id, formData, navigate));
+    if (tire?.id) dispatch(updateTireEffect(tire.id, formData, navigate));
   };
 
   return (
@@ -82,7 +82,7 @@ const EditTire: React.FC<EditTireProps> = ({ tire }) => {
                 <Box
                   component="form"
                   sx={{
-                    '& .MuiTextField-root': { m: 1, width: '25ch' }
+                    "& .MuiTextField-root": { m: 1, width: "25ch" },
                   }}
                   noValidate
                   autoComplete="off"
@@ -103,7 +103,7 @@ const EditTire: React.FC<EditTireProps> = ({ tire }) => {
                           onChange={handleChange}
                           variant="filled"
                           required
-                          inputProps={{ readOnly: key === 'id' ? true : false }}
+                          inputProps={{ readOnly: key === "id" ? true : false }}
                           error={!!errors[key]}
                           helperText={errors[key]}
                           type={fieldTypes[key]}
@@ -114,9 +114,9 @@ const EditTire: React.FC<EditTireProps> = ({ tire }) => {
                 </Box>
                 <Box
                   sx={{
-                    display: 'flex',
-                    justifyContent: 'flex-end',
-                    marginTop: 2
+                    display: "flex",
+                    justifyContent: "flex-end",
+                    marginTop: 2,
                   }}
                 >
                   <Button

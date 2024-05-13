@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Box,
   Card,
@@ -10,19 +10,19 @@ import {
   Container,
   CardHeader,
   Divider,
-  MenuItem
-} from '@mui/material';
-import { AppDispatch } from 'src/store';
-import { useDispatch } from 'react-redux';
-import { Helmet } from 'react-helmet-async';
-import PageTitleWrapper from 'src/components/PageTitleWrapper';
-import PageTitle from 'src/components/PageTitle';
-import { OrderType } from 'src/store/types/order/order';
-import { updateOrderEffect } from 'src/store/effects/order/order.effect';
-import OrderTypeSelection from 'src/components/public/OrderTypeSelection/OrderTypeSelection';
+  MenuItem,
+} from "@mui/material";
+import { AppDispatch } from "src/store";
+import { useDispatch } from "react-redux";
+import { Helmet } from "react-helmet-async";
+import PageTitleWrapper from "src/components/PageTitleWrapper";
+import PageTitle from "src/components/PageTitle";
+import { OrderType } from "src/store/types/order/order";
+import { updateOrderEffect } from "src/store/effects/order/order.effect";
+import OrderTypeSelection from "src/components/public/OrderTypeSelection/OrderTypeSelection";
 
 type EditOrderProps = {
-  order: OrderType | null;
+  order: OrderType;
 };
 
 const EditOrder: React.FC<EditOrderProps> = ({ order }) => {
@@ -32,10 +32,10 @@ const EditOrder: React.FC<EditOrderProps> = ({ order }) => {
   const [formData, setFormData] = useState<OrderType>(order);
 
   const fieldTypes: { [key in keyof OrderType]: string } = {
-    orderType: 'text',
-    status: 'text',
-    itemId: 'number',
-    itemCount: 'number'
+    orderType: "text",
+    status: "text",
+    itemId: "number",
+    itemCount: "number",
   };
 
   const [errors, setErrors] = useState<Partial<OrderType>>({});
@@ -44,14 +44,14 @@ const EditOrder: React.FC<EditOrderProps> = ({ order }) => {
     const { id, value } = event.target;
 
     setFormData({ ...formData, [id]: value });
-    setErrors({ ...errors, [id]: '' }); // Clear error when user starts typing
+    setErrors({ ...errors, [id]: "" }); // Clear error when user starts typing
   };
 
   const handleSubmit = () => {
     const formErrors: any = {};
     Object.keys(formData).forEach((key) => {
       if (!formData[key as keyof OrderType]) {
-        formErrors[key as keyof OrderType] = 'This field is required';
+        formErrors[key as keyof OrderType] = "This field is required";
       }
     });
 
@@ -59,8 +59,7 @@ const EditOrder: React.FC<EditOrderProps> = ({ order }) => {
       setErrors(formErrors);
       return;
     }
-
-    dispatch(updateOrderEffect(order.id, formData, navigate));
+    if (order.id) dispatch(updateOrderEffect(order.id, formData, navigate));
   };
 
   return (
@@ -90,7 +89,7 @@ const EditOrder: React.FC<EditOrderProps> = ({ order }) => {
                 <Box
                   component="form"
                   sx={{
-                    '& .MuiTextField-root': { m: 1, width: '25ch' }
+                    "& .MuiTextField-root": { m: 1, width: "25ch" },
                   }}
                   noValidate
                   autoComplete="off"
@@ -102,74 +101,74 @@ const EditOrder: React.FC<EditOrderProps> = ({ order }) => {
                     alignItems="stretch"
                     spacing={3}
                   >
-                    <Grid item xs={12} sm={4} key={'id'}>
+                    <Grid item xs={12} sm={4} key={"id"}>
                       <OrderTypeSelection
                         handleChange={handleChange}
-                        value={formData['status']}
+                        value={formData["status"]}
                       />
                     </Grid>
-                    <Grid item xs={12} sm={4} key={'id'}>
+                    <Grid item xs={12} sm={4} key={"id"}>
                       <TextField
-                        id={'id'}
-                        label={'Order id'}
-                        value={formData['id']}
+                        id={"id"}
+                        label={"Order id"}
+                        value={formData["id"]}
                         onChange={handleChange}
                         variant="filled"
                         required
                         inputProps={{ readOnly: true }}
-                        error={!!errors['id']}
-                        helperText={errors['id']}
-                        type={fieldTypes['id']}
+                        error={!!errors["id"]}
+                        helperText={errors["id"]}
+                        type={fieldTypes["id"]}
                       />
                     </Grid>
-                    <Grid item xs={12} sm={4} key={'orderType'}>
+                    <Grid item xs={12} sm={4} key={"orderType"}>
                       <TextField
-                        id={'orderType'}
-                        label={'orderType'}
-                        value={formData['orderType']}
+                        id={"orderType"}
+                        label={"orderType"}
+                        value={formData["orderType"]}
                         onChange={handleChange}
                         variant="filled"
                         required
                         inputProps={{ readOnly: true }}
-                        error={!!errors['orderType']}
-                        helperText={errors['orderType']}
-                        type={fieldTypes['orderType']}
+                        error={!!errors["orderType"]}
+                        helperText={errors["orderType"]}
+                        type={fieldTypes["orderType"]}
                       />
                     </Grid>
-                    <Grid item xs={12} sm={4} key={'itemId'}>
+                    <Grid item xs={12} sm={4} key={"itemId"}>
                       <TextField
-                        id={'itemId'}
-                        label={'itemId'}
-                        value={formData['itemId']}
+                        id={"itemId"}
+                        label={"itemId"}
+                        value={formData["itemId"]}
                         onChange={handleChange}
                         variant="filled"
                         required
                         inputProps={{ readOnly: true }}
-                        error={!!errors['itemId']}
-                        helperText={errors['itemId']}
-                        type={fieldTypes['itemId']}
+                        error={!!errors["itemId"]}
+                        helperText={errors["itemId"]}
+                        type={fieldTypes["itemId"]}
                       />
                     </Grid>
-                    <Grid item xs={12} sm={4} key={'itemCount'}>
+                    <Grid item xs={12} sm={4} key={"itemCount"}>
                       <TextField
-                        id={'itemCount'}
-                        label={'itemCount'}
-                        value={formData['itemCount']}
+                        id={"itemCount"}
+                        label={"itemCount"}
+                        value={formData["itemCount"]}
                         onChange={handleChange}
                         variant="filled"
                         required
-                        error={!!errors['itemCount']}
-                        helperText={errors['itemCount']}
-                        type={fieldTypes['itemCount']}
+                        error={!!errors["itemCount"]}
+                        helperText={errors["itemCount"]}
+                        type={fieldTypes["itemCount"]}
                       />
                     </Grid>
                   </Grid>
                 </Box>
                 <Box
                   sx={{
-                    display: 'flex',
-                    justifyContent: 'flex-end',
-                    marginTop: 2
+                    display: "flex",
+                    justifyContent: "flex-end",
+                    marginTop: 2,
                   }}
                 >
                   <Button

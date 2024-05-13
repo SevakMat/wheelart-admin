@@ -1,13 +1,14 @@
-import { Reducer } from 'redux';
+import { Reducer } from "redux";
 import {
   UserActionTypes,
   UserServerTypes,
-  UserState
-} from 'src/store/types/user/user';
+  UserState,
+} from "src/store/types/user/user";
+import { User } from "../../types/auth/auth";
 
 const initialState: UserState = {
   userList: [],
-  user: null
+  user: null,
 };
 
 type ReducerType = Reducer<UserState, UserActionTypes>;
@@ -19,13 +20,13 @@ const reducer: ReducerType = (state, action: UserActionTypes) => {
     case UserServerTypes.GET_USERS_SUCCESS:
       return {
         ...state,
-        userList: action.userList
+        userList: action.userList,
       };
 
     case UserServerTypes.GET_USER_SUCCESS:
       return {
         ...state,
-        user: action.user
+        user: action.user,
       };
 
     case UserServerTypes.DELETE_USER_SUCCESS:
@@ -34,7 +35,7 @@ const reducer: ReducerType = (state, action: UserActionTypes) => {
       );
       return {
         ...state,
-        userList: updatedUserList
+        userList: updatedUserList,
       };
 
     default:

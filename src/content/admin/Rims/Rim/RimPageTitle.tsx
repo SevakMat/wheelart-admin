@@ -1,8 +1,7 @@
-import { FC } from 'react';
-import PropTypes from 'prop-types';
-import AddTwoToneIcon from '@mui/icons-material/AddTwoTone';
-import { Typography, Button, Grid } from '@mui/material';
-import { useNavigate } from 'react-router';
+import { FC } from "react";
+import AddTwoToneIcon from "@mui/icons-material/AddTwoTone";
+import { Typography, Button, Grid } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 interface RimPageTitleProps {
   heading?: string;
@@ -12,10 +11,9 @@ interface RimPageTitleProps {
 }
 
 const RimPageTitle: FC<RimPageTitleProps> = ({
-  heading = '',
-  subHeading = '',
-  docs = '',
-  rimId
+  heading = "",
+  subHeading = "",
+  rimId,
 }) => {
   const navigate = useNavigate();
 
@@ -29,9 +27,6 @@ const RimPageTitle: FC<RimPageTitleProps> = ({
       </Grid>
       <Grid item>
         <Button
-          href={docs}
-          target="_blank"
-          rel="noopener noreferrer"
           sx={{ mt: { xs: 2, md: 0 } }}
           variant="contained"
           startIcon={<AddTwoToneIcon fontSize="small" />}
@@ -42,9 +37,6 @@ const RimPageTitle: FC<RimPageTitleProps> = ({
           Add Rim
         </Button>
         <Button
-          href={docs}
-          target="_blank"
-          rel="noopener noreferrer"
           sx={{ mt: { xs: 2, md: 0 }, ml: 4 }}
           variant="contained"
           startIcon={<AddTwoToneIcon fontSize="small" />}

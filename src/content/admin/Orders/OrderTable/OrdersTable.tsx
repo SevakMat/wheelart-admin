@@ -1,8 +1,7 @@
-import React, { FC, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { FC, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import {
-  Tooltip,
   Divider,
   Box,
   FormControl,
@@ -17,13 +16,13 @@ import {
   TableContainer,
   useTheme,
   CardHeader,
-  TextField
-} from '@mui/material';
-import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
-import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
-import { OrderType } from 'src/store/types/order/order';
-import { DateFormatter } from 'src/helpers/DateFormatter';
-import DeleteOrder from './DeleteOrder';
+  TextField,
+} from "@mui/material";
+import EditTwoToneIcon from "@mui/icons-material/EditTwoTone";
+import DeleteTwoToneIcon from "@mui/icons-material/DeleteTwoTone";
+import { OrderType } from "src/store/types/order/order";
+import { DateFormatter } from "src/helpers/DateFormatter";
+import DeleteOrder from "./DeleteOrder";
 
 interface OrdersTableProps {
   className?: string;
@@ -33,11 +32,11 @@ interface OrdersTableProps {
 const OrdersTable: FC<OrdersTableProps> = ({ orders }) => {
   const [page, setPage] = useState<number>(0);
   const [rowsPerPage, setRowsPerPage] = useState<number>(5);
-  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [searchQuery, setSearchQuery] = useState<string>("");
   const navigate = useNavigate();
   const theme = useTheme();
 
-  const handleChangePage = (_, newPage: number) => {
+  const handleChangePage = (asd: any, newPage: number) => {
     setPage(newPage);
   };
 
@@ -62,7 +61,7 @@ const OrdersTable: FC<OrdersTableProps> = ({ orders }) => {
         title="Recent Orders"
       />
       <Divider />
-      <Box sx={{ padding: '0 16px' }}>
+      <Box sx={{ padding: "0 16px" }}>
         <TextField
           label="Search"
           variant="outlined"
@@ -92,15 +91,15 @@ const OrdersTable: FC<OrdersTableProps> = ({ orders }) => {
             {filteredOrders
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((order) => (
-                <TableRow hover key={order.id} style={{ cursor: 'pointer' }}>
+                <TableRow hover key={order.id} style={{ cursor: "pointer" }}>
                   <TableCell
                     onClick={() => {
                       navigate(`/admin/orders/${order.id}`);
                     }}
                     sx={{
-                      '&:hover': {
-                        background: theme.colors.primary.lighter
-                      }
+                      "&:hover": {
+                        background: theme.colors.primary.lighter,
+                      },
                     }}
                   >
                     {order.id}
@@ -111,7 +110,7 @@ const OrdersTable: FC<OrdersTableProps> = ({ orders }) => {
                     onClick={() => {
                       navigate(
                         `/admin/${
-                          order.orderType === 'RIM' ? 'rims' : 'tires'
+                          order.orderType === "RIM" ? "rims" : "tires"
                         }/${order.itemId}`
                       );
                     }}
@@ -126,28 +125,34 @@ const OrdersTable: FC<OrdersTableProps> = ({ orders }) => {
                   >
                     {order.userName}
                   </TableCell>
-                  <TableCell>{DateFormatter(order?.createdDate)}</TableCell>
                   <TableCell>
-                    <Tooltip title="Edit Order" arrow>
+                    {order?.createdDate && DateFormatter(order?.createdDate)}
+                  </TableCell>
+                  <TableCell>
+                    <Box>
                       <IconButton
                         sx={{
-                          '&:hover': {
-                            background: theme.colors.primary.lighter
+                          "&:hover": {
+                            background: theme.colors.primary.lighter,
                           },
-                          color: theme.palette.primary.main
+                          color: theme.palette.primary.main,
                         }}
                         color="inherit"
                         size="small"
-                        href={`orders/${order.id}/edit`}
+                        onClick={() => {
+                          navigate(`/orders/${order.id}/edit`);
+                        }}
                       >
                         <EditTwoToneIcon fontSize="small" />
                       </IconButton>
-                    </Tooltip>
-                    <DeleteOrder
-                      theme={theme}
-                      id={order.id}
-                      userId={order.userId}
-                    />
+                    </Box>
+                    {order.id && order.userId && (
+                      <DeleteOrder
+                        theme={theme}
+                        id={order.id}
+                        userId={order.userId}
+                      />
+                    )}
                   </TableCell>
                 </TableRow>
               ))}

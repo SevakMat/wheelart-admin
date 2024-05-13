@@ -1,23 +1,20 @@
-import { FormEvent, useState } from 'react';
-import Avatar from '@mui/material/Avatar';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { Controller, useForm } from 'react-hook-form';
-import { Button } from '@mui/material';
-import { AppDispatch } from 'src/store';
-import { loginEffect } from 'src/store/effects/auth/auth.effects';
-import { useToasts } from 'react-toast-notifications';
+import { useState } from "react";
+import Avatar from "@mui/material/Avatar";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { Controller, useForm } from "react-hook-form";
+import { Button } from "@mui/material";
+import { AppDispatch } from "src/store";
+import { loginEffect } from "src/store/effects/auth/auth.effects";
+import { useToasts } from "react-toast-notifications";
 
 const theme = createTheme();
 
@@ -30,8 +27,8 @@ const Login = () => {
   const {
     control,
     handleSubmit,
-    formState: { errors }
-  } = useForm({ mode: 'onChange' });
+    formState: { errors },
+  } = useForm({ mode: "onChange" });
 
   const onSubmit = async (data: any) => {
     setLoading(true);
@@ -46,13 +43,13 @@ const Login = () => {
         <Box
           sx={{
             marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            padding: '80px 0'
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            padding: "80px 0",
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
@@ -69,7 +66,7 @@ const Login = () => {
                 <Controller
                   name="email"
                   control={control}
-                  rules={{ required: 'Email is required' }}
+                  rules={{ required: "Email is required" }}
                   render={({ field }) => (
                     <TextField
                       {...field}
@@ -77,7 +74,7 @@ const Login = () => {
                       fullWidth
                       defaultValue=""
                       id="email"
-                      label={'Email Address'}
+                      label={"Email Address"}
                       type="email"
                       error={!!errors.email}
                     />
@@ -95,14 +92,14 @@ const Login = () => {
                       required
                       fullWidth
                       id="password"
-                      label={'Password'}
+                      label={"Password"}
                       type="password"
                       autoComplete="new-password"
                       error={!!errors.password}
                       helperText={
                         errors?.password?.message
                           ? (errors?.password?.message as string)
-                          : ''
+                          : ""
                       }
                     />
                   )}
@@ -117,7 +114,7 @@ const Login = () => {
               sx={{ mt: 3, mb: 2 }}
               disabled={loading}
             >
-              {loading ? 'Loading' : ' Sign In'}
+              {loading ? "Loading" : " Sign In"}
             </Button>
           </Box>
         </Box>

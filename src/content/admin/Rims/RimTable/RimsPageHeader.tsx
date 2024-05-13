@@ -1,11 +1,12 @@
-import { Typography, Button, Grid } from '@mui/material';
-
-import AddTwoToneIcon from '@mui/icons-material/AddTwoTone';
-import { useState } from 'react';
-import UploadModals from './UploadPopup';
-import { integreateRimEXELFileService } from 'src/services/rim.service';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Typography, Button, Grid } from "@mui/material";
+import AddTwoToneIcon from "@mui/icons-material/AddTwoTone";
+import UploadModals from "./UploadPopup";
+import { integreateRimEXELFileService } from "src/services/rim.service";
 
 function RimsPageHeader() {
+  const navigate = useNavigate();
   const [isOpenPopup, setIsOpenPopup] = useState<boolean>(false);
   return (
     <Grid container justifyContent="space-between" alignItems="center">
@@ -16,7 +17,9 @@ function RimsPageHeader() {
       </Grid>
       <Grid item>
         <Button
-          href={'/admin/rims/new'}
+          onClick={() => {
+            navigate(`/admin/rims/new`);
+          }}
           sx={{ mt: { xs: 2, md: 0 } }}
           variant="contained"
           startIcon={<AddTwoToneIcon fontSize="small" />}

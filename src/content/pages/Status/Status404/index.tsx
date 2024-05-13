@@ -1,18 +1,7 @@
-import {
-  Box,
-  Card,
-  Typography,
-  Container,
-  Divider,
-  Button,
-  FormControl,
-  OutlinedInput,
-  InputAdornment
-} from '@mui/material';
-import { Helmet } from 'react-helmet-async';
-import SearchTwoToneIcon from '@mui/icons-material/SearchTwoTone';
-
-import { styled } from '@mui/material/styles';
+import { useNavigate } from "react-router-dom";
+import { Box, Card, Typography, Container, Button } from "@mui/material";
+import { Helmet } from "react-helmet-async";
+import { styled } from "@mui/material/styles";
 
 const MainContent = styled(Box)(
   ({ theme }) => `
@@ -26,19 +15,8 @@ const MainContent = styled(Box)(
 `
 );
 
-const OutlinedInputWrapper = styled(OutlinedInput)(
-  ({ theme }) => `
-    background-color: ${theme.colors.alpha.white[100]};
-`
-);
-
-const ButtonSearch = styled(Button)(
-  ({ theme }) => `
-    margin-right: -${theme.spacing(1)};
-`
-);
-
 function Status404() {
+  const navigate = useNavigate();
   return (
     <>
       <Helmet>
@@ -62,8 +40,13 @@ function Status404() {
             </Typography>
           </Box>
           <Container maxWidth="sm">
-            <Card sx={{ textAlign: 'center', mt: 3, p: 4 }}>
-              <Button href="/admin/login" variant="outlined">
+            <Card sx={{ textAlign: "center", mt: 3, p: 4 }}>
+              <Button
+                variant="outlined"
+                onClick={() => {
+                  navigate(`/admin/login`);
+                }}
+              >
                 Go to homepage
               </Button>
             </Card>

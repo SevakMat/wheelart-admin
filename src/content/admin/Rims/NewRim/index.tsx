@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import {
   Box,
   Card,
@@ -8,49 +10,46 @@ import {
   Grid,
   Container,
   CardHeader,
-  Divider
-} from '@mui/material';
-import { RimType } from 'src/store/types/rim/rim';
-import { createRimEffect } from 'src/store/effects/rim/rim.effect';
-import { AppDispatch } from 'src/store';
-import { useDispatch } from 'react-redux';
-import { Helmet } from 'react-helmet-async';
-import PageTitleWrapper from 'src/components/PageTitleWrapper';
-import PageTitle from 'src/components/PageTitle';
-import { useNavigate } from 'react-router';
+  Divider,
+} from "@mui/material";
+import { RimType } from "src/store/types/rim/rim";
+import { createRimEffect } from "src/store/effects/rim/rim.effect";
+import { AppDispatch } from "src/store";
+import { useDispatch } from "react-redux";
+import { Helmet } from "react-helmet-async";
 
 const NewRim: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState<RimType>({
-    sizeR: '',
-    studHoles: '',
-    pcd: '',
-    centerBore: '',
-    rimModel: '',
-    width: '',
-    color: '',
-    gram: '',
-    description: '',
-    imageUrl: '',
-    price: '',
-    stock: ''
+    sizeR: "",
+    studHoles: "",
+    pcd: "",
+    centerBore: "",
+    rimModel: "",
+    width: "",
+    color: "",
+    gram: "",
+    description: "",
+    imageUrl: "",
+    price: "",
+    stock: "",
   });
 
   const fieldTypes: { [key in keyof RimType]: string } = {
-    sizeR: 'number',
-    studHoles: 'number',
-    pcd: 'number',
-    centerBore: 'number', //vtangavor
-    rimModel: 'text',
-    width: 'number',
-    color: 'text',
-    gram: 'number',
-    description: 'text',
-    imageUrl: 'text',
-    price: 'number',
-    stock: 'number'
+    sizeR: "number",
+    studHoles: "number",
+    pcd: "number",
+    centerBore: "number", //vtangavor
+    rimModel: "text",
+    width: "number",
+    color: "text",
+    gram: "number",
+    description: "text",
+    imageUrl: "text",
+    price: "number",
+    stock: "number",
   };
 
   const [errors, setErrors] = useState<Partial<RimType>>({});
@@ -58,14 +57,14 @@ const NewRim: React.FC = () => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = event.target;
     setFormData({ ...formData, [id]: value });
-    setErrors({ ...errors, [id]: '' }); // Clear error when user starts typing
+    setErrors({ ...errors, [id]: "" }); // Clear error when user starts typing
   };
 
   const handleSubmit = () => {
     const formErrors: Partial<RimType> = {};
     Object.keys(formData).forEach((key) => {
       if (!formData[key as keyof RimType]) {
-        formErrors[key as keyof RimType] = 'This field is required';
+        formErrors[key as keyof RimType] = "This field is required";
       }
     });
 
@@ -82,7 +81,6 @@ const NewRim: React.FC = () => {
       <Helmet>
         <title>Create Rim</title>
       </Helmet>
-      <PageTitleWrapper></PageTitleWrapper>
       <Container maxWidth="lg">
         <Grid
           container
@@ -99,7 +97,7 @@ const NewRim: React.FC = () => {
                 <Box
                   component="form"
                   sx={{
-                    '& .MuiTextField-root': { m: 1, width: '25ch' }
+                    "& .MuiTextField-root": { m: 1, width: "25ch" },
                   }}
                   noValidate
                   autoComplete="off"
@@ -130,9 +128,9 @@ const NewRim: React.FC = () => {
                 </Box>
                 <Box
                   sx={{
-                    display: 'flex',
-                    justifyContent: 'flex-end',
-                    marginTop: 2
+                    display: "flex",
+                    justifyContent: "flex-end",
+                    marginTop: 2,
                   }}
                 >
                   <Button

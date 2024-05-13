@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Box,
   Card,
@@ -8,38 +9,35 @@ import {
   Grid,
   Container,
   CardHeader,
-  Divider
-} from '@mui/material';
-import { AppDispatch } from 'src/store';
-import { useDispatch } from 'react-redux';
-import { Helmet } from 'react-helmet-async';
-import PageTitleWrapper from 'src/components/PageTitleWrapper';
-import PageTitle from 'src/components/PageTitle';
-import { TireType } from 'src/store/types/tire/tire';
-import { createTireEffect } from 'src/store/effects/tire/tire.effect';
-import { useNavigate } from 'react-router';
+  Divider,
+} from "@mui/material";
+import { AppDispatch } from "src/store";
+import { useDispatch } from "react-redux";
+import { Helmet } from "react-helmet-async";
+import { TireType } from "src/store/types/tire/tire";
+import { createTireEffect } from "src/store/effects/tire/tire.effect";
 
 const NewTire: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
   const navigate = useNavigate();
   const [formData, setFormData] = useState<TireType>({
-    tireWidth: '',
-    tireAspectRatio: '',
-    rimDiameter: '',
-    marka: '',
-    stock: '',
-    price: '',
-    imageUrl: ''
+    tireWidth: "",
+    tireAspectRatio: "",
+    rimDiameter: "",
+    marka: "",
+    stock: "",
+    price: "",
+    imageUrl: "",
   });
 
   const fieldTypes: { [key in keyof TireType]: string } = {
-    tireWidth: 'number',
-    tireAspectRatio: 'number',
-    rimDiameter: 'number',
-    marka: 'text',
-    stock: 'number',
-    price: 'number',
-    imageUrl: 'text'
+    tireWidth: "number",
+    tireAspectRatio: "number",
+    rimDiameter: "number",
+    marka: "text",
+    stock: "number",
+    price: "number",
+    imageUrl: "text",
   };
 
   const [errors, setErrors] = useState<Partial<TireType>>({});
@@ -47,14 +45,14 @@ const NewTire: React.FC = () => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = event.target;
     setFormData({ ...formData, [id]: value });
-    setErrors({ ...errors, [id]: '' }); // Clear error when user starts typing
+    setErrors({ ...errors, [id]: "" }); // Clear error when user starts typing
   };
 
   const handleSubmit = () => {
     const formErrors: Partial<TireType> = {};
     Object.keys(formData).forEach((key) => {
       if (!formData[key as keyof TireType]) {
-        formErrors[key as keyof TireType] = 'This field is required';
+        formErrors[key as keyof TireType] = "This field is required";
       }
     });
 
@@ -71,7 +69,6 @@ const NewTire: React.FC = () => {
       <Helmet>
         <title>Forms - Components</title>
       </Helmet>
-      <PageTitleWrapper></PageTitleWrapper>
       <Container maxWidth="lg">
         <Grid
           container
@@ -88,7 +85,7 @@ const NewTire: React.FC = () => {
                 <Box
                   component="form"
                   sx={{
-                    '& .MuiTextField-root': { m: 1, width: '25ch' }
+                    "& .MuiTextField-root": { m: 1, width: "25ch" },
                   }}
                   noValidate
                   autoComplete="off"
@@ -119,9 +116,9 @@ const NewTire: React.FC = () => {
                 </Box>
                 <Box
                   sx={{
-                    display: 'flex',
-                    justifyContent: 'flex-end',
-                    marginTop: 2
+                    display: "flex",
+                    justifyContent: "flex-end",
+                    marginTop: 2,
                   }}
                 >
                   <Button

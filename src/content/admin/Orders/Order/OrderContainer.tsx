@@ -5,13 +5,13 @@ import {
   CardMedia,
   Divider,
   Grid,
-  Typography
-} from '@mui/material';
-import { Helmet } from 'react-helmet-async';
-import PageTitleWrapper from 'src/components/PageTitleWrapper';
-import { OrderType } from 'src/store/types/order/order';
-import OrderPageTitle from './OrderPageTitle';
-import { DateFormatter } from 'src/helpers/DateFormatter';
+  Typography,
+} from "@mui/material";
+import { Helmet } from "react-helmet-async";
+import PageTitleWrapper from "src/components/PageTitleWrapper";
+import { OrderType } from "src/store/types/order/order";
+import OrderPageTitle from "./OrderPageTitle";
+import { DateFormatter } from "src/helpers/DateFormatter";
 
 type OrderProps = {
   order: OrderType | null;
@@ -31,7 +31,7 @@ const OrderContainer: React.FC<OrderProps> = ({ order }) => {
           orderId={order?.id}
         />
       </PageTitleWrapper>
-      <Box sx={{ flexGrow: 1, bgcolor: 'background.paper', py: 4 }}>
+      <Box sx={{ flexGrow: 1, bgcolor: "background.paper", py: 4 }}>
         <Grid container spacing={2}>
           {/* <Grid item xs={12} md={6}>
             <Card>
@@ -47,20 +47,21 @@ const OrderContainer: React.FC<OrderProps> = ({ order }) => {
             <Card>
               <CardContent>
                 <Typography variant="body1" color="text.secondary" paragraph>
-                  <strong>Item Count:</strong> {order?.itemCount || '-'}
+                  <strong>Item Count:</strong> {order?.itemCount || "-"}
                 </Typography>
                 <Typography variant="body1" color="text.secondary" paragraph>
-                  <strong>Order ItemId:</strong> {order?.itemId || '-'}
+                  <strong>Order ItemId:</strong> {order?.itemId || "-"}
                 </Typography>
                 <Typography variant="body1" color="text.secondary" paragraph>
-                  <strong>Order Type:</strong> {order?.orderType || '-'}
+                  <strong>Order Type:</strong> {order?.orderType || "-"}
                 </Typography>
                 <Typography variant="body1" color="text.secondary" paragraph>
-                  <strong>Order Status:</strong> {order?.status || '-'}
+                  <strong>Order Status:</strong> {order?.status || "-"}
                 </Typography>
                 <Typography variant="body1" color="text.secondary" paragraph>
-                  <strong>Date:</strong>{' '}
-                  {DateFormatter(order?.createdDate) || '-'}
+                  <strong>Date:</strong>
+                  {(order?.createdDate && DateFormatter(order?.createdDate)) ||
+                    "-"}
                 </Typography>
               </CardContent>
             </Card>

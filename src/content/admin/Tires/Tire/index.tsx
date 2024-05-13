@@ -1,8 +1,8 @@
-import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { useToasts } from 'react-toast-notifications';
-import { getTireByIdEffect } from 'src/store/effects/tire/tire.effect';
-import TireContainer from './TireContainer';
+import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useToasts } from "react-toast-notifications";
+import { getTireByIdEffect } from "src/store/effects/tire/tire.effect";
+import TireContainer from "./TireContainer";
 
 const Tire = () => {
   const [tire, setTire] = useState(null);
@@ -11,18 +11,18 @@ const Tire = () => {
 
   const { id } = useParams();
 
-  const getTire = async () => {
+  const getTire = async (id: string) => {
     try {
       const tire = await getTireByIdEffect(id);
       setTire(tire);
     } catch (error) {
-      addToast('Tire not found', { appearance: 'error' });
-      navigate('/admin/tires');
+      addToast("Tire not found", { appearance: "error" });
+      navigate("/admin/tires");
     }
   };
 
   useEffect(() => {
-    getTire();
+    if (id) getTire(id);
   }, [id]);
 
   if (!tire) return <div>Tire not exist</div>;
