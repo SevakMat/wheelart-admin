@@ -81,7 +81,7 @@ const NewRim: React.FC = () => {
       <Helmet>
         <title>Create Rim</title>
       </Helmet>
-      <Container maxWidth="lg">
+      <Container maxWidth="lg" sx={{ mt: 6 }}>
         <Grid
           container
           direction="row"

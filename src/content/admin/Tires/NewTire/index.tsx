@@ -69,7 +69,7 @@ const NewTire: React.FC = () => {
       <Helmet>
         <title>Forms - Components</title>
       </Helmet>
-      <Container maxWidth="lg">
+      <Container maxWidth="lg" sx={{ mt: 6 }}>
         <Grid
           container
           direction="row"
