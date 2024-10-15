@@ -36,6 +36,7 @@ const EditUser: React.FC<EditUserProps> = ({ user }) => {
     password: "text",
     role: "text",
     emailVerified: "text",
+    address:"text"
   };
   const readonlyFields = [
     "email",
@@ -182,6 +183,22 @@ const EditUser: React.FC<EditUserProps> = ({ user }) => {
                         error={!!errors["phoneNumber"]}
                         helperText={errors["phoneNumber"]}
                         type={fieldTypes["phoneNumber"]}
+                      />
+                    </Grid>
+                    <Grid item xs={12} sm={4}>
+                      <TextField
+                        id={"address"}
+                        label={"Address"}
+                        value={formData["address"]}
+                        onChange={handleChange}
+                        variant="filled"
+                        inputProps={{
+                          readOnly: readonlyFields.includes("address"),
+                        }}
+                        required
+                        error={!!errors["address"]}
+                        helperText={errors["address"]}
+                        type={fieldTypes["address"]}
                       />
                     </Grid>
                     <Grid item xs={12} sm={4}>

@@ -84,6 +84,7 @@ const UsersTable: FC<UsersTableProps> = ({ users }) => {
               <TableCell>First Name</TableCell>
               <TableCell>Last Name</TableCell>
               <TableCell>Phone Number</TableCell>
+              <TableCell>Address</TableCell>
               <TableCell>Email</TableCell>
               <TableCell>Role</TableCell>
               <TableCell>Action</TableCell>
@@ -104,6 +105,7 @@ const UsersTable: FC<UsersTableProps> = ({ users }) => {
                   </TableCell>
                   <TableCell>{user?.lastName}</TableCell>
                   <TableCell>{user?.phoneNumber}</TableCell>
+                  <TableCell>{user?.address}</TableCell>
                   <TableCell>{user?.email}</TableCell>
                   <TableCell>{user?.role}</TableCell>
                   <TableCell>

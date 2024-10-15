@@ -64,7 +64,16 @@ const RimContainer: React.FC<RimProps> = ({ rim }) => {
                   <strong>centerBore:</strong> {rim?.centerBore || "-"}
                 </Typography>
                 <Typography variant="body1" color="text.secondary" paragraph>
-                  <strong>Width:</strong> {rim?.width || "-"}J
+                  <strong>Width Av:</strong> {rim?.widthAv || "-"}J
+                </Typography>
+                <Typography variant="body1" color="text.secondary" paragraph>
+                  <strong>Width Ar:</strong> {rim?.widthAr || "-"}J
+                </Typography>
+                <Typography variant="body1" color="text.secondary" paragraph>
+                  <strong>Ofset Av:</strong> {rim?.ofsetAv || "-"}J
+                </Typography>
+                <Typography variant="body1" color="text.secondary" paragraph>
+                  <strong>Ofset Ar:</strong> {rim?.ofsetAr || "-"}J
                 </Typography>
                 <Typography variant="body1" color="text.secondary" paragraph>
                   <strong>Color:</strong> {rim?.color || "-"}

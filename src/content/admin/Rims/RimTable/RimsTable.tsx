@@ -85,7 +85,10 @@ const RimsTable: FC<RimsTableProps> = ({ rims }) => {
               <TableCell>Stud Holes</TableCell>
               <TableCell>PCD</TableCell>
               <TableCell>Center Bore</TableCell>
-              <TableCell>Width</TableCell>
+              <TableCell>Width Av</TableCell>
+              <TableCell>Width Ar</TableCell>
+              <TableCell>Ofset Av</TableCell>
+              <TableCell>Ofset Ar</TableCell>
               <TableCell>Gram</TableCell>
               <TableCell>Description</TableCell>
               <TableCell>Price</TableCell>
@@ -115,8 +118,10 @@ const RimsTable: FC<RimsTableProps> = ({ rims }) => {
                   <TableCell>{rim.studHoles}</TableCell>
                   <TableCell>{rim.pcd}</TableCell>
                   <TableCell>{rim.centerBore}</TableCell>
-
-                  <TableCell>{rim.width}</TableCell>
+                  <TableCell>{rim.widthAv}</TableCell>
+                  <TableCell>{rim.widthAr}</TableCell>
+                  <TableCell>{rim.ofsetAv}</TableCell>
+                  <TableCell>{rim.ofsetAr}</TableCell>
                   <TableCell>{rim.gram}</TableCell>
                   <TableCell>{rim.description}</TableCell>
                   <TableCell>{rim.price}</TableCell>

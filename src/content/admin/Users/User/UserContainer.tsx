@@ -1,9 +1,7 @@
 import {
-  Avatar,
   Box,
   Card,
   CardContent,
-  CardMedia,
   Divider,
   Grid,
   Typography
@@ -54,6 +52,9 @@ const UserContainer: React.FC<UserProps> = ({ user }) => {
                 </Typography>
                 <Typography variant="body1" color="text.secondary" paragraph>
                   <strong>Role:</strong> {user?.role || '-'}
+                </Typography>
+                <Typography variant="body1" color="text.secondary" paragraph>
+                  <strong>address:</strong> {user?.address || '-'}
                 </Typography>
                 <Typography variant="body1" color="text.secondary" paragraph>
                   <strong>Email Verified:</strong>

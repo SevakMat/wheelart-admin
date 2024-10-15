@@ -13,6 +13,7 @@ export interface UserType {
   password?: string;
   role?: string;
   emailVerified?: string;
+  address:string
 }
 
 export interface UserState {

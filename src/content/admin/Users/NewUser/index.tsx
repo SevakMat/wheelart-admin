@@ -32,6 +32,7 @@ const NewUser: React.FC = () => {
     email: "",
     password: "",
     role: "user",
+    address:''
   });
 
   const fieldTypes: { [key in keyof UserType]: string } = {
@@ -41,6 +42,7 @@ const NewUser: React.FC = () => {
     email: "text",
     password: "text",
     role: "text",
+    address:"text"
   };
 
   const [errors, setErrors] = useState<Partial<UserType>>({});

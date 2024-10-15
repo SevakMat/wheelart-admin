@@ -11,7 +11,10 @@ export interface RimType {
   pcd?: string;
   centerBore?: string;
   rimModel?: string;
-  width?: string;
+  widthAv?: string;
+  widthAr?: string;
+  ofsetAv?: string;
+  ofsetAr?: string;
   color?: string;
   gram?: string;
   description?: string;
