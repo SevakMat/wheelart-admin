@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import modules from "./routers";
 import { RootState } from "../store";
 import { useAppSelector } from "../store";
@@ -8,8 +8,17 @@ const RoutersContainer: () => JSX.Element = () => {
   const { isLoggedIn } = useAppSelector((state: RootState) => {
     return state.auth;
   });
+
+  const location = useLocation(); // Get the current location
+
   return (
     <Routes>
+      {/* Check if the route is the root path and redirect to login if not logged in */}
+      {location.pathname === "/" && !isLoggedIn ? (
+        <Route path="/" element={<Navigate to="/admin/login" />} />
+      ) :
+        (<Route path="/" element={<Navigate to="/admin/users" />} />)
+      }
       {modules.map(({ isPrivate, routerProps }) => {
         return routerProps.map((flan) =>
           isPrivate && !isLoggedIn ? (
